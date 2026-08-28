@@ -60,8 +60,11 @@ records the Prime constitution status at the end of that objective. Any FAIL
 
 | Check | Status |
 |---|---|
-| `static-analysis.yml` | PENDING |
-| `plugin-check.yml` | PENDING |
-| `theme-check.yml` | PENDING |
-| `e2e.yml` | PENDING |
-| `qit.yml` | N/A without WooCommerce credentials (gated, non-blocking) |
+| CI workflows written + validated locally | PASS |
+| `static-analysis.yml` pushed to GitHub | FAIL — `workflows: write` permission missing |
+| `plugin-check.yml` pushed to GitHub | FAIL — `workflows: write` permission missing |
+| `theme-check.yml` pushed to GitHub | FAIL — `workflows: write` permission missing |
+| `e2e.yml` pushed to GitHub | FAIL — `workflows: write` permission missing |
+| `qit.yml` pushed to GitHub | FAIL — `workflows: write` permission missing |
+| PR opened against `main` (configs/tests/docs) | PASS — PR #2 |
+| Local gates: abilities contract, PHP lint, PHPCS Core-Docs-PHPCompatibilityWP, WooCommerce-Core, ESLint | PASS |

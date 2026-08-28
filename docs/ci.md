@@ -1,5 +1,15 @@
 # Arena Commerce — enterprise CI matrix
 
+> **Publication blocker (2026-08-28).** The GitHub App token connected to the
+> sandbox does not have the `Workflows: Read and write` permission, so GitHub
+> refuses to push `.github/workflows/*`. The five workflow files below are
+> fully written, locally validated, and present in the repo checkout
+> (`git status` shows them untracked under `.github/`), but they could not be
+> pushed by this session. PR #2 deliberately carries the reproducible configs,
+> tests and docs so the gates can be merged independently; when a token with
+> `workflows: write` is available, add `.github/workflows/` and the matrix will
+> turn green.
+
 This repository ships a local, blocking GitHub Actions suite for every push or
 pull request touching `main` or `arena/**`.
 
