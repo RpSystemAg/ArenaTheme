@@ -25,7 +25,7 @@
 
 		try {
 			return JSON.parse( node.textContent );
-		} catch ( error ) {
+		} catch {
 			return {};
 		}
 	}() );

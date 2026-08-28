@@ -73,6 +73,11 @@ final class Hardening {
 		header( 'Permissions-Policy: camera=(), microphone=(), geolocation=(self)' );
 		header( 'Cross-Origin-Opener-Policy: same-origin-allow-popups' );
 
+		/**
+		 * Filter the optional Content-Security-Policy value.
+		 *
+		 * @since 1.0.0
+		 */
 		$csp = apply_filters( 'arena_engine_csp', '' );
 
 		if ( is_string( $csp ) && '' !== $csp ) {

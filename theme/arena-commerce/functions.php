@@ -32,18 +32,18 @@ define( 'ARENA_THEME_DOMAIN', 'arena-commerce' );
  *
  * @since 1.0.0
  *
- * @param string $class Fully qualified class name.
+ * @param string $class_name Fully qualified class name.
  * @return void
  */
 spl_autoload_register(
-	static function ( $class ) {
+	static function ( $class_name ) {
 		$prefix = 'Arena_Theme\\';
 
-		if ( 0 !== strpos( $class, $prefix ) ) {
+		if ( 0 !== strpos( $class_name, $prefix ) ) {
 			return;
 		}
 
-		$parts = explode( '\\', substr( $class, strlen( $prefix ) ) );
+		$parts = explode( '\\', substr( $class_name, strlen( $prefix ) ) );
 		$name  = array_pop( $parts );
 		$path  = __DIR__ . '/inc';
 
@@ -71,9 +71,9 @@ require_once get_theme_file_path( 'inc/template-tags.php' );
  * @return void
  */
 function arena_theme_boot( ...$classes ) {
-	foreach ( $classes as $class ) {
-		if ( class_exists( $class ) && method_exists( $class, 'init' ) ) {
-			$class::init();
+	foreach ( $classes as $class_name ) {
+		if ( class_exists( $class_name ) && method_exists( $class_name, 'init' ) ) {
+			$class_name::init();
 		}
 	}
 }

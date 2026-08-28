@@ -72,22 +72,22 @@ final class Registry {
 		wp_register_ability(
 			'arena-engine/performance-report',
 			array(
-				'label'              => __( 'Storefront performance report', 'arena-engine' ),
-				'description'        => __( 'Returns the asset budget for the front page: stylesheet and script bytes, request counts and the render-blocking assessment.', 'arena-engine' ),
-				'category'           => 'arena-storefront',
-				'execute_callback'   => array( __CLASS__, 'performance_report' ),
+				'label'               => __( 'Storefront performance report', 'arena-engine' ),
+				'description'         => __( 'Returns the asset budget for the front page: stylesheet and script bytes, request counts and the render-blocking assessment.', 'arena-engine' ),
+				'category'            => 'arena-storefront',
+				'execute_callback'    => array( __CLASS__, 'performance_report' ),
 				'permission_callback' => array( __CLASS__, 'manage' ),
-				'output_schema'      => array(
+				'output_schema'       => array(
 					'type'       => 'object',
 					'properties' => array(
-						'cssBytes'   => array( 'type' => 'integer' ),
-						'jsBytes'    => array( 'type' => 'integer' ),
-						'requests'   => array( 'type' => 'integer' ),
-						'jquery'     => array( 'type' => 'boolean' ),
-						'webFonts'   => array( 'type' => 'integer' ),
+						'cssBytes' => array( 'type' => 'integer' ),
+						'jsBytes'  => array( 'type' => 'integer' ),
+						'requests' => array( 'type' => 'integer' ),
+						'jquery'   => array( 'type' => 'boolean' ),
+						'webFonts' => array( 'type' => 'integer' ),
 					),
 				),
-				'meta'               => array(
+				'meta'                => array(
 					'annotations'  => array(
 						'readonly'    => true,
 						'destructive' => false,
@@ -102,12 +102,24 @@ final class Registry {
 		wp_register_ability(
 			'arena-engine/accessibility-audit',
 			array(
-				'label'              => __( 'Storefront accessibility audit', 'arena-engine' ),
-				'description'        => __( 'Returns the WCAG 2.2 AA checks the theme and plugin assert, with a pass or fail for each.', 'arena-engine' ),
-				'category'           => 'arena-storefront',
-				'execute_callback'   => array( __CLASS__, 'accessibility_audit' ),
+				'label'               => __( 'Storefront accessibility audit', 'arena-engine' ),
+				'description'         => __( 'Returns the WCAG 2.2 AA checks the theme and plugin assert, with a pass or fail for each.', 'arena-engine' ),
+				'category'            => 'arena-storefront',
+				'execute_callback'    => array( __CLASS__, 'accessibility_audit' ),
 				'permission_callback' => array( __CLASS__, 'manage' ),
-				'meta'               => array(
+				'output_schema'       => array(
+					'type'       => 'object',
+					'properties' => array(
+						'skipLinks'         => array( 'type' => 'boolean' ),
+						'liveRegion'        => array( 'type' => 'boolean' ),
+						'targetSize'        => array( 'type' => 'boolean' ),
+						'reducedMotion'     => array( 'type' => 'boolean' ),
+						'focusVisible'      => array( 'type' => 'boolean' ),
+						'noInlineHandlers'  => array( 'type' => 'boolean' ),
+						'labelledLandmarks' => array( 'type' => 'boolean' ),
+					),
+				),
+				'meta'                => array(
 					'annotations'  => array(
 						'readonly'    => true,
 						'destructive' => false,
@@ -177,13 +189,13 @@ final class Registry {
 	 */
 	public static function accessibility_audit() {
 		return array(
-			'skipLinks'          => (bool) has_action( 'wp_body_open' ),
-			'liveRegion'         => (bool) has_action( 'wp_footer' ),
-			'targetSize'         => true,
-			'reducedMotion'      => true,
-			'focusVisible'       => true,
-			'noInlineHandlers'   => true,
-			'labelledLandmarks'  => true,
+			'skipLinks'         => (bool) has_action( 'wp_body_open' ),
+			'liveRegion'        => (bool) has_action( 'wp_footer' ),
+			'targetSize'        => true,
+			'reducedMotion'     => true,
+			'focusVisible'      => true,
+			'noInlineHandlers'  => true,
+			'labelledLandmarks' => true,
 		);
 	}
 }

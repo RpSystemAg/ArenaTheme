@@ -1,4 +1,9 @@
 node_modules/
+vendor/
+tools/php/vendor/
+tools/php/.phpstan-cache/
+test-results/
+playwright-report/
 *.log
 .DS_Store
 .cache/

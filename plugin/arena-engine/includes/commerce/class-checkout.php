@@ -82,9 +82,9 @@ final class Checkout {
 
 			foreach ( array( 'billing_company', 'shipping_company', 'billing_phone', 'billing_address_2', 'shipping_address_2' ) as $key ) {
 				if ( isset( $fields[ $group ][ $key ] ) ) {
-					$fields[ $group ][ $key ]['required']    = false;
-					$fields[ $group ][ $key ]['class'][]     = 'arena-field--secondary';
-					$fields[ $group ][ $key ]['priority']    = isset( $fields[ $group ][ $key ]['priority'] ) ? $fields[ $group ][ $key ]['priority'] + 40 : 90;
+					$fields[ $group ][ $key ]['required'] = false;
+					$fields[ $group ][ $key ]['class'][]  = 'arena-field--secondary';
+					$fields[ $group ][ $key ]['priority'] = isset( $fields[ $group ][ $key ]['priority'] ) ? $fields[ $group ][ $key ]['priority'] + 40 : 90;
 				}
 			}
 		}
@@ -151,6 +151,11 @@ final class Checkout {
 	 * @return bool
 	 */
 	public static function signup_optin( $enabled ) {
+		/**
+		 * Filter whether the account-creation checkbox is shown at checkout.
+		 *
+		 * @since 1.0.0
+		 */
 		return (bool) apply_filters( 'arena_engine_checkout_signup', $enabled );
 	}
 

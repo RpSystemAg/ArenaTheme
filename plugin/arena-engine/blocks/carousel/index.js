@@ -13,7 +13,7 @@
 	var TextControl = wp.components.TextControl;
 
 	blocks.registerBlockType( 'arena/carousel', {
-		edit: function ( props ) {
+		edit( props ) {
 			var attributes = props.attributes;
 			var setAttributes = props.setAttributes;
 
@@ -26,11 +26,11 @@
 					el(
 						PanelBody,
 						{ title: __( 'Carousel', 'arena-engine' ), initialOpen: true },
-						el( TextControl, {
+							el( TextControl, {
 							label: __( 'Accessible name', 'arena-engine' ),
 							help: __( 'Announced by screen readers. Describe the collection, not the widget.', 'arena-engine' ),
 							value: attributes.label,
-							onChange: function ( value ) {
+							onChange( value ) {
 								setAttributes( { label: value } );
 							},
 						} ),
@@ -39,7 +39,7 @@
 							min: 1,
 							max: 6,
 							value: attributes.perView,
-							onChange: function ( value ) {
+							onChange( value ) {
 								setAttributes( { perView: value } );
 							},
 						} )
@@ -48,7 +48,7 @@
 				el( 'div', useBlockProps( { className: 'arena-carousel' } ), el( InnerBlocks, {} ) )
 			);
 		},
-		save: function () {
+		save() {
 			return el( InnerBlocks.Content, {} );
 		},
 	} );

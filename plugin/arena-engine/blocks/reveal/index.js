@@ -1,16 +1,15 @@
 /** Editor registration for the Arena Reveal block. */
-( function ( blocks, blockEditor, element, i18n ) {
+( function ( blocks, blockEditor, element ) {
 	var el = element.createElement;
-	var __ = i18n.__;
 	var useBlockProps = blockEditor.useBlockProps;
 	var InnerBlocks = blockEditor.InnerBlocks;
 
 	blocks.registerBlockType( 'arena/reveal', {
-		edit: function () {
+		edit() {
 			return el( 'div', useBlockProps( { className: 'arena-reveal' } ), el( InnerBlocks, {} ) );
 		},
-		save: function () {
+		save() {
 			return el( InnerBlocks.Content, {} );
 		},
 	} );
-} )( window.wp.blocks, window.wp.blockEditor, window.wp.element, window.wp.i18n );
+} )( window.wp.blocks, window.wp.blockEditor, window.wp.element );

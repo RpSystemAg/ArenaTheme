@@ -1,0 +1,55 @@
+name: Plugin Check
+
+on:
+  push:
+    branches:
+      - main
+      - 'arena/**'
+  pull_request:
+    branches:
+      - main
+      - 'arena/**'
+
+concurrency:
+  group: plugin-check-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  plugin-check:
+    name: WP 7.1 + Plugin Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Start wp-env (WordPress 7.1 + WooCommerce 11)
+        run: npx wp-env start
+
+      - name: Activate theme and plugin
+        run: |
+          npx wp-env run cli wp theme activate arena-commerce
+          npx wp-env run cli wp plugin activate arena-engine
+          npx wp-env run cli wp plugin activate woocommerce
+
+      - name: Install Plugin Check
+        run: npx wp-env run cli wp plugin install plugin-check --activate
+
+      - name: Run official Plugin Check
+        run: npx wp-env run cli wp plugin check arena-engine
+
+      - name: Stop wp-env
+        if: always()
+        run: npx wp-env stop

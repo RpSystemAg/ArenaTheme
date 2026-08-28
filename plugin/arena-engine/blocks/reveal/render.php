@@ -17,10 +17,10 @@ if ( ! in_array( $arena_variant, array( 'fade', 'rise', 'scale', 'blur' ), true 
 
 $arena_wrapper = get_block_wrapper_attributes(
 	array(
-		'class'                => 'arena-reveal',
-		'data-arena-reveal'    => $arena_variant,
-		'data-wp-interactive'  => 'arena/reveal',
-		'style'                => $arena_delay > 0 ? sprintf( '--arena-reveal-delay:%dms', $arena_delay ) : '',
+		'class'               => 'arena-reveal',
+		'data-arena-reveal'   => $arena_variant,
+		'data-wp-interactive' => 'arena/reveal',
+		'style'               => $arena_delay > 0 ? sprintf( '--arena-reveal-delay:%dms', $arena_delay ) : '',
 	)
 );
 

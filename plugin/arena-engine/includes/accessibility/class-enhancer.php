@@ -74,10 +74,15 @@ final class Enhancer {
 			return;
 		}
 
+		/**
+		 * Filter the skip-link targets rendered on the current page.
+		 *
+		 * @since 1.0.0
+		 */
 		$links = apply_filters(
 			'arena_engine_skip_links',
 			array(
-				'#content' => __( 'Skip to content', 'arena-engine' ),
+				'#content'                  => __( 'Skip to content', 'arena-engine' ),
 				'#arena-primary-navigation' => __( 'Skip to navigation', 'arena-engine' ),
 			)
 		);

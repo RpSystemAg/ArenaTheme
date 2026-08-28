@@ -1,0 +1,55 @@
+name: WooCommerce QIT
+
+on:
+  push:
+    branches:
+      - main
+      - 'arena/**'
+  pull_request:
+    branches:
+      - main
+      - 'arena/**'
+
+concurrency:
+  group: qit-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  qit:
+    name: QIT compatibility (gated by WooCommerce credentials)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    # Never blocking when the WooCommerce.com credentials are absent. The job
+    # is skipped instead of failing, so the PR suite stays green without a
+    # WooCommerce Partner Developer account.
+    if: ${{ secrets.WCCOM_USERNAME != '' && secrets.WCCOM_CONSUMER_TOKEN != '' && secrets.WCCOM_CONSUMER_SECRET != '' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer:v2
+          coverage: none
+
+      - name: Install QIT CLI
+        run: composer global require woocommerce/qit-cli --no-interaction --prefer-dist --no-progress
+
+      - name: Authenticate and run QIT compatibility
+        env:
+          QIT_USERNAME: ${{ secrets.WCCOM_USERNAME }}
+          QIT_PASSWORD: ${{ secrets.WCCOM_PASSWORD }}
+          QIT_CONSUMER_TOKEN: ${{ secrets.WCCOM_CONSUMER_TOKEN }}
+          QIT_CONSUMER_SECRET: ${{ secrets.WCCOM_CONSUMER_SECRET }}
+        run: |
+          set -euo pipefail
+          export PATH="$HOME/.composer/vendor/bin:$PATH"
+          qit run:compatibility arena-engine \
+            --woocommerce_version=11.0 \
+            --wordpress_version=7.1 \
+            --php_version=8.2

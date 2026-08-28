@@ -1,0 +1,42 @@
+{
+	"root": true,
+	"extends": [
+		"plugin:@woocommerce/eslint-plugin/recommended"
+	],
+	"env": {
+		"browser": true,
+		"node": true,
+		"es2021": true
+	},
+	"parserOptions": {
+		"ecmaVersion": 2021,
+		"sourceType": "module"
+	},
+	"globals": {
+		"wp": "readonly"
+	},
+	"rules": {
+		"no-restricted-globals": [
+			"error",
+			{ "name": "$", "message": "jQuery is forbidden in Arena Commerce." },
+			{ "name": "jQuery", "message": "jQuery is forbidden in Arena Commerce." }
+		],
+		"no-restricted-properties": [
+			"error",
+			{ "object": "window", "property": "jQuery", "message": "jQuery is forbidden in Arena Commerce." },
+			{ "object": "document", "property": "jQuery", "message": "jQuery is forbidden in Arena Commerce." }
+		],
+		"@wordpress/i18n-text-domain": [
+			"error",
+			{
+				"allowedTextDomain": [ "arena-commerce", "arena-engine" ]
+			}
+		]
+	},
+	"ignorePatterns": [
+		"dist/**",
+		"node_modules/**",
+		"vendor/**",
+		"coverage/**"
+	]
+}

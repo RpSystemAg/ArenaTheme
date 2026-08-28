@@ -68,6 +68,11 @@ final class Plugin {
 	 * @return void
 	 */
 	public function boot() {
+		/**
+		 * Filter the module list so host projects can add or remove engine modules.
+		 *
+		 * @since 1.0.0
+		 */
 		foreach ( apply_filters( 'arena_engine_modules', self::modules() ) as $module ) {
 			if ( class_exists( $module ) && method_exists( $module, 'init' ) ) {
 				$module::init();
