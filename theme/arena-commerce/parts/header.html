@@ -1,0 +1,30 @@
+<!-- wp:group {"align":"full","className":"arena-header","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}},"position":{"type":"sticky","top":"0px"}},"backgroundColor":"base","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between","verticalAlignment":"center"}} -->
+<div class="arena-header wp-block-group alignfull has-base-background-color has-background" style="padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--50)">
+	<!-- wp:group {"className":"arena-branding","style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
+	<div class="arena-branding wp-block-group">
+		<!-- wp:site-logo {"width":128,"className":"arena-logo"} /-->
+
+		<!-- wp:site-title {"level":0,"className":"arena-site-title"} /-->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"tagName":"div","anchor":"arena-primary-navigation","className":"arena-nav-wrap","layout":{"type":"constrained"}} -->
+	<div class="arena-nav-wrap wp-block-group" id="arena-primary-navigation">
+		<!-- wp:navigation {"ref":null,"overlayMenu":"mobile","icon":"menu","className":"arena-nav","fontSize":"md","layout":{"type":"flex","justifyContent":"center","orientation":"horizontal"}} -->
+			<!-- wp:navigation-link {"label":"Shop","url":"/shop/","title":"Shop"} /-->
+			<!-- wp:navigation-link {"label":"New in","url":"/product-category/new-in/","title":"New in"} /-->
+			<!-- wp:navigation-link {"label":"Journal","url":"/blog/","title":"Journal"} /-->
+			<!-- wp:navigation-link {"label":"Support","url":"/support/","title":"Support"} /-->
+		<!-- /wp:navigation -->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"className":"arena-header__actions","style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"right","verticalAlignment":"center"}} -->
+	<div class="arena-header__actions wp-block-group">
+		<!-- wp:search {"label":"Search","showLabel":false,"placeholder":"Search products","buttonText":"Search","buttonPosition":"button-inside","buttonUseIcon":true,"query":{"post_type":"product"},"className":"arena-search","anchor":"arena-search"} /-->
+
+		<!-- wp:woocommerce/mini-cart {"hasHiddenPrice":false,"addToCartBehaviour":"openPanel"} /-->
+	</div>
+	<!-- /wp:group -->
+</div>
+<!-- /wp:group -->

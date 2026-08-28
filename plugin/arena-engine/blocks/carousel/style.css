@@ -1,0 +1,29 @@
+.wp-block-arena-carousel .arena-carousel__viewport {
+	display: flex;
+	gap: var(--arena-carousel-gap, 1rem);
+	overflow-x: auto;
+	overscroll-behavior-x: contain;
+	scroll-behavior: smooth;
+	scroll-snap-type: x mandatory;
+	scrollbar-width: none;
+}
+.wp-block-arena-carousel .arena-carousel__viewport::-webkit-scrollbar { display: none; }
+.wp-block-arena-carousel .arena-carousel__viewport > * {
+	flex: 0 0 calc((100% - (var(--arena-carousel-per-view, 3) - 1) * var(--arena-carousel-gap, 1rem)) / var(--arena-carousel-per-view, 3));
+	scroll-snap-align: start;
+	scroll-snap-stop: always;
+}
+.wp-block-arena-carousel .arena-carousel__controls { display: flex; gap: 0.5rem; justify-content: flex-end; margin-top: 0.75rem; }
+.wp-block-arena-carousel .arena-carousel__control {
+	align-items: center; background: #fff; border: 1px solid #6b7480; border-radius: 999px;
+	cursor: pointer; display: inline-flex; justify-content: center; min-height: 44px; min-width: 44px;
+}
+.wp-block-arena-carousel .arena-carousel__control[disabled] { cursor: not-allowed; opacity: 0.45; }
+.wp-block-arena-carousel .arena-carousel__progress { background: #c6cbd3; height: 3px; margin-top: 0.75rem; overflow: hidden; }
+.wp-block-arena-carousel .arena-carousel__progress-bar { background: #0b4f6c; display: block; height: 100%; width: 0; }
+@media (prefers-reduced-motion: reduce) {
+	.wp-block-arena-carousel .arena-carousel__viewport { scroll-behavior: auto; }
+}
+@media (width <= 600px) {
+	.wp-block-arena-carousel .arena-carousel__viewport > * { flex-basis: 82%; }
+}

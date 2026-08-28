@@ -1,0 +1,21 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","className":"arena-main arena-order-confirmation","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|90"}}},"layout":{"type":"constrained"}} -->
+<main class="arena-main arena-order-confirmation wp-block-group" style="padding-top:var(--wp--preset--spacing--70);padding-bottom:var(--wp--preset--spacing--90)">
+	<!-- wp:woocommerce/order-confirmation-summary {"className":"arena-order-summary"} /-->
+
+	<!-- wp:group {"className":"arena-order-status","style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"constrained"}} -->
+	<div class="arena-order-status wp-block-group">
+		<!-- wp:heading {"level":1,"fontSize":"4xl"} -->
+		<h1 class="wp-block-heading has-4xl-font-size">Order confirmed</h1>
+		<!-- /wp:heading -->
+
+		<!-- wp:paragraph {"fontSize":"lg"} -->
+		<p class="has-lg-font-size">A confirmation email is on its way. You can track the parcel from your account at any time.</p>
+		<!-- /wp:paragraph -->
+	</div>
+	<!-- /wp:group -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

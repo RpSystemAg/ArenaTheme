@@ -1,0 +1,76 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","className":"arena-main arena-product","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|90"}}},"layout":{"type":"constrained"}} -->
+<main class="arena-main arena-product wp-block-group" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--90)">
+	<!-- wp:woocommerce/store-notices {"className":"arena-notices"} /-->
+
+	<!-- wp:woocommerce/breadcrumbs {"className":"arena-product__breadcrumbs"} /-->
+
+	<!-- wp:columns {"className":"arena-product__hero","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|80"}}}} -->
+	<div class="arena-product__hero wp-block-columns">
+		<!-- wp:column {"width":"55%","className":"arena-product__gallery"} -->
+		<div class="arena-product__gallery wp-block-column" style="flex-basis:55%">
+			<!-- wp:woocommerce/product-image {"showSaleBadge":true,"saleBadgeAlign":"left","isDescendentOfSingleProductTemplate":true,"aspectRatio":"4/5","sizeSlug":"arena-card-lg","className":"arena-product__image"} /-->
+		</div>
+		<!-- /wp:column -->
+
+		<!-- wp:column {"width":"45%","className":"arena-product__summary"} -->
+		<div class="arena-product__summary wp-block-column" style="flex-basis:45%">
+			<!-- wp:woocommerce/product-title {"headingLevel":1,"className":"arena-product__title"} /-->
+
+			<!-- wp:woocommerce/product-rating {"isDescendentOfSingleProductTemplate":true,"className":"arena-product__rating"} /-->
+
+			<!-- wp:woocommerce/product-price {"isDescendentOfSingleProductTemplate":true,"className":"arena-product__price","fontSize":"2xl"} /-->
+
+			<!-- wp:woocommerce/product-summary {"className":"arena-product__summary-text"} /-->
+
+			<!-- wp:woocommerce/add-to-cart-form {"className":"arena-product__atc"} -->
+			<!-- wp:woocommerce/product-attributes {"isDescendentOfSingleProductTemplate":true} /-->
+			<!-- wp:woocommerce/add-to-cart-button {"className":"is-style-arena-block"} /-->
+			<!-- /wp:woocommerce/add-to-cart-form -->
+
+			<!-- wp:woocommerce/product-meta {"className":"arena-product__meta","fontSize":"sm"} /-->
+
+			<!-- wp:group {"className":"arena-product__reassurance","style":{"spacing":{"blockGap":"var:preset|spacing|30","padding":{"top":"var:preset|spacing|50"}}},"layout":{"type":"constrained"}} -->
+			<div class="arena-product__reassurance wp-block-group" style="padding-top:var(--wp--preset--spacing--50)">
+				<!-- wp:paragraph {"fontSize":"sm"} -->
+				<p class="has-sm-font-size">Free carbon-neutral delivery over 75 EUR · 30-day free returns · 2-year warranty</p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+		</div>
+		<!-- /wp:column -->
+	</div>
+	<!-- /wp:columns -->
+
+	<!-- wp:woocommerce/product-details {"className":"arena-product__details","title":"Product details"} -->
+	<!-- wp:woocommerce/product-description {"className":"arena-product__description"} /-->
+	<!-- wp:woocommerce/product-additional-information {"className":"arena-product__specs"} /-->
+	<!-- wp:woocommerce/product-reviews {"className":"arena-product__reviews"} /-->
+	<!-- /wp:woocommerce/product-details -->
+
+	<!-- wp:woocommerce/related-products {"className":"arena-product__related","columns":4,"rows":1} -->
+	<!-- wp:heading {"level":2,"fontSize":"3xl"} -->
+	<h2 class="wp-block-heading has-3xl-font-size">You may also like</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:woocommerce/product-template {"layout":{"type":"grid","columnCount":4}} -->
+	<!-- wp:group {"className":"arena-product-card is-style-arena-card","style":{"spacing":{"blockGap":"var:preset|spacing|30","padding":{"bottom":"var:preset|spacing|50"}},"border":{"radius":"var:preset|spacing|20"}},"layout":{"type":"constrained"}} -->
+	<div class="arena-product-card is-style-arena-card wp-block-group" style="border-radius:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--50)">
+		<!-- wp:woocommerce/product-image {"imageSizing":"thumbnail","aspectRatio":"4/5","isLink":true,"className":"arena-product-card__media"} /-->
+
+		<!-- wp:group {"className":"arena-product-card__body","style":{"spacing":{"padding":{"left":"var:preset|spacing|50","right":"var:preset|spacing|50"},"blockGap":"var:preset|spacing|20"}},"layout":{"type":"constrained"}} -->
+		<div class="arena-product-card__body wp-block-group" style="padding-right:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--50)">
+			<!-- wp:woocommerce/product-title {"headingLevel":3,"isLink":true,"fontSize":"md"} /-->
+			<!-- wp:woocommerce/product-price {"isDescendentOfProductCollection":true,"fontSize":"md"} /-->
+			<!-- wp:woocommerce/product-button {"isDescendentOfProductCollection":true,"fontSize":"sm"} /-->
+		</div>
+		<!-- /wp:group -->
+	</div>
+	<!-- /wp:group -->
+	<!-- /wp:woocommerce/product-template -->
+	<!-- /wp:woocommerce/related-products -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

@@ -1,0 +1,43 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","className":"arena-main arena-cart-page","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|90"}}},"layout":{"type":"constrained"}} -->
+<main class="arena-main arena-cart-page wp-block-group" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--90)">
+	<!-- wp:heading {"level":1,"className":"arena-page-title"} -->
+	<h1 class="arena-page-title wp-block-heading">Your cart</h1>
+	<!-- /wp:heading -->
+
+	<!-- wp:woocommerce/cart {"className":"arena-cart","align":"wide"} -->
+	<!-- wp:woocommerce/filled-cart-block -->
+	<!-- wp:woocommerce/cart-items-block -->
+	<!-- wp:woocommerce/cart-line-items-block /-->
+	<!-- wp:woocommerce/cart-order-summary-block -->
+	<!-- wp:woocommerce/cart-order-summary-heading-block /-->
+	<!-- wp:woocommerce/cart-order-summary-coupon-form-block /-->
+	<!-- wp:woocommerce/cart-order-summary-subtotal-block /-->
+	<!-- wp:woocommerce/cart-order-summary-fee-block /-->
+	<!-- wp:woocommerce/cart-order-summary-discount-block /-->
+	<!-- wp:woocommerce/cart-order-summary-shipping-block /-->
+	<!-- wp:woocommerce/cart-order-summary-taxes-block /-->
+	<!-- wp:woocommerce/cart-order-summary-total-block /-->
+	<!-- /wp:woocommerce/cart-order-summary-block -->
+	<!-- /wp:woocommerce/cart-items-block -->
+
+	<!-- wp:woocommerce/cart-express-payment-block /-->
+	<!-- wp:woocommerce/proceed-to-checkout-block /-->
+	<!-- wp:woocommerce/cart-accepted-payment-methods-block /-->
+	<!-- /wp:woocommerce/filled-cart-block -->
+
+	<!-- wp:woocommerce/empty-cart-block -->
+	<!-- wp:heading {"level":2,"fontSize":"3xl"} -->
+	<h2 class="wp-block-heading has-3xl-font-size">Your cart is empty</h2>
+	<!-- /wp:heading -->
+	<!-- wp:paragraph -->
+	<p>Add something you will actually use, then come back here.</p>
+	<!-- /wp:paragraph -->
+	<!-- wp:woocommerce/cart-link-block /-->
+	<!-- /wp:woocommerce/empty-cart-block -->
+	<!-- /wp:woocommerce/cart -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

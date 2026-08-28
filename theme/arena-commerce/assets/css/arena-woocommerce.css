@@ -1,0 +1,45 @@
+/*! Arena Commerce — WooCommerce surface styles. Loaded in place of woocommerce-general. */
+.woocommerce :where(.button, .wp-element-button, .added_to_cart) {
+	background: var(--wp--preset--color--primary);
+	border: 0;
+	border-radius: var(--wp--custom--radius--md);
+	color: var(--wp--preset--color--base);
+	cursor: pointer;
+	display: inline-block;
+	font-weight: 600;
+	min-height: 44px;
+	padding: 0.875rem 1.5rem;
+	text-decoration: none;
+	transition: background-color var(--wp--custom--motion--duration-fast) linear;
+}
+
+.woocommerce :where(.button, .wp-element-button):hover { background: var(--wp--preset--color--primary-hover); }
+
+.woocommerce :where(.woocommerce-message, .woocommerce-info) {
+	background: var(--wp--preset--color--surface);
+	border-inline-start: 4px solid var(--wp--preset--color--success);
+	padding: 1rem 1.25rem;
+}
+
+.woocommerce :where(.woocommerce-error) {
+	background: var(--wp--preset--color--surface);
+	border-inline-start: 4px solid var(--wp--preset--color--danger);
+	list-style: none;
+	padding: 1rem 1.25rem;
+}
+
+.woocommerce :where(.price) { color: var(--wp--preset--color--foreground); font-weight: 700; }
+.woocommerce :where(.onsale) { background: var(--wp--preset--color--accent); color: var(--wp--preset--color--base); }
+.woocommerce :where(.star-rating) { color: var(--wp--preset--color--accent); }
+.woocommerce :where(input.input-text, select, textarea) {
+	border: 1px solid var(--wp--preset--color--border-strong);
+	border-radius: var(--wp--custom--radius--sm);
+	min-height: 44px;
+	padding: 0.625rem 0.75rem;
+	inline-size: 100%;
+}
+.woocommerce :where(input.input-text, select, textarea):focus-visible {
+	outline: 3px solid var(--wp--preset--color--primary);
+	outline-offset: 2px;
+}
+.woocommerce :where(.quantity .qty) { inline-size: 5.5rem; text-align: center; }

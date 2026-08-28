@@ -1,0 +1,51 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","className":"arena-main arena-shop","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|90"}}},"layout":{"type":"constrained"}} -->
+<main class="arena-main arena-shop wp-block-group" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--90)">
+	<!-- wp:woocommerce/breadcrumbs {"className":"arena-shop__breadcrumbs"} /-->
+
+	<!-- wp:query-title {"type":"archive","showPrefix":false,"className":"arena-page-title"} /-->
+
+	<!-- wp:woocommerce/product-collection {"queryId":0,"query":{"perPage":12,"pages":0,"offset":0,"postType":"product","order":"asc","orderBy":"title","author":"","search":"","exclude":[],"sticky":"","inherit":true,"taxQuery":[],"woocommerceOnSale":false,"woocommerceStockStatus":["instock","onbackorder"],"isProductCollectionBlock":true},"dimensions":{"columns":3,"rows":4},"tagName":"div","align":"wide","className":"arena-product-grid"} -->
+	<div class="arena-product-grid wp-block-woocommerce-product-collection alignwide">
+		<!-- wp:group {"className":"arena-shop__toolbar","style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
+		<div class="arena-shop__toolbar wp-block-group">
+			<!-- wp:woocommerce/product-results-count {"className":"arena-shop__count"} /-->
+			<!-- wp:woocommerce/catalog-sorting {"className":"arena-shop__sorting"} /-->
+		</div>
+		<!-- /wp:group -->
+
+		<!-- wp:woocommerce/product-template {"className":"arena-product-template","layout":{"type":"grid","columnCount":3}} -->
+		<!-- wp:group {"className":"arena-product-card is-style-arena-card","style":{"spacing":{"blockGap":"var:preset|spacing|30","padding":{"bottom":"var:preset|spacing|50"}},"border":{"radius":"var:preset|spacing|20"}},"layout":{"type":"constrained"}} -->
+		<div class="arena-product-card is-style-arena-card wp-block-group" style="border-radius:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--50)">
+			<!-- wp:woocommerce/product-image {"imageSizing":"thumbnail","aspectRatio":"4/5","isLink":true,"showSaleBadge":true,"saleBadgeAlign":"left","className":"arena-product-card__media"} /-->
+
+			<!-- wp:group {"className":"arena-product-card__body","style":{"spacing":{"padding":{"left":"var:preset|spacing|50","right":"var:preset|spacing|50"},"blockGap":"var:preset|spacing|20"}},"layout":{"type":"constrained"}} -->
+			<div class="arena-product-card__body wp-block-group" style="padding-right:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--50)">
+				<!-- wp:woocommerce/product-title {"headingLevel":3,"isLink":true,"className":"arena-product-card__title","fontSize":"md"} /-->
+				<!-- wp:woocommerce/product-rating {"isDescendentOfProductCollection":true,"className":"arena-product-card__rating","fontSize":"sm"} /-->
+				<!-- wp:woocommerce/product-price {"isDescendentOfProductCollection":true,"className":"arena-product-card__price","fontSize":"md"} /-->
+				<!-- wp:woocommerce/product-button {"isDescendentOfProductCollection":true,"className":"arena-product-card__button is-style-arena-block","fontSize":"sm"} /-->
+			</div>
+			<!-- /wp:group -->
+		</div>
+		<!-- /wp:group -->
+		<!-- /wp:woocommerce/product-template -->
+
+		<!-- wp:query-pagination {"paginationArrow":"arrow","layout":{"type":"flex","justifyContent":"center"}} -->
+		<!-- wp:query-pagination-previous {"fontSize":"sm"} /-->
+		<!-- wp:query-pagination-numbers {"fontSize":"sm"} /-->
+		<!-- wp:query-pagination-next {"fontSize":"sm"} /-->
+		<!-- /wp:query-pagination -->
+
+		<!-- wp:query-no-results {"className":"arena-no-results"} -->
+		<!-- wp:paragraph -->
+		<p>No products matched your filters. Remove a filter or clear your search.</p>
+		<!-- /wp:paragraph -->
+		<!-- /wp:query-no-results -->
+	</div>
+	<!-- /wp:woocommerce/product-collection -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
