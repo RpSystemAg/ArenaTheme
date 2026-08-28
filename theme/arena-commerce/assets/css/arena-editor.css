@@ -1,0 +1,26 @@
+/*! Arena Commerce — editor-only styles. Mirrors front-end components so WYSIWYG holds. */
+.editor-styles-wrapper .arena-card,
+.editor-styles-wrapper .is-style-arena-card {
+	background: var(--wp--preset--color--base);
+	border: 1px solid var(--wp--preset--color--outline);
+	border-radius: var(--wp--custom--radius--lg);
+	overflow: hidden;
+}
+
+.editor-styles-wrapper .is-style-arena-eyebrow {
+	color: var(--wp--preset--color--accent);
+	font-weight: 600;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+}
+
+.editor-styles-wrapper .arena-carousel__viewport {
+	display: flex;
+	gap: var(--wp--preset--spacing--50);
+	overflow-x: auto;
+}
+
+.editor-styles-wrapper .arena-carousel__viewport > * { flex: 0 0 18rem; }
+
+.editor-styles-wrapper .arena-marquee__viewport { display: flex; overflow: hidden; }
+.editor-styles-wrapper .arena-marquee__track { animation: none; display: flex; gap: var(--wp--preset--spacing--70); }

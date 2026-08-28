@@ -1,0 +1,42 @@
+<!-- wp:group {"className":"arena-comments","style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|80"},"blockGap":"var:preset|spacing|60"}},"layout":{"type":"constrained"}} -->
+<div class="arena-comments wp-block-group" style="padding-top:var(--wp--preset--spacing--80);padding-bottom:var(--wp--preset--spacing--80)">
+	<!-- wp:heading {"className":"arena-comments__title","fontSize":"3xl"} -->
+	<h2 class="arena-comments__title wp-block-heading has-3xl-font-size">Discussion</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:comments {"className":"arena-comment-list"} -->
+	<div class="arena-comment-list wp-block-comments">
+		<!-- wp:comment-template -->
+		<!-- wp:group {"className":"arena-comment","style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+		<div class="arena-comment wp-block-group">
+			<!-- wp:avatar {"size":48,"className":"arena-comment__avatar"} /-->
+
+			<!-- wp:group {"className":"arena-comment__body","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"constrained"}} -->
+			<div class="arena-comment__body wp-block-group">
+				<!-- wp:group {"className":"arena-comment__meta","style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"flex","flexWrap":"wrap"}} -->
+				<div class="arena-comment__meta wp-block-group">
+					<!-- wp:comment-author-name {"className":"arena-comment__author"} /-->
+					<!-- wp:comment-date {"className":"arena-comment__date","fontSize":"sm"} /-->
+				</div>
+				<!-- /wp:group -->
+
+				<!-- wp:comment-content {"className":"arena-comment__content"} /-->
+
+				<!-- wp:comment-reply-link {"className":"arena-comment__reply","fontSize":"sm"} /-->
+			</div>
+			<!-- /wp:group -->
+		</div>
+		<!-- /wp:group -->
+		<!-- /wp:comment-template -->
+
+		<!-- wp:comments-pagination {"className":"arena-comments__pagination","layout":{"type":"flex","justifyContent":"space-between"}} -->
+		<!-- wp:comments-pagination-previous /-->
+		<!-- wp:comments-pagination-numbers /-->
+		<!-- wp:comments-pagination-next /-->
+		<!-- /wp:comments-pagination -->
+
+		<!-- wp:post-comments-form {"className":"arena-comment-form"} /-->
+	</div>
+	<!-- /wp:comments -->
+</div>
+<!-- /wp:group -->

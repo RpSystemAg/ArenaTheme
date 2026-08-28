@@ -1,0 +1,13 @@
+.wp-block-arena-reveal { opacity: 1; }
+html.arena-motion-ready .wp-block-arena-reveal {
+	opacity: 0;
+	transition: opacity 500ms cubic-bezier(0.2, 0, 0, 1), transform 500ms cubic-bezier(0.2, 0, 0, 1), filter 500ms cubic-bezier(0.2, 0, 0, 1);
+	transition-delay: var(--arena-reveal-delay, 0ms);
+}
+html.arena-motion-ready .wp-block-arena-reveal[data-arena-reveal="rise"] { transform: translate3d(0, 1.5rem, 0); }
+html.arena-motion-ready .wp-block-arena-reveal[data-arena-reveal="scale"] { transform: scale(0.96); }
+html.arena-motion-ready .wp-block-arena-reveal[data-arena-reveal="blur"] { filter: blur(6px); }
+html.arena-motion-ready .wp-block-arena-reveal.arena-in-view { filter: none; opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+	html.arena-motion-ready .wp-block-arena-reveal { filter: none !important; opacity: 1 !important; transform: none !important; }
+}

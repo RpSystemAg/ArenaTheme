@@ -1,0 +1,353 @@
+/*!
+ * Arena Commerce — component CSS.
+ * Design tokens live in theme.json; this file only contains what tokens cannot
+ * express: component behaviour, focus management, motion and print.
+ * Budget: 12 KB uncompressed / <4 KB gzipped. No @import, no web fonts.
+ */
+
+/* ============================================================ 1. Foundations */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+	-webkit-text-size-adjust: 100%;
+	scroll-behavior: smooth;
+	/* Keep focused targets clear of the sticky header and the admin bar. */
+	scroll-padding-top: calc(5rem + var(--wp-admin--admin-bar--height, 0px));
+	text-underline-offset: 0.15em;
+}
+
+body { margin: 0; -webkit-font-smoothing: antialiased; }
+
+/* Headings and display copy balance across line breaks (WP 7.1 typography). */
+h1, h2, h3, .wp-block-heading { text-wrap: balance; }
+p, li, .arena-prose > * { text-wrap: pretty; }
+
+img, svg, video { max-width: 100%; height: auto; }
+img { background-color: var(--wp--preset--color--surface); }
+
+:where(a) { color: var(--wp--preset--color--primary); }
+
+/* =============================================================== 2. A11y core */
+/* WCAG 2.4.7 / 2.4.11 — a focus ring that survives any background. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+	outline: 3px solid var(--wp--preset--color--primary);
+	outline-offset: 3px;
+	border-radius: 2px;
+}
+
+:where(a, button, input, select, textarea, summary):focus:not(:focus-visible) { outline: none; }
+
+/* WCAG 2.2 target size (AA minimum is 24px; Arena ships 44px). */
+:where(button, .wp-element-button, .wp-block-button__link, input[type="submit"],
+	.wp-block-navigation .wp-block-navigation-item a,
+	.arena-carousel__control, .arena-chip, summary) {
+	min-height: 44px;
+	min-width: 44px;
+}
+
+/* Visually hidden but announced, and never clipped when focused. */
+.screen-reader-text,
+.arena-skip-link {
+	border: 0;
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute !important;
+	width: 1px;
+	word-wrap: normal !important;
+}
+
+.screen-reader-text:focus,
+.arena-skip-link:focus {
+	clip-path: none;
+	background: var(--wp--preset--color--foreground);
+	color: var(--wp--preset--color--base);
+	display: block;
+	font-size: var(--wp--preset--font-size--sm);
+	font-weight: 600;
+	height: auto;
+	inset-block-start: 0.5rem;
+	inset-inline-start: 0.5rem;
+	line-height: 1.4;
+	padding: 0.875rem 1.25rem;
+	text-decoration: none;
+	width: auto;
+	z-index: 100001;
+}
+
+.arena-skip-links { position: absolute; inset-inline: 0; z-index: 100001; }
+
+/* Honour the OS setting. Nothing in the theme animates without consent. */
+@media (prefers-reduced-motion: reduce) {
+	*, *::before, *::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+/* Windows High Contrast / forced-colors: never rely on colour alone. */
+@media (forced-colors: active) {
+	:where(a, button, input, select, textarea) { forced-color-adjust: none; }
+	.arena-card, .arena-frame { border: 1px solid CanvasText; }
+}
+
+@media (prefers-contrast: more) {
+	:root { --wp--preset--color--muted: var(--wp--preset--color--foreground); }
+	.arena-card { border-color: var(--wp--preset--color--foreground); }
+}
+
+/* ======================================================== 3. Header & nav */
+.arena-header { z-index: 60; }
+
+.arena-header :where(.wp-block-navigation__responsive-container-open,
+	.wp-block-navigation__responsive-container-close) {
+	align-items: center;
+	display: inline-flex;
+	justify-content: center;
+	padding: 0.5rem;
+}
+
+.arena-search :where(.wp-block-search__input) {
+	background: var(--wp--preset--color--surface);
+	border: 1px solid var(--wp--preset--color--border-strong);
+	border-radius: var(--wp--custom--radius--md);
+	min-height: 44px;
+	padding-inline: 0.875rem;
+}
+
+.arena-cart-count {
+	background: var(--wp--preset--color--accent);
+	border-radius: var(--wp--custom--radius--full);
+	color: var(--wp--preset--color--base);
+	font-size: var(--wp--preset--font-size--xs);
+	font-weight: 700;
+	min-width: 1.375rem;
+	padding: 0.125rem 0.375rem;
+	text-align: center;
+}
+
+/* =============================================================== 4. Cards */
+.arena-card,
+.is-style-arena-card {
+	background: var(--wp--preset--color--base);
+	border: 1px solid var(--wp--preset--color--outline);
+	border-radius: var(--wp--custom--radius--lg);
+	overflow: hidden;
+	transition: box-shadow var(--wp--custom--motion--duration-medium) var(--wp--custom--easing--emphasized),
+		transform var(--wp--custom--motion--duration-medium) var(--wp--custom--easing--emphasized);
+}
+
+.arena-card:has(a:hover),
+.is-style-arena-card:has(a:hover) {
+	box-shadow: var(--wp--preset--shadow--raised);
+	transform: translateY(-2px);
+}
+
+.arena-card__media img,
+.arena-product-card__media img { aspect-ratio: 4 / 5; object-fit: cover; width: 100%; }
+
+.arena-frame, .is-style-arena-frame {
+	border-radius: var(--wp--custom--radius--xl);
+	overflow: hidden;
+}
+
+.is-style-arena-pill .wp-block-button__link,
+.wp-block-button__link.is-style-arena-pill { border-radius: var(--wp--custom--radius--full); }
+
+.is-style-arena-block .wp-block-button__link,
+.wp-block-button__link.is-style-arena-block { display: block; text-align: center; width: 100%; }
+
+.is-style-arena-eyebrow,
+.arena-eyebrow {
+	color: var(--wp--preset--color--accent);
+	font-weight: 600;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+}
+
+/* ============================================================ 5. Carousel */
+/* Scroll-snap first: works with no JavaScript, with a trackpad, with a wheel
+   and with touch, and gives a native single-pointer alternative to dragging
+   (WCAG 2.5.7 Dragging Movements). */
+.arena-carousel { position: relative; }
+
+.arena-carousel__viewport {
+	display: flex;
+	gap: var(--wp--preset--spacing--50);
+	overflow-x: auto;
+	overscroll-behavior-x: contain;
+	scroll-behavior: smooth;
+	scroll-padding-inline: var(--wp--custom--spacing--outer);
+	scroll-snap-type: x mandatory;
+	scrollbar-width: none;
+	-webkit-overflow-scrolling: touch;
+}
+
+.arena-carousel__viewport::-webkit-scrollbar { display: none; }
+
+.arena-carousel__viewport > * {
+	flex: 0 0 clamp(16rem, 78%, 22rem);
+	scroll-snap-align: start;
+	scroll-snap-stop: always;
+}
+
+.arena-carousel__controls {
+	display: flex;
+	gap: var(--wp--preset--spacing--30);
+	justify-content: flex-end;
+	margin-block-start: var(--wp--preset--spacing--40);
+}
+
+.arena-carousel__control {
+	align-items: center;
+	background: var(--wp--preset--color--base);
+	border: 1px solid var(--wp--preset--color--border-strong);
+	border-radius: var(--wp--custom--radius--full);
+	color: var(--wp--preset--color--foreground);
+	cursor: pointer;
+	display: inline-flex;
+	justify-content: center;
+	padding: 0;
+	transition: background-color var(--wp--custom--motion--duration-fast) linear;
+}
+
+.arena-carousel__control:hover { background: var(--wp--preset--color--surface); }
+.arena-carousel__control[disabled] { cursor: not-allowed; opacity: 0.45; }
+
+.arena-carousel__progress {
+	background: var(--wp--preset--color--outline);
+	block-size: 3px;
+	border-radius: var(--wp--custom--radius--full);
+	margin-block-start: var(--wp--preset--spacing--40);
+	overflow: hidden;
+}
+
+.arena-carousel__progress-bar {
+	background: var(--wp--preset--color--primary);
+	block-size: 100%;
+	inline-size: 0;
+	transition: inline-size var(--wp--custom--motion--duration-fast) linear;
+}
+
+/* =============================================================== 6. Marquee */
+.arena-marquee__viewport {
+	display: flex;
+	mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+	overflow: hidden;
+}
+
+.arena-marquee__track {
+	animation: arena-marquee 38s linear infinite;
+	flex: 0 0 auto;
+	gap: var(--wp--preset--spacing--70);
+	padding-inline-end: var(--wp--preset--spacing--70);
+}
+
+.arena-marquee:hover .arena-marquee__track,
+.arena-marquee:focus-within .arena-marquee__track { animation-play-state: paused; }
+
+@keyframes arena-marquee { to { transform: translate3d(-100%, 0, 0); } }
+
+/* ================================================================ 7. Reveal */
+/* Nothing is hidden before JavaScript opts in: the reveal only applies once
+   arena.js adds .arena-motion-ready to <html>, and never under reduced motion. */
+.arena-motion-ready [data-arena-reveal] {
+	opacity: 0;
+	transition: opacity var(--wp--custom--motion--duration-slow) var(--wp--custom--easing--emphasized),
+		transform var(--wp--custom--motion--duration-slow) var(--wp--custom--easing--emphasized),
+		filter var(--wp--custom--motion--duration-slow) var(--wp--custom--easing--emphasized);
+	transition-delay: var(--arena-reveal-delay, 0ms);
+	will-change: opacity, transform;
+}
+
+.arena-motion-ready [data-arena-reveal="rise"] { transform: translate3d(0, 1.5rem, 0); }
+.arena-motion-ready [data-arena-reveal="scale"] { transform: scale(0.96); }
+.arena-motion-ready [data-arena-reveal="blur"] { filter: blur(6px); }
+.arena-motion-ready [data-arena-reveal="fade"] { transform: none; }
+
+.arena-motion-ready [data-arena-reveal].arena-in-view {
+	filter: none;
+	opacity: 1;
+	transform: none;
+	will-change: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.arena-motion-ready [data-arena-reveal] { opacity: 1 !important; transform: none !important; filter: none !important; }
+}
+
+/* Scroll-driven animation where the engine supports it — no JS, no layout thrash. */
+@supports (animation-timeline: view()) {
+	.arena-motion-ready [data-arena-reveal] {
+		animation: arena-reveal-view linear both;
+		animation-range: entry 5% entry 60%;
+		animation-timeline: view();
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+	@keyframes arena-reveal-view { from { opacity: 0; transform: translate3d(0, 1.5rem, 0); } }
+}
+
+/* =========================================================== 8. Sticky col */
+.is-style-arena-sticky, .arena-sticky { position: sticky; top: calc(6rem + var(--wp-admin--admin-bar--height, 0px)); }
+
+/* ============================================================ 9. Commerce */
+.arena-reassurance {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--wp--preset--spacing--40);
+	list-style: none;
+	margin: var(--wp--preset--spacing--40) 0 0;
+	padding: 0;
+}
+
+.arena-reassurance__item { color: var(--wp--preset--color--muted); font-size: var(--wp--preset--font-size--sm); }
+
+.arena-breadcrumbs__list { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; margin: 0; padding: 0; }
+.arena-breadcrumbs__item { color: var(--wp--preset--color--muted); font-size: var(--wp--preset--font-size--sm); }
+.arena-breadcrumbs__item + .arena-breadcrumbs__item::before { content: "/"; padding-inline-end: 0.5rem; }
+
+.arena-qty { inline-size: 5.5rem; text-align: center; }
+
+/* Forms: WCAG 1.4.11 needs a 3:1 boundary, so borders use border-strong. */
+.arena-form :where(input:not([type="submit"]):not([type="checkbox"]):not([type="radio"]), select, textarea),
+.arena-prose :where(input:not([type="submit"]):not([type="checkbox"]):not([type="radio"]), select, textarea) {
+	background: var(--wp--preset--color--base);
+	border: 1px solid var(--wp--preset--color--border-strong);
+	border-radius: var(--wp--custom--radius--sm);
+	font: inherit;
+	min-height: 44px;
+	padding: 0.625rem 0.75rem;
+	inline-size: 100%;
+}
+
+.arena-form :where(input, select, textarea):focus-visible { outline-offset: 2px; }
+.arena-form :where(.error, [aria-invalid="true"]) { border-color: var(--wp--preset--color--danger); }
+
+.arena-prose :where(label) { display: block; font-weight: 600; margin-block-end: 0.375rem; }
+
+/* ============================================ 10. Reading experience / print */
+.arena-prose { font-size: var(--wp--preset--font-size--lg); line-height: 1.7; }
+.arena-prose :where(h2) { margin-block-start: 2em; }
+.arena-prose :where(h3) { margin-block-start: 1.75em; }
+.arena-prose :where(blockquote) { border-inline-start: 3px solid var(--wp--preset--color--outline); margin-inline: 0; padding-inline-start: 1.25rem; }
+
+@media print {
+	.arena-header, .arena-footer, .arena-carousel__controls, .arena-skip-links, .wp-block-navigation { display: none !important; }
+	body { color: #000; background: #fff; }
+	a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.8em; }
+}
+
+/* ===================================================== 11. Small screens */
+@media (width <= 600px) {
+	.arena-carousel__viewport > * { flex-basis: 82%; }
+	.is-style-arena-sticky, .arena-sticky { position: static; }
+	.arena-reassurance { gap: var(--wp--preset--spacing--30); }
+}

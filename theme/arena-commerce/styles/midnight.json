@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"title": "Midnight",
+	"settings": {
+		"color": {
+			"palette": [
+				{ "color": "#0B1017", "name": "Canvas", "slug": "base" },
+				{ "color": "#141A23", "name": "Surface", "slug": "surface" },
+				{ "color": "#1E2733", "name": "Surface strong", "slug": "surface-alt" },
+				{ "color": "#F4F6F8", "name": "Ink", "slug": "foreground" },
+				{ "color": "#A9B3C0", "name": "Ink muted", "slug": "muted" },
+				{ "color": "#4FB3D9", "name": "Primary", "slug": "primary" },
+				{ "color": "#7FCCE8", "name": "Primary hover", "slug": "primary-hover" },
+				{ "color": "#F0A35C", "name": "Accent", "slug": "accent" },
+				{ "color": "#3A2A17", "name": "Accent soft", "slug": "accent-soft" },
+				{ "color": "#4ADE80", "name": "Success", "slug": "success" },
+				{ "color": "#FACC15", "name": "Warning", "slug": "warning" },
+				{ "color": "#F87171", "name": "Danger", "slug": "danger" },
+				{ "color": "#8C97A5", "name": "Border strong", "slug": "border-strong" },
+				{ "color": "#3A4550", "name": "Border", "slug": "outline" }
+			]
+		}
+	}
+}

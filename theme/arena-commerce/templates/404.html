@@ -1,0 +1,33 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","className":"arena-main arena-404","style":{"spacing":{"padding":{"top":"var:preset|spacing|100","bottom":"var:preset|spacing|100"},"blockGap":"var:preset|spacing|50"}},"layout":{"type":"constrained"}} -->
+<main class="arena-main arena-404 wp-block-group" style="padding-top:var(--wp--preset--spacing--100);padding-bottom:var(--wp--preset--spacing--100)">
+	<!-- wp:paragraph {"className":"arena-404__eyebrow is-style-arena-eyebrow","fontSize":"xs","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.12em","fontWeight":"600"}}} -->
+	<p class="arena-404__eyebrow is-style-arena-eyebrow has-xs-font-size" style="font-weight:600;letter-spacing:0.12em;text-transform:uppercase">Error 404</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":1,"className":"arena-404__title","fontSize":"6xl"} -->
+	<h1 class="arena-404__title wp-block-heading has-6xl-font-size">This page moved</h1>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph {"className":"arena-404__copy","fontSize":"lg"} -->
+	<p class="arena-404__copy has-lg-font-size">The link may be old, or the product may no longer be in the catalogue. Search below, or continue shopping.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:search {"label":"Search the store","showLabel":false,"placeholder":"Search products and pages","buttonText":"Search","buttonPosition":"button-inside","buttonUseIcon":true,"className":"arena-search arena-search--404"} /-->
+
+	<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"left"}} -->
+	<div class="wp-block-buttons">
+		<!-- wp:button -->
+		<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/">Go to homepage</a></div>
+		<!-- /wp:button -->
+
+		<!-- wp:button {"className":"is-style-outline"} -->
+		<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/shop">Browse the shop</a></div>
+		<!-- /wp:button -->
+	</div>
+	<!-- /wp:buttons -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

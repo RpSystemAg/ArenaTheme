@@ -1,0 +1,19 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "arena/reveal",
+	"title": "Arena Reveal",
+	"description": "Wraps content in a scroll-triggered entrance that respects prefers-reduced-motion and never hides content when JavaScript is unavailable.",
+	"category": "design",
+	"icon": "visibility",
+	"keywords": [ "reveal", "scroll", "motion", "animation" ],
+	"textdomain": "arena-engine",
+	"attributes": {
+		"variant": { "type": "string", "default": "rise", "enum": [ "fade", "rise", "scale", "blur" ] },
+		"delay": { "type": "number", "default": 0 }
+	},
+	"supports": { "align": [ "wide", "full" ], "anchor": true, "html": false, "spacing": { "margin": true, "padding": true } },
+	"editorScript": "file:./index.js",
+	"style": "file:./style.css",
+	"render": "file:./render.php"
+}

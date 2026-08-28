@@ -1,0 +1,26 @@
+/*
+Theme Name: Arena Commerce
+Theme URI: https://github.com/RpSystemAg/ArenaTheme
+Author: Arena Labs
+Author URI: https://github.com/RpSystemAg
+Description: A performance-first block theme for WordPress 7.1 and WooCommerce 11. Ships a full theme.json design-token system with native responsive styles, pseudo-state styling and custom breakpoints, the WP 7.1 Icons API, zero web fonts, zero jQuery, WCAG 2.2 AA defaults and Baymard-informed commerce templates.
+Version: 1.0.0
+Requires at least: 7.0
+Tested up to: 7.1
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: arena-commerce
+Copyright: © 2026 Arena Labs. Licensed under the GNU General Public License v2 or later.
+Tags: block-styles, block-patterns, full-site-editing, wide-blocks, editor-style, one-column, custom-colors, custom-menu, custom-logo, featured-images, rtl-language-support, sticky-post, threaded-comments, translation-ready, e-commerce, accessibility-ready
+*/
+
+/*
+ * Arena Commerce is a block theme, so this file intentionally contains no rules.
+ * Keeping it empty means WordPress never enqueues a second render-blocking
+ * stylesheet. Styling lives in, in order of precedence:
+ *
+ *   1. theme.json           -> design tokens + Global Styles (inlined by core).
+ *   2. assets/css/arena.css -> component CSS, preloaded, ~12 KB.
+ *   3. Global Styles UI     -> everything the merchant overrides.
+ */

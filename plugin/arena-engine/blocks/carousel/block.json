@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "arena/carousel",
+	"title": "Arena Carousel",
+	"description": "An accessible carousel on the Interactivity API: scroll-snap baseline, keyboard and button control, live region announcements, and no rotation without consent.",
+	"category": "widgets",
+	"icon": "slides",
+	"keywords": [ "carousel", "slider", "scroller", "motion" ],
+	"textdomain": "arena-engine",
+	"attributes": {
+		"label": { "type": "string", "default": "" },
+		"perView": { "type": "number", "default": 3 },
+		"gap": { "type": "string", "default": "1rem" },
+		"showControls": { "type": "boolean", "default": true },
+		"showProgress": { "type": "boolean", "default": true }
+	},
+	"supports": {
+		"align": [ "wide", "full" ],
+		"anchor": true,
+		"html": false,
+		"color": { "background": true, "text": true, "gradients": true },
+		"spacing": { "margin": true, "padding": true, "blockGap": false },
+		"typography": { "fontSize": true }
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style.css",
+	"render": "file:./render.php"
+}
