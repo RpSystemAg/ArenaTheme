@@ -47,8 +47,11 @@ to `arena_theme_skip_links_printed`).
 |---|---|---|---|
 | PHPCS `WordPress-Extra` + `PHPCompatibility` (testVersion 7.4-) | theme + plugin | **0** | **0** |
 | PHPCS `WordPress-VIP-Go` | theme + plugin | **0** | **0** |
+| PHPCS `WordPress-Core` + `WordPress-Docs` + `PHPCompatibilityWP` | theme + plugin | **0** | **0** |
+| PHPCS `WooCommerce-Core` | plugin | **0** | **0** |
 | Plugin Check official ruleset (`plugin-check.ruleset.xml`) | plugin | **0** | **0** |
 | Theme Check (full suite) | theme | **PASS** | 2 INFO |
+| Abilities API contract (`tests/php/abilities-contract-check.php`) | plugin | **PASS** | — |
 
 The two Theme Check INFO notes are: a reminder that the `accessibility-ready` tag implies a
 manual accessibility review, and confirmation that a single text-domain matches the slug.
@@ -82,3 +85,28 @@ interactivity ships as a WordPress script module loaded only when a block uses i
 Both gaps are environment limitations, not skipped work; the scripts that would close them
 (`render-page.php`, `serve.mjs`, `screenshot.mjs`, `make-screenshot.mjs`) are committed so a
 machine with a browser can reproduce the remaining checks.
+
+## 6. Enterprise CI matrix
+
+The suite in `.github/workflows/` runs on every push/PR to `main` and `arena/**`:
+
+- `static-analysis.yml` — PHP lint 7.4→8.4, PHPCS `WordPress-Core` + `WordPress-Docs` +
+  `PHPCompatibilityWP`, PHPCS `WooCommerce-Core` on the plugin, PHPStan level 6 with
+  `johnbillion/wp-compat` pinned to `requiresAtLeast: '6.9'`, ESLint (WordPress + WooCommerce,
+  jQuery banned) and the Abilities API contract.
+- `plugin-check.yml` — wp-env on WordPress 7.1 + WooCommerce 11, official Plugin Check.
+- `theme-check.yml` — wp-env on WordPress 7.1 + WooCommerce 11, official Theme Check.
+- `e2e.yml` — wp-env + Playwright at 360×800 on PHP 7.4→8.4.
+- `qit.yml` — WooCommerce QIT, gated on `WCCOM_USERNAME` / `WCCOM_CONSUMER_TOKEN` /
+  `WCCOM_CONSUMER_SECRET`; skipped (never blocking) when credentials are absent.
+
+The reproducible local commands and the full matrix are documented in
+[`docs/ci.md`](ci.md). The Prime constitution compliance state is in
+[`docs/compliance-table.md`](compliance-table.md).
+
+> **Push status (2026-08-28):** the workflow files are written and validated
+> locally but could **not** be pushed because the connected GitHub App token
+> lacks GitHub `workflows: write`. They are present in the repo checkout as
+> untracked files under `.github/workflows/` and should be committed by an
+> agent/human with a token that has `Workflows: Read and write`. PR #2 carries
+> the reproducible configs/tests/docs only.

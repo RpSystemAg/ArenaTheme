@@ -110,16 +110,16 @@ final class Performance {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param bool   $default  Whether lazy loading is enabled.
+	 * @param bool   $default_value  Whether lazy loading is enabled.
 	 * @param string $context  Context, e.g. "img".
 	 * @param string $tag_name Tag name.
 	 * @return bool
 	 */
-	public static function lazy_loading_enabled( $default, $context, $tag_name ) {
+	public static function lazy_loading_enabled( $default_value, $context, $tag_name ) {
 		unset( $context, $tag_name );
 
 		if ( self::$lcp_claimed ) {
-			return (bool) $default;
+			return (bool) $default_value;
 		}
 
 		return ! ( is_singular() || is_front_page() );

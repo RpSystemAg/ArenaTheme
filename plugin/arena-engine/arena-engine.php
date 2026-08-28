@@ -31,18 +31,18 @@ define( 'ARENA_ENGINE_MIN_PHP', '7.4' );
  *
  * @since 1.0.0
  *
- * @param string $class Fully qualified class name.
+ * @param string $class_name Fully qualified class name.
  * @return void
  */
 spl_autoload_register(
-	static function ( $class ) {
+	static function ( $class_name ) {
 		$prefix = 'Arena_Engine\\';
 
-		if ( 0 !== strpos( $class, $prefix ) ) {
+		if ( 0 !== strpos( $class_name, $prefix ) ) {
 			return;
 		}
 
-		$parts = explode( '\\', substr( $class, strlen( $prefix ) ) );
+		$parts = explode( '\\', substr( $class_name, strlen( $prefix ) ) );
 		$name  = array_pop( $parts );
 		$path  = ARENA_ENGINE_DIR . 'includes';
 

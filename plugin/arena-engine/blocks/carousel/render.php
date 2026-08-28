@@ -28,13 +28,13 @@ $arena_state = wp_json_encode(
 
 $arena_wrapper = get_block_wrapper_attributes(
 	array(
-		'class'             => 'arena-carousel',
-		'data-arena-carousel' => 'true',
-		'role'              => 'group',
+		'class'                => 'arena-carousel',
+		'data-arena-carousel'  => 'true',
+		'role'                 => 'group',
 		'aria-roledescription' => 'carousel',
-		'aria-label'        => '' !== $arena_label ? $arena_label : __( 'Carousel', 'arena-engine' ),
-		'data-wp-interactive' => 'arena/carousel',
-		'data-wp-context'   => $arena_state,
+		'aria-label'           => '' !== $arena_label ? $arena_label : __( 'Carousel', 'arena-engine' ),
+		'data-wp-interactive'  => 'arena/carousel',
+		'data-wp-context'      => $arena_state,
 	)
 );
 

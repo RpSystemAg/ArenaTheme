@@ -79,8 +79,8 @@ final class Health {
 			'test'        => 'arena_asset_budget',
 		);
 
-		$css = get_theme_file_path( 'assets/css/arena.css' );
-		$js  = get_theme_file_path( 'assets/js/arena.js' );
+		$css      = get_theme_file_path( 'assets/css/arena.css' );
+		$js       = get_theme_file_path( 'assets/js/arena.js' );
 		$css_size = is_readable( $css ) ? (int) filesize( $css ) : 0;
 		$js_size  = is_readable( $js ) ? (int) filesize( $js ) : 0;
 

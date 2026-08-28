@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ruleset name="Arena Commerce">
+	<description>PHP_CodeSniffer ruleset for the Arena Commerce stack: WordPress Core + WordPress Docs + PHPCompatibilityWP.</description>
+
+	<file>theme/arena-commerce</file>
+	<file>plugin/arena-engine</file>
+
+	<exclude-pattern>*/tests/*</exclude-pattern>
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/dist/*</exclude-pattern>
+	<exclude-pattern>*/assets/vendor/*</exclude-pattern>
+
+	<arg name="extensions" value="php"/>
+	<arg name="basepath" value="."/>
+	<arg name="colors"/>
+
+	<config name="testVersion" value="7.4-"/>
+	<config name="minimum_wp_version" value="6.9"/>
+
+	<rule ref="WordPress-Core"/>
+	<rule ref="WordPress-Docs"/>
+	<rule ref="PHPCompatibilityWP"/>
+
+	<!-- Keep the accessibility and commerce codebase honest without leaking
+	     the QA process into the shipped source. -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="arena_"/>
+				<element value="arena_theme"/>
+				<element value="arena_engine"/>
+			</property>
+		</properties>
+	</rule>
+</ruleset>

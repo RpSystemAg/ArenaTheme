@@ -107,6 +107,11 @@ final class Optimizer {
 	 * @return array
 	 */
 	public static function resource_hints( $urls, $relation_type ) {
+		/**
+		 * Filter the preconnect/prefetch hints the engine adds.
+		 *
+		 * @since 1.0.0
+		 */
 		$extra = apply_filters( 'arena_engine_resource_hints', array(), $relation_type );
 
 		if ( 'preconnect' === $relation_type && ! empty( $extra ) ) {
@@ -129,6 +134,11 @@ final class Optimizer {
 			return $config;
 		}
 
+		/**
+		 * Filter the default Speculation Rules configuration.
+		 *
+		 * @since 1.0.0
+		 */
 		return apply_filters(
 			'arena_engine_speculation_rules',
 			array(
@@ -164,14 +174,14 @@ final class Optimizer {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param bool   $default   Whether to add the attribute.
+	 * @param bool   $default_value   Whether to add the attribute.
 	 * @param string $image     Image HTML.
 	 * @param string $context   Context.
 	 * @return bool
 	 */
-	public static function loading_attr( $default, $image, $context ) {
+	public static function loading_attr( $default_value, $image, $context ) {
 		unset( $image, $context );
 
-		return (bool) $default;
+		return (bool) $default_value;
 	}
 }

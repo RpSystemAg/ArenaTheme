@@ -75,8 +75,8 @@ final class Accessibility {
 			return $block_content;
 		}
 
-		$class = isset( $block['attrs']['className'] ) ? (string) $block['attrs']['className'] : '';
-		$label = self::landmark_label( $class, $tag );
+		$class_name = isset( $block['attrs']['className'] ) ? (string) $block['attrs']['className'] : '';
+		$label      = self::landmark_label( $class_name, $tag );
 
 		if ( '' === $label ) {
 			return $block_content;
@@ -101,12 +101,12 @@ final class Accessibility {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $class Block className.
+	 * @param string $class_name Block className.
 	 * @param string $tag   Landmark tag name.
 	 * @return string
 	 */
-	private static function landmark_label( $class, $tag ) {
-		if ( '' === trim( $class ) ) {
+	private static function landmark_label( $class_name, $tag ) {
+		if ( '' === trim( $class_name ) ) {
 			return '';
 		}
 
@@ -117,13 +117,13 @@ final class Accessibility {
 				'arena-nav'                   => __( 'Main menu', 'arena-commerce' ),
 			)
 			: array(
-				'arena-search--404'   => __( 'Search the store', 'arena-commerce' ),
+				'arena-search--404'    => __( 'Search the store', 'arena-commerce' ),
 				'arena-search--inline' => __( 'Search again', 'arena-commerce' ),
-				'arena-search'        => __( 'Search products', 'arena-commerce' ),
+				'arena-search'         => __( 'Search products', 'arena-commerce' ),
 			);
 
 		foreach ( $map as $needle => $label ) {
-			if ( false !== strpos( ' ' . $class . ' ', ' ' . $needle . ' ' ) ) {
+			if ( false !== strpos( ' ' . $class_name . ' ', ' ' . $needle . ' ' ) ) {
 				return $label;
 			}
 		}

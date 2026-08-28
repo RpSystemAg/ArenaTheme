@@ -113,8 +113,8 @@ final class Assets {
 		$config = apply_filters(
 			'arena_theme_runtime_config',
 			array(
-				'version' => ARENA_THEME_VERSION,
-				'i18n'    => array(
+				'version'   => ARENA_THEME_VERSION,
+				'i18n'      => array(
 					'nextSlide'     => __( 'Next slide', 'arena-commerce' ),
 					'previousSlide' => __( 'Previous slide', 'arena-commerce' ),
 					'pauseCarousel' => __( 'Pause automatic rotation', 'arena-commerce' ),
