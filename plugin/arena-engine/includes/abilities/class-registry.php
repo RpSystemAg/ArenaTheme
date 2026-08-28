@@ -146,12 +146,12 @@ final class Registry {
 		$css = 0;
 		$js  = 0;
 
-		foreach ( array( 'arena-theme', 'arena-engine' ) as $handle ) {
-			$css_file = 'arena-theme' === $handle
+		foreach ( array( 'arena-commerce', 'arena-engine' ) as $handle ) {
+			$css_file = 'arena-commerce' === $handle
 				? get_theme_file_path( 'assets/css/arena.css' )
 				: ARENA_ENGINE_DIR . 'assets/css/arena-engine.css';
 
-			$js_file = 'arena-theme' === $handle
+			$js_file = 'arena-commerce' === $handle
 				? get_theme_file_path( 'assets/js/arena.js' )
 				: ARENA_ENGINE_DIR . 'assets/js/arena-engine.js';
 
