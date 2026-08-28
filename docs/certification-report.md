@@ -103,3 +103,10 @@ The suite in `.github/workflows/` runs on every push/PR to `main` and `arena/**`
 The reproducible local commands and the full matrix are documented in
 [`docs/ci.md`](ci.md). The Prime constitution compliance state is in
 [`docs/compliance-table.md`](compliance-table.md).
+
+> **Push status (2026-08-28):** the workflow files are written and validated
+> locally but could **not** be pushed because the connected GitHub App token
+> lacks GitHub `workflows: write`. They are present in the repo checkout as
+> untracked files under `.github/workflows/` and should be committed by an
+> agent/human with a token that has `Workflows: Read and write`. PR #2 carries
+> the reproducible configs/tests/docs only.
