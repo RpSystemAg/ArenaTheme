@@ -1,0 +1,91 @@
+/*!
+ * Arena Commerce — checkout & account module CSS (H36).
+ * Enqueued only on checkout and my-account pages.
+ */
+
+/* Distraction-free checkout: the template renders a reduced header (brand +
+   secure badge only) and no footer menus. The step progress bar keeps the
+   Baymard "where am I" answer visible without JavaScript. */
+.arena-checkout-steps {
+	display: flex;
+	gap: var(--wp--preset--spacing--40);
+	list-style: none;
+	margin: 0 0 var(--wp--preset--spacing--70);
+	padding: 0;
+}
+
+.arena-checkout-steps__item {
+	align-items: center;
+	color: var(--wp--preset--color--muted);
+	display: inline-flex;
+	font-size: var(--wp--preset--font-size--sm);
+	gap: 0.5rem;
+}
+
+.arena-checkout-steps__item[aria-current="step"] { color: var(--wp--preset--color--foreground); font-weight: 700; }
+
+.arena-checkout-steps__item[aria-current="step"]::before {
+	background: var(--wp--preset--color--primary);
+	border-radius: var(--wp--custom--radius--full);
+	color: var(--wp--preset--color--base);
+	content: attr(data-step);
+	display: inline-flex;
+	font-size: var(--wp--preset--font-size--xs);
+	inline-size: 1.5rem;
+	justify-content: center;
+	min-block-size: 1.5rem;
+}
+
+.arena-checkout-steps__item:not([aria-current="step"])::before {
+	border: 1px solid var(--wp--preset--color--border-strong);
+	border-radius: var(--wp--custom--radius--full);
+	content: attr(data-step);
+	display: inline-flex;
+	font-size: var(--wp--preset--font-size--xs);
+	inline-size: 1.5rem;
+	justify-content: center;
+	min-block-size: 1.5rem;
+}
+
+/* My-account dashboard: reorderable cards (H36). Order is a per-visitor
+   preference stored in localStorage by the arena-account module; each card is
+   a real, keyboard-operable section. */
+.arena-account-cards { display: grid; gap: var(--wp--preset--spacing--60); }
+
+.arena-account-card {
+	background: var(--wp--preset--color--base);
+	border: 1px solid var(--wp--preset--color--outline);
+	border-radius: var(--wp--custom--radius--lg);
+	padding: var(--wp--preset--spacing--60);
+}
+
+.arena-account-card__title {
+	align-items: center;
+	display: flex;
+	font-size: var(--wp--preset--font-size--md);
+	gap: var(--wp--preset--spacing--40);
+	justify-content: space-between;
+	margin: 0 0 var(--wp--preset--spacing--50);
+}
+
+.arena-account-card__drag {
+	background: none;
+	border: 0;
+	color: var(--wp--preset--color--muted);
+	cursor: grab;
+	min-block-size: 44px;
+	min-inline-size: 44px;
+	padding: 0.5rem;
+}
+
+.arena-account-card__drag:active { cursor: grabbing; }
+
+@media (width >= 960px) {
+	.arena-account-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Distraction-free checkout (H36): reduced header swaps the part; the footer
+   keeps only its legal row. */
+body.arena-distraction-free .arena-footer__columns,
+body.arena-distraction-free .arena-footer__zones,
+body.arena-distraction-free .arena-bottom-nav { display: none !important; }

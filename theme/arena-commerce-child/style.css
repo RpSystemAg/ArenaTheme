@@ -1,0 +1,18 @@
+/*
+Theme Name: Arena Commerce Child
+Theme URI: https://github.com/RpSystemAg/ArenaTheme
+Author: Arena Prime
+Description: Child theme starter for Arena Commerce. Extends the parent through hooks and token overrides without touching or duplicating a single parent file (H50). Start here — see docs/utente/child-theme.md.
+Version: 1.1.0
+Requires at least: 7.1
+Tested up to: 7.1
+Requires PHP: 8.1
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: arena-commerce-child
+Template: arena-commerce
+Tags: block-theme, child-theme, e-commerce
+*/
+
+/* The real overrides live in assets/css/child.css so the parent cascade stays
+   authoritative for everything this file does not touch. */

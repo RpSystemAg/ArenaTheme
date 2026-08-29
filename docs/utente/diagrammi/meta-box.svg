@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" role="img" aria-label="Arena: opzioni pagina (meta box)">
+<rect width="960" height="560" fill="#fdfdfc"/>
+<rect x="16" y="16" width="928" height="528" fill="#fff" stroke="#c3c4c7" stroke-width="2" rx="12"/>
+<text x="40" y="58" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="26" font-weight="800" fill="#1f1f1f">Arena: opzioni pagina (meta box)</text>
+<text x="40" y="84" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" fill="#50575e">Override per singola pagina o articolo, con reset in un click (H32)</text>
+<text x="920" y="526" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#8c8f94">DIAGRAMMA — wireframe schematico, non uno screenshot</text>
+
+<rect x="40" y="110" width="400" height="44" rx="8" fill="#f0f0f1" stroke="#c3c4c7" stroke-width="1.5"/>
+<text x="240" y="137" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" fill="#1f1f1f">☐ Nascondi titolo pagina</text>
+<rect x="40" y="164" width="400" height="44" rx="8" fill="#f0f0f1" stroke="#c3c4c7" stroke-width="1.5"/>
+<text x="240" y="191" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" fill="#1f1f1f">☐ Header trasparente sull’eroe</text>
+<rect x="40" y="218" width="400" height="44" rx="8" fill="#f0f0f1" stroke="#c3c4c7" stroke-width="1.5"/>
+<text x="240" y="245" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" fill="#1f1f1f">☐ Nascondi footer · ☐ Nascondi sidebar</text>
+<rect x="40" y="272" width="400" height="44" rx="8" fill="#f0f0f1" stroke="#c3c4c7" stroke-width="1.5"/>
+<text x="240" y="299" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" fill="#1f1f1f">Contenitore: boxed ▾</text>
+<rect x="40" y="326" width="400" height="44" rx="8" fill="#f0f0f1" stroke="#c3c4c7" stroke-width="1.5"/>
+<text x="240" y="353" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" fill="#1f1f1f">Larghezza contenitore (rem): ____</text>
+<rect x="460" y="110" width="440" height="152" rx="8" fill="#e7f3fa" stroke="#2271b1" stroke-width="1.5"/>
+<text x="680" y="191" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" fill="#1f1f1f">Salvato via REST → journal con annullamento</text>
+<rect x="460" y="272" width="440" height="98" rx="8" fill="#fff" stroke="#c3c4c7" stroke-width="1.5"/>
+<text x="680" y="326" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" fill="#1f1f1f">«Salva override» · «Reset totale (un click)»</text>
+<rect x="40" y="392" width="860" height="120" rx="8" fill="#fff" stroke="#8c8f94" stroke-width="1.5"/>
+<text x="470" y="457" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="13" fill="#1f1f1f">Ogni chiave è meta standard esposta in REST: nessun campo proprietario, nessun lock-in</text>
+</svg>

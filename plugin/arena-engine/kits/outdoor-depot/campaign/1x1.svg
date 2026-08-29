@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" role="img" aria-labelledby="t d" width="1080" height="1080">
+<title id="t">Outdoor Depot — Gear up</title>
+<desc id="d">Outdoor Depot: The summit is optional. The right gear is not.</desc>
+<rect width="1080" height="1080" fill="#FFFFFF"/>
+<polygon points="129.6,885.5999999999999 540,669.6 950.4,885.5999999999999" fill="#B42318" opacity="0.18"/>
+<text x="129.6" y="194.4" font-family="'SF Mono', 'Cascadia Mono', ui-monospace, Menlo, Consolas, monospace" font-size="28" letter-spacing="4" fill="#B42318" text-transform="uppercase">OUTDOOR DEPOT · FEED</text>
+<text x="129.6" y="453.59999999999997" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="81" font-weight="800" fill="#1f1f1f">The summit is optional.</text>
+<text x="129.6" y="541.0799999999999" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="81" font-weight="800" fill="#1f1f1f">The right gear is not.</text>
+<text x="129.6" y="648" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="32" fill="#1f1f1f" opacity="0.72">Ready in one click.</text>
+<rect x="129.6" y="842.4" width="420" height="86.4" rx="43.2" fill="#B42318"/>
+<text x="157.6" y="898.56" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="31" font-weight="700" fill="#fff">Gear up</text>
+<text x="129.6" y="1015.1999999999999" font-family="'SF Mono', 'Cascadia Mono', ui-monospace, Menlo, Consolas, monospace" font-size="21" fill="#1f1f1f" opacity="0.6">arena-commerce · kit/outdoor-depot</text>
+</svg>

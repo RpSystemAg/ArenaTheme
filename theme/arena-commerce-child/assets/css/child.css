@@ -1,0 +1,21 @@
+/**
+ * Arena Commerce Child — token override sheet (H50).
+ *
+ * ONE variable at a time. This file loads after the parent cascade and is
+ * intentionally tiny: it is the demonstration that a child can re-skin the
+ * whole store by moving tokens, never by re-writing rules.
+ */
+
+/* Example 1 — the accent colour, everywhere it is used (buttons, links,
+   badges, focus rings) follows this one variable. */
+:root {
+	--wp--preset--color--accent: #b3541e;
+}
+
+/* Example 2 — a denser card grid on catalogue pages (the parent exposes the
+   gap as a token; the layout math adapts because it is token-driven). */
+@media (min-width: 960px) {
+	.arena-card-grid {
+		--arena-grid-gap: var(--wp--preset--spacing--30);
+	}
+}

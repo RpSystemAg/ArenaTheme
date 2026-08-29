@@ -1,0 +1,8 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"title": "Arena Commerce Child",
+	"description": "Child of Arena Commerce: inherits every parent palette, font and layout token (H50). Override tokens here or in assets/css/child.css — never by copying parent files.",
+	"settings": {},
+	"styles": {}
+}

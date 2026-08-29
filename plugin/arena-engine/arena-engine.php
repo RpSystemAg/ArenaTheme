@@ -3,7 +3,7 @@
  * Plugin Name:       Arena Engine
  * Plugin URI:        https://github.com/RpSystemAg/ArenaTheme
  * Description:       The runtime half of the Arena Commerce stack. Ships the accessibility, performance, security and Baymard-informed checkout layers, Interactivity API blocks, a WordPress 7.1 icon collection and registered Abilities so automation and AI agents can operate the storefront. Works with any block theme and with or without WooCommerce.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Requires at least: 6.9
  * Requires PHP:      7.4
  * Author:            Arena Labs
@@ -18,7 +18,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'ARENA_ENGINE_VERSION', '1.0.0' );
+define( 'ARENA_ENGINE_VERSION', '1.1.0' );
 define( 'ARENA_ENGINE_FILE', __FILE__ );
 define( 'ARENA_ENGINE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ARENA_ENGINE_URL', plugin_dir_url( __FILE__ ) );

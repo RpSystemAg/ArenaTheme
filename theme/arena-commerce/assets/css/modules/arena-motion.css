@@ -1,0 +1,92 @@
+/*!
+ * Arena Commerce — motion module CSS (H45).
+ * Loaded only when the page actually renders a carousel or a marquee
+ * (detection in inc/class-assets.php). Zero cost for pages without them.
+ */
+
+/* ============================================================ Carousel */
+/* Scroll-snap first: works with no JavaScript, with a trackpad, with a wheel
+   and with touch, and gives a native single-pointer alternative to dragging
+   (WCAG 2.5.7 Dragging Movements). */
+.arena-carousel { position: relative; }
+
+.arena-carousel__viewport {
+	display: flex;
+	gap: var(--wp--preset--spacing--50);
+	overflow-x: auto;
+	overscroll-behavior-x: contain;
+	scroll-behavior: smooth;
+	scroll-padding-inline: var(--wp--custom--spacing--outer);
+	scroll-snap-type: x mandatory;
+	scrollbar-width: none;
+	-webkit-overflow-scrolling: touch;
+}
+
+.arena-carousel__viewport::-webkit-scrollbar { display: none; }
+
+.arena-carousel__viewport > * {
+	flex: 0 0 clamp(16rem, 78%, 22rem);
+	scroll-snap-align: start;
+	scroll-snap-stop: always;
+}
+
+.arena-carousel__controls {
+	display: flex;
+	gap: var(--wp--preset--spacing--30);
+	justify-content: flex-end;
+	margin-block-start: var(--wp--preset--spacing--40);
+}
+
+.arena-carousel__control {
+	align-items: center;
+	background: var(--wp--preset--color--base);
+	border: 1px solid var(--wp--preset--color--border-strong);
+	border-radius: var(--wp--custom--radius--full);
+	color: var(--wp--preset--color--foreground);
+	cursor: pointer;
+	display: inline-flex;
+	justify-content: center;
+	padding: 0;
+	transition: background-color var(--wp--custom--motion--duration-fast) cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.arena-carousel__control:hover { background: var(--wp--preset--color--surface); }
+.arena-carousel__control[disabled] { cursor: not-allowed; opacity: 0.45; }
+
+.arena-carousel__progress {
+	background: var(--wp--preset--color--outline);
+	block-size: 3px;
+	border-radius: var(--wp--custom--radius--full);
+	margin-block-start: var(--wp--preset--spacing--40);
+	overflow: hidden;
+}
+
+.arena-carousel__progress-bar {
+	background: var(--wp--preset--color--primary);
+	block-size: 100%;
+	inline-size: 0;
+	transition: inline-size var(--wp--custom--motion--duration-fast) cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (width <= 600px) {
+	.arena-carousel__viewport > * { flex-basis: 82%; }
+}
+
+/* ============================================================== Marquee */
+.arena-marquee__viewport {
+	display: flex;
+	mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+	overflow: hidden;
+}
+
+.arena-marquee__track {
+	animation: arena-marquee 38s linear infinite;
+	flex: 0 0 auto;
+	gap: var(--wp--preset--spacing--70);
+	padding-inline-end: var(--wp--preset--spacing--70);
+}
+
+.arena-marquee:hover .arena-marquee__track,
+.arena-marquee:focus-within .arena-marquee__track { animation-play-state: paused; }
+
+@keyframes arena-marquee { to { transform: translate3d(-100%, 0, 0); } }

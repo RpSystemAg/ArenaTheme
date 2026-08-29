@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" role="img" aria-label="Admin → Arena">
+<rect width="960" height="560" fill="#fdfdfc"/>
+<rect x="16" y="16" width="928" height="528" fill="#fff" stroke="#c3c4c7" stroke-width="2" rx="12"/>
+<text x="40" y="58" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="26" font-weight="800" fill="#1f1f1f">Admin → Arena</text>
+<text x="40" y="84" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" fill="#50575e">Il pannello: ogni azione tracciata nel Journal e reversibile (H31, AP9)</text>
+<text x="920" y="526" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#8c8f94">DIAGRAMMA — wireframe schematico, non uno screenshot</text>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#2271b1"/></marker></defs>
+<rect x="40" y="110" width="200" height="70" rx="8" fill="#e7f3fa" stroke="#2271b1" stroke-width="1.5"/>
+<text x="140" y="150" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" fill="#1f1f1f">Starter kit</text>
+<rect x="260" y="110" width="200" height="70" rx="8" fill="#f0f0f1" stroke="#c3c4c7" stroke-width="1.5"/>
+<text x="360" y="150" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" fill="#1f1f1f">Preset</text>
+<rect x="480" y="110" width="200" height="70" rx="8" fill="#f0f0f1" stroke="#c3c4c7" stroke-width="1.5"/>
+<text x="580" y="150" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" fill="#1f1f1f">Tipografia</text>
+<rect x="700" y="110" width="200" height="70" rx="8" fill="#f0f0f1" stroke="#c3c4c7" stroke-width="1.5"/>
+<text x="800" y="150" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" fill="#1f1f1f">Layout &amp; opzioni</text>
+<rect x="260" y="210" width="200" height="70" rx="8" fill="#fef8ee" stroke="#d63638" stroke-width="1.5"/>
+<text x="360" y="250" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" fill="#1f1f1f">Journal (annulla)</text>
+<path d="M 460 420 L 360 290" stroke="#2271b1" stroke-width="2" marker-end="url(#a)"/>
+<rect x="40" y="320" width="860" height="90" rx="8" fill="#fff" stroke="#8c8f94" stroke-width="1.5"/>
+<text x="470" y="370" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="13" fill="#1f1f1f">Uploads: preset.json · typography.json · layout.json — fogli di stile tracciati, non opzioni sparse</text>
+<rect x="40" y="440" width="860" height="70" rx="8" fill="#fff" stroke="#8c8f94" stroke-width="1.5"/>
+<text x="470" y="480" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="13" fill="#1f1f1f">Journal → «Annulla» ripristina lo stato precedente di ogni azione (G12)</text>
+</svg>

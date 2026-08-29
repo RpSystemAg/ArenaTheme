@@ -1,0 +1,48 @@
+
+<!-- wp:group {"tagName":"main","align":"full","layout":{"type":"constrained"}} -->
+<main class="wp-block-group alignfull" data-arena-pattern="kit-bike-service-home">
+<!-- wp:columns {"style":{"spacing":{"blockGap":"4rem"}}} -->
+<div class="wp-block-columns">
+<!-- wp:column {"width":"58%"} -->
+<div class="wp-block-column" style="flex-basis:58%">
+<!-- wp:paragraph {"fontSize":"caption","style":{"typography":{"textTransform":"uppercase"}}} -->
+<p class="has-caption-font-size">{{t:home.eyebrow}}</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading {"level":1,"fontSize":"display"} -->
+<h1 class="wp-block-heading has-display-font-size">{{t:home.title}}</h1>
+<!-- /wp:heading -->
+<!-- wp:paragraph {"fontSize":"lg"} -->
+<p class="has-lg-font-size">{{t:home.copy}}</p>
+<!-- /wp:paragraph -->
+<!-- wp:buttons -->
+<div class="wp-block-buttons">
+<!-- wp:button -->
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="{{t:link.contact}}">{{t:home.cta}}</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:buttons -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column {"width":"42%"} -->
+<div class="wp-block-column" style="flex-basis:42%">
+<!-- wp:group {"style":{"border":{"width":"1px"},"spacing":{"padding":"1.5rem"}}} -->
+<div class="wp-block-group" style="border-width:1px;padding:1.5rem" data-arena-module="booking">
+<!-- wp:heading {"level":2,"fontSize":"lg"} -->
+<h2 class="wp-block-heading has-lg-font-size">{{t:home.booking.title}}</h2>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>{{t:home.booking.copy}}</p>
+<!-- /wp:paragraph -->
+<!-- wp:search {"label":"{{t:home.booking.search}}","buttonText":"{{t:home.cta}}"} /-->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+{{pattern:support-tiles}}
+{{pattern:service-status}}
+{{pattern:cta-split-panel}}
+</main>
+<!-- /wp:group -->
+

@@ -1,0 +1,68 @@
+/**
+ * Arena Engine — admin styles for the Arena panel pages (H20/H31).
+ */
+
+.arena-wrap .description { max-width: 60rem; }
+
+.arena-cards,
+.arena-preset-grid,
+.arena-kit-grid {
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+	margin-top: 1rem;
+	max-width: 78rem;
+}
+
+.arena-card--link,
+.arena-preset-card,
+.arena-kit-card {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 8px;
+	display: block;
+	padding: 1rem 1.25rem;
+	text-decoration: none;
+	transition: border-color .15s ease-in-out;
+}
+
+.arena-card--link:hover,
+.arena-preset-card:hover,
+.arena-kit-card:hover { border-color: #2271b1; }
+
+.arena-preset-card.is-active { border-color: #2271b1; box-shadow: 0 0 0 1px #2271b1 inset; }
+
+.arena-kit-meta .arena-chip,
+.arena-chip {
+	background: #f0f0f1;
+	border-radius: 999px;
+	display: inline-block;
+	font-size: 11px;
+	margin: 0 .25rem .25rem 0;
+	padding: 2px 8px;
+}
+
+.arena-kit-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .75rem; }
+.arena-kit-actions select { min-width: 9rem; }
+
+.arena-kit-pages ul { list-style: none; margin: .5rem 0 0; padding: 0; }
+.arena-kit-pages li { border-top: 1px solid #f0f0f1; }
+.arena-kit-pages .button-link { width: 100%; text-align: left; }
+
+.arena-kit-progress { margin-top: .75rem; }
+.arena-kit-progress__bar { background: #f0f0f1; border-radius: 999px; height: 8px; overflow: hidden; }
+.arena-kit-progress__fill { background: #2271b1; block-size: 100%; transition: inline-size .3s ease-in-out; }
+.arena-kit-progress__label { font-size: 12px; margin: .35rem 0 0; }
+
+.arena-layout-form fieldset { border: 1px solid #c3c4c7; border-radius: 8px; margin: 1rem 0; max-width: 46rem; padding: 1rem 1.25rem; }
+.arena-layout-form legend { font-weight: 600; padding: 0 .5rem; }
+.arena-layout-form label { display: inline-block; margin: .5rem 1.5rem .5rem 0; }
+.arena-layout-form select, .arena-layout-form input[type="number"], .arena-layout-form input[type="text"] { display: block; margin-top: .25rem; }
+
+.arena-typo-table { max-width: 64rem; }
+.arena-typo-table input, .arena-typo-table select { min-width: 6rem; }
+
+.arena-journal-table { margin-top: 1rem; max-width: 78rem; }
+.arena-journal-table code { display: inline-block; margin-top: .25rem; }
+
+.arena-status { font-weight: 600; margin-inline-start: .75rem; }

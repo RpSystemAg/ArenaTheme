@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" role="img" aria-labelledby="t d" width="1080" height="1080">
+<title id="t">Independent Bookshop — Reserve for pickup</title>
+<desc id="d">Independent Bookshop: The table at the front, curated every Friday</desc>
+<rect width="1080" height="1080" fill="#FFFFFF"/>
+<rect x="0" y="777.6" width="1080" height="302.40000000000003" fill="#1f1f1f" opacity="0.06"/>
+<rect x="86.4" y="712.8000000000001" width="216" height="2" fill="#B45309"/>
+<text x="129.6" y="194.4" font-family="'SF Mono', 'Cascadia Mono', ui-monospace, Menlo, Consolas, monospace" font-size="28" letter-spacing="4" fill="#B45309" text-transform="uppercase">INDEPENDENT BOOKSHOP · FEED</text>
+<text x="129.6" y="453.59999999999997" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="81" font-weight="800" fill="#1f1f1f">The table at the front,</text>
+<text x="129.6" y="541.0799999999999" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="81" font-weight="800" fill="#1f1f1f">curated every Friday</text>
+<text x="129.6" y="648" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="32" fill="#1f1f1f" opacity="0.72">Ready in one click.</text>
+<rect x="129.6" y="842.4" width="420" height="86.4" rx="43.2" fill="#B45309"/>
+<text x="157.6" y="898.56" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="31" font-weight="700" fill="#fff">Reserve for pickup</text>
+<text x="129.6" y="1015.1999999999999" font-family="'SF Mono', 'Cascadia Mono', ui-monospace, Menlo, Consolas, monospace" font-size="21" fill="#1f1f1f" opacity="0.6">arena-commerce · kit/bookshop</text>
+</svg>

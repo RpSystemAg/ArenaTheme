@@ -1,13 +1,16 @@
 /**
- * Arena Commerce — progressive enhancement.
+ * Arena Commerce — global progressive-enhancement core.
  *
  * Rules:
  *   1. Every feature below is optional. Remove this file and the page still
- *      works: carousels scroll natively, marquees stop, reveals never hide.
+ *      works: reveals never hide, dialogs stay closed, the nav never hides.
  *   2. No dependencies, no jQuery, no build step, no framework.
  *   3. Nothing animates when the visitor prefers reduced motion.
- *   4. Configuration is read from a JSON data block, so no inline script and no
- *      wp-i18n payload is needed (CSP friendly).
+ *   4. Configuration is read from a JSON data block, so no inline script and
+ *      no wp-i18n payload is needed (CSP friendly).
+ *   5. Only the core runs everywhere (H45). Carousels/marquees load on demand
+ *      from assets/js/modules/arena-motion.js; commerce, blog, search, mega
+ *      menu and account behaviour live in their own script modules.
  */
 ( function () {
 	'use strict';
@@ -44,6 +47,12 @@
 		}
 	}
 
+	/* Shared API for the script modules (H45). */
+	window.Arena = window.Arena || {};
+	window.Arena.config = config;
+	window.Arena.t = t;
+	window.Arena.announce = announce;
+
 	/* ------------------------------------------------------------- Reveal */
 	function initReveal() {
 		var items = document.querySelectorAll( '[data-arena-reveal]' );
@@ -67,8 +76,8 @@
 		);
 
 		Array.prototype.forEach.call( items, function ( item, index ) {
-			/* H11: sibling stagger of 40-80ms. The index is read from the nearest
-			   [data-arena-stagger] group so every descendant staggers against its
+			/* H11: sibling stagger of 40-80ms, read from the nearest
+			   [data-arena-stagger] group so descendants stagger against their
 			   siblings, not against every reveal on the page. */
 			var group = item.closest ? item.closest( '[data-arena-stagger]' ) : null;
 
@@ -85,162 +94,6 @@
 
 			observer.observe( item );
 		} );
-	}
-
-	/* ------------------------------------------------------------- Marquee */
-	function initMarquee() {
-		var marquees = document.querySelectorAll( '[data-arena-marquee], .arena-marquee__viewport' );
-
-		if ( reduced || ! marquees.length ) {
-			return;
-		}
-
-		Array.prototype.forEach.call( marquees, function ( viewport ) {
-			var track = viewport.querySelector( '.arena-marquee__track' );
-
-			if ( ! track || viewport.dataset.arenaMarqueeCloned ) {
-				return;
-			}
-
-			/* Duplicate the track for a seamless loop, then hide the copy from
-			   assistive technology so screen readers hear each logo once. */
-			var clone = track.cloneNode( true );
-			clone.setAttribute( 'aria-hidden', 'true' );
-			clone.querySelectorAll( 'a' ).forEach( function ( link ) {
-				link.setAttribute( 'tabindex', '-1' );
-			} );
-
-			viewport.appendChild( clone );
-			viewport.dataset.arenaMarqueeCloned = 'true';
-		} );
-	}
-
-	/* ------------------------------------------------------------ Carousel */
-	function initCarousel( root ) {
-		var viewport = root.querySelector( '.arena-carousel__viewport' );
-
-		if ( ! viewport ) {
-			return;
-		}
-
-		var slides = Array.prototype.slice.call( viewport.children );
-
-		if ( slides.length < 2 ) {
-			return;
-		}
-
-		root.setAttribute( 'role', 'group' );
-		root.setAttribute( 'aria-roledescription', 'carousel' );
-
-		if ( ! root.getAttribute( 'aria-label' ) ) {
-			root.setAttribute( 'aria-label', t( 'carousel', 'Carousel' ) );
-		}
-
-		viewport.setAttribute( 'tabindex', '0' );
-
-		var controls = root.querySelector( '.arena-carousel__controls' );
-		var bar = root.querySelector( '.arena-carousel__progress-bar' );
-		var prev = controls ? controls.querySelector( '[data-arena-carousel-prev]' ) : null;
-		var next = controls ? controls.querySelector( '[data-arena-carousel-next]' ) : null;
-
-		function currentIndex() {
-			var closest = 0;
-			var delta = Math.abs( viewport.scrollLeft );
-
-			slides.forEach( function ( slide, index ) {
-				var distance = Math.abs( slide.offsetLeft - viewport.scrollLeft );
-
-				if ( distance < delta ) {
-					delta = distance;
-					closest = index;
-				}
-			} );
-
-			return closest;
-		}
-
-		function sync() {
-			var index = currentIndex();
-			var ratio = viewport.scrollWidth - viewport.clientWidth;
-
-			if ( bar ) {
-				bar.style.inlineSize = ratio > 0
-					? Math.round( ( viewport.scrollLeft / ratio ) * 100 ) + '%'
-					: '100%';
-			}
-
-			if ( prev ) {
-				prev.disabled = viewport.scrollLeft <= 1;
-			}
-
-			if ( next ) {
-				next.disabled = viewport.scrollLeft >= ratio - 1;
-			}
-
-			slides.forEach( function ( slide, position ) {
-				slide.setAttribute( 'aria-hidden', position === index ? 'false' : 'true' );
-			} );
-		}
-
-		function goTo( index ) {
-			var target = slides[ Math.max( 0, Math.min( slides.length - 1, index ) ) ];
-
-			if ( ! target ) {
-				return;
-			}
-
-			viewport.scrollTo( { left: target.offsetLeft, behavior: reduced ? 'auto' : 'smooth' } );
-			announce(
-				t( 'slideStatus', 'Slide %1$s of %2$s' )
-					.replace( '%1$s', String( Math.min( slides.length, index + 1 ) ) )
-					.replace( '%2$s', String( slides.length ) )
-			);
-		}
-
-		if ( prev ) {
-			prev.addEventListener( 'click', function () {
-				goTo( currentIndex() - 1 );
-			} );
-		}
-
-		if ( next ) {
-			next.addEventListener( 'click', function () {
-				goTo( currentIndex() + 1 );
-			} );
-		}
-
-		/* WCAG 2.5.7 — a keyboard alternative to dragging. */
-		viewport.addEventListener( 'keydown', function ( event ) {
-			if ( event.key === 'ArrowRight' ) {
-				event.preventDefault();
-				goTo( currentIndex() + 1 );
-			} else if ( event.key === 'ArrowLeft' ) {
-				event.preventDefault();
-				goTo( currentIndex() - 1 );
-			} else if ( event.key === 'Home' ) {
-				event.preventDefault();
-				goTo( 0 );
-			} else if ( event.key === 'End' ) {
-				event.preventDefault();
-				goTo( slides.length - 1 );
-			}
-		} );
-
-		var ticking = false;
-
-		viewport.addEventListener( 'scroll', function () {
-			if ( ticking ) {
-				return;
-			}
-
-			ticking = true;
-			window.requestAnimationFrame( function () {
-				sync();
-				ticking = false;
-			} );
-		}, { passive: true } );
-
-		sync();
 	}
 
 	/* -------------------------------------------------------------- Dialog */
@@ -297,6 +150,10 @@
 		}
 	}
 
+	/* Exported so the cart drawer, flyout and quick-view modules reuse the
+	   same focus trap instead of shipping their own (H45 decoupling). */
+	window.Arena.dialog = { open: openDialog, close: closeDialog, trap: trapFocus };
+
 	function initDialogs() {
 		var dialogs = document.querySelectorAll( '[data-arena-dialog]' );
 
@@ -323,8 +180,6 @@
 			} );
 		} );
 	}
-
-
 
 	/* --------------------------------------------------- Scroll parallax */
 	function initParallax() {
@@ -425,26 +280,102 @@
 		);
 	}
 
+	/* ------------------------------------------------ Header state (H27) */
+	/* The transparent-over-hero header gains the solid canvas once scrolled;
+	   the sticky variant adds the shadow. Both are transform-free (a class
+	   toggle only), so no layout work happens per frame. */
+	function initHeaderState() {
+		var header = document.querySelector( '.arena-header' );
+
+		if ( ! header ) {
+			return;
+		}
+
+		var ticking = false;
+
+		function update() {
+			header.classList.toggle( 'arena-header--scrolled', window.scrollY > 24 );
+			ticking = false;
+		}
+
+		window.addEventListener(
+			'scroll',
+			function () {
+				if ( ! ticking ) {
+					ticking = true;
+					window.requestAnimationFrame( update );
+				}
+			},
+			{ passive: true }
+		);
+
+		update();
+	}
+
+	/* ------------------------------------------------ Dark mode (H47/H48) */
+	/* The initial scheme is pinned before first paint by the tiny inline
+	   bootstrap printed by Dark_Mode::print_boot_script(); here we only sync
+	   every toggle, persist the choice and keep the OS preference honoured
+	   while the visitor has not chosen yet. */
+	function initThemeToggle() {
+		var root = doc;
+		var buttons = document.querySelectorAll( '[data-arena-theme-toggle]' );
+
+		if ( ! buttons.length ) {
+			return;
+		}
+
+		function apply( scheme ) {
+			root.setAttribute( 'data-theme', scheme );
+
+			try {
+				window.localStorage.setItem( 'arena-theme', scheme );
+			} catch {
+				/* Private mode: the choice lasts for the page view only. */
+			}
+
+			announce( scheme === 'dark' ? t( 'darkModeOn', 'Dark mode on' ) : t( 'darkModeOff', 'Light mode on' ) );
+		}
+
+		function toggle() {
+			apply( root.getAttribute( 'data-theme' ) === 'dark' ? 'light' : 'dark' );
+		}
+
+		Array.prototype.forEach.call( buttons, function ( button ) {
+			button.addEventListener( 'click', toggle );
+		} );
+
+		/* Follow the OS while the visitor has not expressed a choice. */
+		var schemeQuery = window.matchMedia( '(prefers-color-scheme: dark)' );
+
+		function follow( event ) {
+			var stored = null;
+
+			try {
+				stored = window.localStorage.getItem( 'arena-theme' );
+			} catch {
+				stored = null;
+			}
+
+			if ( ! stored ) {
+				root.setAttribute( 'data-theme', event.matches ? 'dark' : 'light' );
+			}
+		}
+
+		if ( schemeQuery.addEventListener ) {
+			schemeQuery.addEventListener( 'change', follow );
+		}
+	}
+
 	/* ----------------------------------------------------------------- FLIP
 	 *
-	 * First-Last-Invert-Play helper. When a container's children are reordered
-	 * (e.g. a sort/filter on a product grid, a tab switch on a testimonial,
-	 * a size-select reflow), calling arenaFlip( container ) measures the
-	 * "first" positions, lets the caller mutate the DOM, then plays a
-	 * transform-only animation from the old geometry to the new. H11: only
-	 * transform/opacity, 200-500ms, spring curve, disabled under reduced
-	 * motion.
-	 *
-	 * Exposed on window.Arena.flip for block/view-script consumption, and
-	 * auto-applied to [data-arena-flip] containers whose children change
-	 * (e.g. when a parent toggles a class that reflows the grid).
+	 * First-Last-Invert-Play helper (H11). Exposed on window.Arena.flip for
+	 * block/view-script consumption: measure "first", mutate the DOM, then
+	 * play a transform-only 200-500ms animation into the new geometry.
+	 * Reduced motion short-circuits to a no-op.
 	 */
 	function initFLIP() {
 		if ( reduced ) {
-			// Still expose window.Arena.flip as a no-op so blocks that call
-			// it don't crash; the no-op return means no transform animation
-			// runs under reduced motion (H12).
-			window.Arena = window.Arena || {};
 			window.Arena.flip = function () {};
 			return;
 		}
@@ -474,8 +405,7 @@
 				first.set( child, measure( child ) );
 			} );
 
-			// Wait one frame so the caller's DOM mutations commit before we
-			// measure "last" and invert.
+			// One frame so the caller's DOM mutations commit before "last".
 			requestAnimationFrame( function () {
 				children.forEach( function ( child ) {
 					var start = first.get( child );
@@ -505,14 +435,10 @@
 					// Force reflow.
 					void child.offsetWidth;
 
-					var duration = parseInt(
-						container.getAttribute( 'data-arena-flip-duration' ) || '360',
-						10
-					);
+					var duration = parseInt( container.getAttribute( 'data-arena-flip-duration' ) || '360', 10 );
 					duration = Math.max( 200, Math.min( 500, duration ) );
 
-					child.style.transition =
-						'transform ' + duration + 'ms cubic-bezier(0.2,0,0,1)';
+					child.style.transition = 'transform ' + duration + 'ms cubic-bezier(0.2,0,0,1)';
 					child.style.transform = '';
 
 					var cleanup = function () {
@@ -526,18 +452,10 @@
 			} );
 		}
 
-		// Observe [data-arena-flip] containers and run FLIP when their
-		// immediate child list changes (reorder/insert/remove).
-		var roots = document.querySelectorAll( '[data-arena-flip]' );
+		// Run FLIP when a [data-arena-flip] container's child list changes.
 		var mo = new MutationObserver( function ( records ) {
 			records.forEach( function ( rec ) {
 				if ( rec.target && rec.target.matches && rec.target.matches( '[data-arena-flip]' ) ) {
-					// The observer fired AFTER the mutation, so call flip
-					// on the next microtask — our flip function re-measures
-					// from current position as "first" of the next flip.
-					// We therefore use a data-arena-flip-pending class set
-					// by the trigger to indicate that we should animate
-					// the current state into the new state.
 					if ( rec.target.classList.contains( 'arena-flip-pending' ) ) {
 						flip( rec.target );
 						rec.target.classList.remove( 'arena-flip-pending' );
@@ -546,17 +464,12 @@
 			} );
 		} );
 
-		Array.prototype.forEach.call( roots, function ( root ) {
+		Array.prototype.forEach.call( document.querySelectorAll( '[data-arena-flip]' ), function ( root ) {
 			mo.observe( root, { childList: true, subtree: false } );
-
-			// Also trigger FLIP on [data-arena-flip-trigger] clicks that
-			// target this root via data-arena-flip-for="id".
 		} );
 
 		document.addEventListener( 'click', function ( event ) {
-			var trigger = event.target && event.target.closest
-				? event.target.closest( '[data-arena-flip-trigger]' )
-				: null;
+			var trigger = event.target && event.target.closest ? event.target.closest( '[data-arena-flip-trigger]' ) : null;
 
 			if ( ! trigger ) {
 				return;
@@ -567,8 +480,6 @@
 
 			if ( root && root.matches( '[data-arena-flip]' ) ) {
 				root.classList.add( 'arena-flip-pending' );
-				// Flip runs on the next mutation; if no mutation (class-only
-				// reorder, e.g. CSS order change), run immediately.
 				setTimeout( function () {
 					if ( root.classList.contains( 'arena-flip-pending' ) ) {
 						flip( root );
@@ -578,8 +489,6 @@
 			}
 		} );
 
-		// Public API for block view scripts.
-		window.Arena = window.Arena || {};
 		window.Arena.flip = flip;
 	}
 
@@ -588,12 +497,10 @@
 		initReveal();
 		initParallax();
 		initBottomNav();
-		initMarquee();
+		initHeaderState();
+		initThemeToggle();
 		initDialogs();
 		initFLIP();
-
-		var carousels = document.querySelectorAll( '[data-arena-carousel], .arena-carousel' );
-		Array.prototype.forEach.call( carousels, initCarousel );
 	}
 
 	/* Keep honouring the OS setting if the visitor changes it mid-session. */

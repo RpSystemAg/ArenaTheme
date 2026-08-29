@@ -1,0 +1,36 @@
+<!-- wp:query {"queryId":1,"query":{"perPage":8,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true},"className":"arena-query arena-loop arena-loop--list","layout":{"type":"constrained"}} -->
+<div class="arena-query arena-loop arena-loop--list wp-block-query">
+	<!-- wp:post-template {"className":"arena-loop__items","layout":{"type":"default"}} -->
+	<!-- wp:group {"className":"arena-loop__item","style":{"spacing":{"blockGap":"var:preset|spacing|60"}},"layout":{"type":"constrained"}} -->
+	<div class="arena-loop__item wp-block-group" data-arena-pattern="loop-list-item" data-arena-module="loop-list-row">
+		<!-- wp:group {"className":"arena-loop__row","style":{"spacing":{"blockGap":"var:preset|spacing|60"}},"layout":{"type":"flex","flexWrap":"wrap","verticalAlignment":"center"}} -->
+		<div class="arena-loop__row wp-block-group">
+			<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"16/9","sizeSlug":"arena-card","className":"arena-loop__media","style":{"layout":{"selfStretch":"fill","flexSize":null}}} /-->
+
+			<!-- wp:group {"className":"arena-loop__body","style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"constrained"}} -->
+			<div class="arena-loop__body wp-block-group">
+				<!-- wp:post-terms {"term":"category","className":"arena-loop__terms","fontSize":"xs","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.08em"}}} /-->
+				<!-- wp:post-title {"level":2,"isLink":true,"className":"arena-loop__title","fontSize":"2xl"} /-->
+				<!-- wp:post-excerpt {"moreText":"Read more","className":"arena-loop__excerpt","fontSize":"sm"} /-->
+				<!-- wp:arena/post-meta /-->
+			</div>
+			<!-- /wp:group -->
+		</div>
+		<!-- /wp:group -->
+	</div>
+	<!-- /wp:group -->
+	<!-- /wp:post-template -->
+
+	<!-- wp:query-pagination {"paginationArrow":"arrow","layout":{"type":"flex","justifyContent":"center"}} -->
+	<!-- wp:query-pagination-previous {"fontSize":"sm"} /-->
+	<!-- wp:query-pagination-numbers {"fontSize":"sm"} /-->
+	<!-- wp:query-pagination-next {"fontSize":"sm"} /-->
+	<!-- /wp:query-pagination -->
+
+	<!-- wp:query-no-results {"className":"arena-no-results"} -->
+	<!-- wp:paragraph -->
+	<p>Nothing found for this view.</p>
+	<!-- /wp:paragraph -->
+	<!-- /wp:query-no-results -->
+</div>
+<!-- /wp:query -->

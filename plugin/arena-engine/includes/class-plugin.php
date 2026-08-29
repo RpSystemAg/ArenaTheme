@@ -51,12 +51,22 @@ final class Plugin {
 			'Arena_Engine\Icons',
 			'Arena_Engine\Blocks',
 			'Arena_Engine\Performance\Optimizer',
+			'Arena_Engine\Performance\Cache_Compat',
 			'Arena_Engine\Accessibility\Enhancer',
 			'Arena_Engine\Commerce\Checkout',
+			'Arena_Engine\Commerce\Compat',
 			'Arena_Engine\Security\Hardening',
 			'Arena_Engine\Abilities\Registry',
 			'Arena_Engine\Admin\Dashboard',
 			'Arena_Engine\Admin\Health',
+			'Arena_Engine\Admin\Menu',
+			'Arena_Engine\Admin\Journal',
+			'Arena_Engine\Admin\Variations',
+			'Arena_Engine\Admin\Meta_Box',
+			'Arena_Engine\Admin\REST_Panel',
+			'Arena_Engine\I18n\Integrations',
+			'Arena_Engine\Kits\REST_Kits',
+			'Arena_Engine\Kits\Importer',
 		);
 	}
 

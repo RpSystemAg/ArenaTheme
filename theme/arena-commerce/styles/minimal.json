@@ -1,0 +1,219 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"title": "Minimal",
+	"description": "Monochrome quiet: one ink, one grey ramp, whisper-small radius.",
+	"settings": {
+		"color": {
+			"palette": [
+				{
+					"slug": "base",
+					"color": "#FFFFFF",
+					"name": "Canvas"
+				},
+				{
+					"slug": "surface",
+					"color": "#F6F6F6",
+					"name": "Surface"
+				},
+				{
+					"slug": "surface-alt",
+					"color": "#EBEBEB",
+					"name": "Surface strong"
+				},
+				{
+					"slug": "foreground",
+					"color": "#111111",
+					"name": "Ink"
+				},
+				{
+					"slug": "muted",
+					"color": "#595959",
+					"name": "Ink muted"
+				},
+				{
+					"slug": "primary",
+					"color": "#1F1F1F",
+					"name": "Primary"
+				},
+				{
+					"slug": "primary-hover",
+					"color": "#000000",
+					"name": "Primary hover"
+				},
+				{
+					"slug": "accent",
+					"color": "#595959",
+					"name": "Accent"
+				},
+				{
+					"slug": "accent-soft",
+					"color": "#EDEDED",
+					"name": "Accent soft"
+				},
+				{
+					"slug": "success",
+					"color": "#15803D",
+					"name": "Success"
+				},
+				{
+					"slug": "warning",
+					"color": "#A16207",
+					"name": "Warning"
+				},
+				{
+					"slug": "danger",
+					"color": "#B91C1C",
+					"name": "Danger"
+				},
+				{
+					"slug": "border-strong",
+					"color": "#595959",
+					"name": "Border strong"
+				},
+				{
+					"slug": "outline",
+					"color": "#DCDCDC",
+					"name": "Border"
+				}
+			]
+		},
+		"typography": {
+			"fontFamilies": [
+				{
+					"fontFamily": "-apple-system, BlinkMacSystemFont, \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif",
+					"name": "Display",
+					"slug": "display"
+				},
+				{
+					"fontFamily": "-apple-system, BlinkMacSystemFont, \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif",
+					"name": "Body",
+					"slug": "body"
+				},
+				{
+					"fontFamily": "ui-monospace, SFMono-Regular, \"SF Mono\", Menlo, Consolas, \"Liberation Mono\", monospace",
+					"name": "Mono",
+					"slug": "mono"
+				}
+			]
+		},
+		"spacing": {
+			"spacingSizes": [
+				{
+					"name": "4xs",
+					"slug": "10",
+					"size": "0.125rem"
+				},
+				{
+					"name": "3xs",
+					"slug": "20",
+					"size": "0.25rem"
+				},
+				{
+					"name": "2xs",
+					"slug": "30",
+					"size": "0.5rem"
+				},
+				{
+					"name": "xs",
+					"slug": "40",
+					"size": "0.75rem"
+				},
+				{
+					"name": "sm",
+					"slug": "50",
+					"size": "1rem"
+				},
+				{
+					"name": "md",
+					"slug": "60",
+					"size": "1.5rem"
+				},
+				{
+					"name": "lg",
+					"slug": "70",
+					"size": "2rem"
+				},
+				{
+					"name": "xl",
+					"slug": "80",
+					"size": "3rem"
+				},
+				{
+					"name": "2xl",
+					"slug": "90",
+					"size": "4rem"
+				},
+				{
+					"name": "3xl",
+					"slug": "100",
+					"size": "6rem"
+				},
+				{
+					"name": "4xl",
+					"slug": "110",
+					"size": "8rem"
+				}
+			]
+		},
+		"custom": {
+			"radius": {
+				"none": "0",
+				"sm": "2px",
+				"md": "4px",
+				"lg": "6px",
+				"xl": "8px",
+				"full": "999px"
+			}
+		}
+	},
+	"styles": {
+		"typography": {
+			"fontFamily": "var(--wp--preset--font-family--body)"
+		},
+		"elements": {
+			"h1": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--display)",
+					"fontWeight": "600"
+				}
+			},
+			"h2": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--display)",
+					"fontWeight": "600"
+				}
+			},
+			"h3": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--display)",
+					"fontWeight": "600"
+				}
+			},
+			"h4": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--display)",
+					"fontWeight": "600"
+				}
+			},
+			"h5": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--display)",
+					"fontWeight": "600"
+				}
+			},
+			"h6": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--display)",
+					"fontWeight": "600"
+				}
+			},
+			"heading": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--display)",
+					"fontWeight": "600"
+				}
+			}
+		}
+	}
+}

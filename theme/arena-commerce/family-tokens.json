@@ -1,188 +1,324 @@
 {
-  "$schema": "https://arena.prime/family-tokens.schema.json",
-  "version": "2.0.0",
-  "description": "Per-family design tokens for the Arena Prime 12-family pattern system (H15). Every family declares at least 5 type levels, a palette with base+accent+neutrals, a grid token, and a photographic voice. These tokens map to CSS custom properties in arena.css.",
-  "families": {
-    "Hero": {
-      "type": {
-        "levels": ["eyebrow", "h1-display", "h2-hero", "body-lead", "body-meta", "cta"],
-        "primary": "var(--wp--preset--font-size--6xl)"
-      },
-      "palette": {
-        "base": "var(--wp--preset--color--base)",
-        "ink": "var(--wp--preset--color--foreground)",
-        "muted": "var(--wp--preset--color--muted)",
-        "accent": "var(--wp--preset--color--primary)",
-        "accent-soft": "var(--wp--preset--color--surface)"
-      },
-      "grid": "clamp(1rem,5vw,3rem) outer / 77.5rem wide / 46rem content",
-      "photoVoice": "hero product/environment in natural light; 3/4 or 16/9; scrim for legibility"
-    },
-    "Trust": {
-      "type": {
-        "levels": ["eyebrow", "h2-section", "h3-cell", "stat-number", "body", "note"],
-        "primary": "var(--wp--preset--font-size--4xl)"
-      },
-      "palette": {
-        "base": "var(--wp--preset--color--surface)",
-        "ink": "var(--wp--preset--color--foreground)",
-        "muted": "var(--wp--preset--color--muted)",
-        "accent": "var(--wp--preset--color--success)",
-        "accent-soft": "var(--wp--preset--color--base)"
-      },
-      "grid": "4-col equal with 1px hairlines on surface",
-      "photoVoice": "workshop/repair macro; no lifestyle; 1/1 square; neutral background"
-    },
-    "Product": {
-      "type": {
-        "levels": ["eyebrow", "h2-section", "h3-card", "price", "sku-meta", "cta"],
-        "primary": "var(--wp--preset--font-size--4xl)"
-      },
-      "palette": {
-        "base": "var(--wp--preset--color--base)",
-        "ink": "var(--wp--preset--color--foreground)",
-        "muted": "var(--wp--preset--color--muted)",
-        "accent": "var(--wp--preset--color--primary)",
-        "accent-soft": "var(--wp--preset--color--surface)"
-      },
-      "grid": "4-up query loop with 4/5 media ratio on cards; sticky 55/45 for podium",
-      "photoVoice": "product-on-stone, flat and even light; 4/5; no model (card), hero ratio on podium"
-    },
-    "Editorial": {
-      "type": {
-        "levels": ["eyebrow", "h2-section", "h3-bento", "h3-feature", "stat-number", "body-lead", "body"],
-        "primary": "var(--wp--preset--font-size--4xl)"
-      },
-      "palette": {
-        "base": "var(--wp--preset--color--base)",
-        "ink": "var(--wp--preset--color--foreground)",
-        "muted": "var(--wp--preset--color--muted)",
-        "accent": "var(--wp--preset--color--primary)",
-        "accent-soft": "var(--wp--preset--color--surface)",
-        "ink-invert": "var(--wp--preset--color--base)"
-      },
-      "grid": "asymmetric bento: 58/42 + 3 equal tiles; pinned chapter rail",
-      "photoVoice": "landscape detail shots (fabric, stitch, weather); natural grain; no faces"
-    },
-    "Social": {
-      "type": {
-        "levels": ["eyebrow", "h2-section", "h3-quote", "quote-body", "cite", "stars", "meter"],
-        "primary": "var(--wp--preset--font-size--4xl)"
-      },
-      "palette": {
-        "base": "var(--wp--preset--color--base)",
-        "ink": "var(--wp--preset--color--foreground)",
-        "muted": "var(--wp--preset--color--muted)",
-        "accent": "var(--wp--preset--color--accent)",
-        "accent-soft": "var(--wp--preset--color--accent-soft)"
-      },
-      "grid": "horizontal snap for quotes; 3-col review grid; 45/55 split for meters",
-      "photoVoice": "portraits 3/4, natural light; stars/distribution bars as graphic"
-    },
-    "Conversion": {
-      "type": {
-        "levels": ["sticker", "h2-section", "h1-display", "body-lead", "countdown-unit", "cta"],
-        "primary": "var(--wp--preset--font-size--5xl)"
-      },
-      "palette": {
-        "base": "var(--wp--preset--color--foreground)",
-        "ink": "var(--wp--preset--color--base)",
-        "muted": "var(--wp--preset--color--surface)",
-        "accent": "var(--wp--preset--color--accent)",
-        "accent-soft": "var(--wp--preset--color--accent-soft)"
-      },
-      "grid": "flex wrap space-between for band; 50/50 countdown split; scrim cover for hero CTAs",
-      "photoVoice": "high-contrast, urgency cues (sticker/dot); minimal imagery; scrim legibility"
-    },
-    "Support": {
-      "type": {
-        "levels": ["eyebrow", "h2-section", "h3-tile", "step-number", "body", "form-label", "cta"],
-        "primary": "var(--wp--preset--font-size--4xl)"
-      },
-      "palette": {
-        "base": "var(--wp--preset--color--base)",
-        "ink": "var(--wp--preset--color--foreground)",
-        "muted": "var(--wp--preset--color--muted)",
-        "accent": "var(--wp--preset--color--primary)",
-        "accent-soft": "var(--wp--preset--color--surface)"
-      },
-      "grid": "single-column constrained OL; 3-col tile grid; 38/62 contact split",
-      "photoVoice": "no photography; iconography and form fields dominate"
-    },
-    "Discovery": {
-      "type": {
-        "levels": ["eyebrow", "h2-section", "h3-letter", "nav-label", "logo", "breadcrumb"],
-        "primary": "var(--wp--preset--font-size--4xl)"
-      },
-      "palette": {
-        "base": "var(--wp--preset--color--surface)",
-        "ink": "var(--wp--preset--color--foreground)",
-        "muted": "var(--wp--preset--color--muted)",
-        "accent": "var(--wp--preset--color--primary)",
-        "accent-soft": "var(--wp--preset--color--base)"
-      },
-      "grid": "A-Z index with letter rail; 4-equal category covers; horizontal breadcrumb rail",
-      "photoVoice": "logos (monochrome); category cover tiles with flat product; no models"
-    },
-    "Newsletter": {
-      "type": {
-        "levels": ["eyebrow", "h2-section", "h1-cover", "h3-card", "body-lead", "form-label", "check", "cta"],
-        "primary": "var(--wp--preset--font-size--4xl)"
-      },
-      "palette": {
-        "base": "var(--wp--preset--color--base)",
-        "ink": "var(--wp--preset--color--foreground)",
-        "muted": "var(--wp--preset--color--muted)",
-        "accent": "var(--wp--preset--color--accent)",
-        "accent-soft": "var(--wp--preset--color--accent-soft)"
-      },
-      "grid": "single-column constrained form; cover-form full-bleed; 3-card benefit grid",
-      "photoVoice": "no photography for form; cover uses soft gradient; confirmation uses check icon only"
-    },
-    "Gallery": {
-      "type": {
-        "levels": ["eyebrow", "h2-section", "caption", "thumb-label", "control", "compare-handle"],
-        "primary": "var(--wp--preset--font-size--4xl)"
-      },
-      "palette": {
-        "base": "var(--wp--preset--color--base)",
-        "ink": "var(--wp--preset--color--foreground)",
-        "muted": "var(--wp--preset--color--muted)",
-        "accent": "var(--wp--preset--color--primary)",
-        "accent-soft": "var(--wp--preset--color--surface)"
-      },
-      "grid": "3 staggered masonry columns; horizontal snap rail; 50/50 compare; hero + thumb strip",
-      "photoVoice": "photography-first; high-resolution product/environment; aspect ratios explicit"
-    },
-    "Checkout": {
-      "type": {
-        "levels": ["eyebrow", "h2-section", "h3-line", "price", "table-row", "icon-cell", "order-number", "cta"],
-        "primary": "var(--wp--preset--font-size--4xl)"
-      },
-      "palette": {
-        "base": "var(--wp--preset--color--base)",
-        "ink": "var(--wp--preset--color--foreground)",
-        "muted": "var(--wp--preset--color--muted)",
-        "accent": "var(--wp--preset--color--success)",
-        "accent-soft": "var(--wp--preset--color--surface)"
-      },
-      "grid": "58/42 lines+totals split; 3-col icon reassurance; single-column cost table",
-      "photoVoice": "no photography; icons and structured data dominate"
-    },
-    "Service": {
-      "type": {
-        "levels": ["eyebrow", "h2-section", "h3-tier", "price-tier", "panel-number", "step", "chip", "body", "cta"],
-        "primary": "var(--wp--preset--font-size--4xl)"
-      },
-      "palette": {
-        "base": "var(--wp--preset--color--base)",
-        "ink": "var(--wp--preset--color--foreground)",
-        "muted": "var(--wp--preset--color--muted)",
-        "accent": "var(--wp--preset--color--primary)",
-        "accent-soft": "var(--wp--preset--color--surface)"
-      },
-      "grid": "3-tier pricing columns; 44/56 panel split; 50/50 steps+media; single-column status chip",
-      "photoVoice": "courier/workshop documentary; panel and tier iconography; light neutral background"
-    }
-  }
+	"$schema": "https://arena.prime/family-tokens.schema.json",
+	"version": "2.0.0",
+	"description": "Per-family design tokens for the Arena Prime 12-family pattern system (H15). Every family declares at least 5 type levels, a palette with base+accent+neutrals, a grid token, and a photographic voice. These tokens map to CSS custom properties in arena.css.",
+	"families": {
+		"Hero": {
+			"type": {
+				"levels": [
+					"eyebrow",
+					"h1-display",
+					"h2-hero",
+					"body-lead",
+					"body-meta",
+					"cta"
+				],
+				"primary": "var(--wp--preset--font-size--6xl)"
+			},
+			"palette": {
+				"base": "var(--wp--preset--color--base)",
+				"ink": "var(--wp--preset--color--foreground)",
+				"muted": "var(--wp--preset--color--muted)",
+				"accent": "var(--wp--preset--color--primary)",
+				"accent-soft": "var(--wp--preset--color--surface)"
+			},
+			"grid": "clamp(1rem,5vw,3rem) outer / 77.5rem wide / 46rem content",
+			"photoVoice": "hero product/environment in natural light; 3/4 or 16/9; scrim for legibility"
+		},
+		"Trust": {
+			"type": {
+				"levels": [
+					"eyebrow",
+					"h2-section",
+					"h3-cell",
+					"stat-number",
+					"body",
+					"note"
+				],
+				"primary": "var(--wp--preset--font-size--4xl)"
+			},
+			"palette": {
+				"base": "var(--wp--preset--color--surface)",
+				"ink": "var(--wp--preset--color--foreground)",
+				"muted": "var(--wp--preset--color--muted)",
+				"accent": "var(--wp--preset--color--success)",
+				"accent-soft": "var(--wp--preset--color--base)"
+			},
+			"grid": "4-col equal with 1px hairlines on surface",
+			"photoVoice": "workshop/repair macro; no lifestyle; 1/1 square; neutral background"
+		},
+		"Product": {
+			"type": {
+				"levels": [
+					"eyebrow",
+					"h2-section",
+					"h3-card",
+					"price",
+					"sku-meta",
+					"cta"
+				],
+				"primary": "var(--wp--preset--font-size--4xl)"
+			},
+			"palette": {
+				"base": "var(--wp--preset--color--base)",
+				"ink": "var(--wp--preset--color--foreground)",
+				"muted": "var(--wp--preset--color--muted)",
+				"accent": "var(--wp--preset--color--primary)",
+				"accent-soft": "var(--wp--preset--color--surface)"
+			},
+			"grid": "4-up query loop with 4/5 media ratio on cards; sticky 55/45 for podium",
+			"photoVoice": "product-on-stone, flat and even light; 4/5; no model (card), hero ratio on podium"
+		},
+		"Editorial": {
+			"type": {
+				"levels": [
+					"eyebrow",
+					"h2-section",
+					"h3-bento",
+					"h3-feature",
+					"stat-number",
+					"body-lead",
+					"body"
+				],
+				"primary": "var(--wp--preset--font-size--4xl)"
+			},
+			"palette": {
+				"base": "var(--wp--preset--color--base)",
+				"ink": "var(--wp--preset--color--foreground)",
+				"muted": "var(--wp--preset--color--muted)",
+				"accent": "var(--wp--preset--color--primary)",
+				"accent-soft": "var(--wp--preset--color--surface)",
+				"ink-invert": "var(--wp--preset--color--base)"
+			},
+			"grid": "asymmetric bento: 58/42 + 3 equal tiles; pinned chapter rail",
+			"photoVoice": "landscape detail shots (fabric, stitch, weather); natural grain; no faces"
+		},
+		"Social": {
+			"type": {
+				"levels": [
+					"eyebrow",
+					"h2-section",
+					"h3-quote",
+					"quote-body",
+					"cite",
+					"stars",
+					"meter"
+				],
+				"primary": "var(--wp--preset--font-size--4xl)"
+			},
+			"palette": {
+				"base": "var(--wp--preset--color--base)",
+				"ink": "var(--wp--preset--color--foreground)",
+				"muted": "var(--wp--preset--color--muted)",
+				"accent": "var(--wp--preset--color--accent)",
+				"accent-soft": "var(--wp--preset--color--accent-soft)"
+			},
+			"grid": "horizontal snap for quotes; 3-col review grid; 45/55 split for meters",
+			"photoVoice": "portraits 3/4, natural light; stars/distribution bars as graphic"
+		},
+		"Conversion": {
+			"type": {
+				"levels": [
+					"sticker",
+					"h2-section",
+					"h1-display",
+					"body-lead",
+					"countdown-unit",
+					"cta"
+				],
+				"primary": "var(--wp--preset--font-size--5xl)"
+			},
+			"palette": {
+				"base": "var(--wp--preset--color--foreground)",
+				"ink": "var(--wp--preset--color--base)",
+				"muted": "var(--wp--preset--color--surface)",
+				"accent": "var(--wp--preset--color--accent)",
+				"accent-soft": "var(--wp--preset--color--accent-soft)"
+			},
+			"grid": "flex wrap space-between for band; 50/50 countdown split; scrim cover for hero CTAs",
+			"photoVoice": "high-contrast, urgency cues (sticker/dot); minimal imagery; scrim legibility"
+		},
+		"Support": {
+			"type": {
+				"levels": [
+					"eyebrow",
+					"h2-section",
+					"h3-tile",
+					"step-number",
+					"body",
+					"form-label",
+					"cta"
+				],
+				"primary": "var(--wp--preset--font-size--4xl)"
+			},
+			"palette": {
+				"base": "var(--wp--preset--color--base)",
+				"ink": "var(--wp--preset--color--foreground)",
+				"muted": "var(--wp--preset--color--muted)",
+				"accent": "var(--wp--preset--color--primary)",
+				"accent-soft": "var(--wp--preset--color--surface)"
+			},
+			"grid": "single-column constrained OL; 3-col tile grid; 38/62 contact split",
+			"photoVoice": "no photography; iconography and form fields dominate"
+		},
+		"Discovery": {
+			"type": {
+				"levels": [
+					"eyebrow",
+					"h2-section",
+					"h3-letter",
+					"nav-label",
+					"logo",
+					"breadcrumb"
+				],
+				"primary": "var(--wp--preset--font-size--4xl)"
+			},
+			"palette": {
+				"base": "var(--wp--preset--color--surface)",
+				"ink": "var(--wp--preset--color--foreground)",
+				"muted": "var(--wp--preset--color--muted)",
+				"accent": "var(--wp--preset--color--primary)",
+				"accent-soft": "var(--wp--preset--color--base)"
+			},
+			"grid": "A-Z index with letter rail; 4-equal category covers; horizontal breadcrumb rail",
+			"photoVoice": "logos (monochrome); category cover tiles with flat product; no models"
+		},
+		"Newsletter": {
+			"type": {
+				"levels": [
+					"eyebrow",
+					"h2-section",
+					"h1-cover",
+					"h3-card",
+					"body-lead",
+					"form-label",
+					"check",
+					"cta"
+				],
+				"primary": "var(--wp--preset--font-size--4xl)"
+			},
+			"palette": {
+				"base": "var(--wp--preset--color--base)",
+				"ink": "var(--wp--preset--color--foreground)",
+				"muted": "var(--wp--preset--color--muted)",
+				"accent": "var(--wp--preset--color--accent)",
+				"accent-soft": "var(--wp--preset--color--accent-soft)"
+			},
+			"grid": "single-column constrained form; cover-form full-bleed; 3-card benefit grid",
+			"photoVoice": "no photography for form; cover uses soft gradient; confirmation uses check icon only"
+		},
+		"Gallery": {
+			"type": {
+				"levels": [
+					"eyebrow",
+					"h2-section",
+					"caption",
+					"thumb-label",
+					"control",
+					"compare-handle"
+				],
+				"primary": "var(--wp--preset--font-size--4xl)"
+			},
+			"palette": {
+				"base": "var(--wp--preset--color--base)",
+				"ink": "var(--wp--preset--color--foreground)",
+				"muted": "var(--wp--preset--color--muted)",
+				"accent": "var(--wp--preset--color--primary)",
+				"accent-soft": "var(--wp--preset--color--surface)"
+			},
+			"grid": "3 staggered masonry columns; horizontal snap rail; 50/50 compare; hero + thumb strip",
+			"photoVoice": "photography-first; high-resolution product/environment; aspect ratios explicit"
+		},
+		"Checkout": {
+			"type": {
+				"levels": [
+					"eyebrow",
+					"h2-section",
+					"h3-line",
+					"price",
+					"table-row",
+					"icon-cell",
+					"order-number",
+					"cta"
+				],
+				"primary": "var(--wp--preset--font-size--4xl)"
+			},
+			"palette": {
+				"base": "var(--wp--preset--color--base)",
+				"ink": "var(--wp--preset--color--foreground)",
+				"muted": "var(--wp--preset--color--muted)",
+				"accent": "var(--wp--preset--color--success)",
+				"accent-soft": "var(--wp--preset--color--surface)"
+			},
+			"grid": "58/42 lines+totals split; 3-col icon reassurance; single-column cost table",
+			"photoVoice": "no photography; icons and structured data dominate"
+		},
+		"Service": {
+			"type": {
+				"levels": [
+					"eyebrow",
+					"h2-section",
+					"h3-tier",
+					"price-tier",
+					"panel-number",
+					"step",
+					"chip",
+					"body",
+					"cta"
+				],
+				"primary": "var(--wp--preset--font-size--4xl)"
+			},
+			"palette": {
+				"base": "var(--wp--preset--color--base)",
+				"ink": "var(--wp--preset--color--foreground)",
+				"muted": "var(--wp--preset--color--muted)",
+				"accent": "var(--wp--preset--color--primary)",
+				"accent-soft": "var(--wp--preset--color--surface)"
+			},
+			"grid": "3-tier pricing columns; 44/56 panel split; 50/50 steps+media; single-column status chip",
+			"photoVoice": "courier/workshop documentary; panel and tier iconography; light neutral background"
+		},
+		"Blog": {
+			"type": {
+				"levels": [
+					"h2-section",
+					"post-title",
+					"body-read",
+					"meta-line",
+					"caption"
+				],
+				"primary": "var(--wp--preset--font-size--3xl)"
+			},
+			"palette": {
+				"base": "var(--wp--preset--color--base)",
+				"ink": "var(--wp--preset--color--foreground)",
+				"muted": "var(--wp--preset--color--muted)",
+				"accent": "var(--wp--preset--color--primary)",
+				"accent-soft": "var(--wp--preset--color--surface)"
+			},
+			"grid": "single reading column 46rem; optional sidebar 34/66; related 3-col below; author box as inset panel",
+			"photoVoice": "featured 16/9; gallery 1/1 grid; quiet captions, no scrim"
+		},
+		"Footer": {
+			"type": {
+				"levels": [
+					"footer-brand",
+					"footer-heading",
+					"footer-link",
+					"body-link",
+					"caption-legal"
+				],
+				"primary": "var(--wp--preset--font-size--lg)"
+			},
+			"palette": {
+				"base": "var(--wp--preset--color--foreground)",
+				"ink": "var(--wp--preset--color--base)",
+				"muted": "var(--wp--preset--color--muted)",
+				"accent": "var(--wp--preset--color--accent)",
+				"accent-soft": "var(--wp--preset--color--surface)"
+			},
+			"grid": "3/4/5 zone columns on 77.5rem; legal bar full-width below; 44px link targets",
+			"photoVoice": "no photography: typographic zones, logo mark optional"
+		}
+	}
 }

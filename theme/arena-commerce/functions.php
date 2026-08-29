@@ -12,7 +12,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /** Theme version, used to cache-bust every enqueued asset. */
-define( 'ARENA_THEME_VERSION', '1.0.0' );
+define( 'ARENA_THEME_VERSION', '1.1.0' );
 
 /** Lowest WordPress release supported. Mirrors style.css "Requires at least". */
 define( 'ARENA_THEME_MIN_WP', '7.0' );
@@ -88,7 +88,11 @@ add_action(
 			'Arena_Theme\Accessibility'
 		);
 
-		arena_theme_boot( 'Arena_Theme\Bottom_Nav' );
+		arena_theme_boot(
+			'Arena_Theme\Bottom_Nav',
+			'Arena_Theme\Dark_Mode',
+			'Arena_Theme\Header'
+		);
 	},
 	5
 );
@@ -96,9 +100,25 @@ add_action(
 add_action(
 	'init',
 	static function () {
-		arena_theme_boot( 'Arena_Theme\Performance', 'Arena_Theme\WooCommerce' );
+		arena_theme_boot(
+			'Arena_Theme\Performance',
+			'Arena_Theme\WooCommerce',
+			'Arena_Theme\Blog',
+			'Arena_Theme\Schema',
+			'Arena_Theme\Mega_Menu',
+			'Arena_Theme\Header_Slots',
+			'Arena_Theme\Page_Options'
+		);
 	},
 	5
+);
+
+add_action(
+	'wp_footer',
+	static function () {
+		arena_theme_boot( 'Arena_Theme\Cart' );
+	},
+	90
 );
 
 add_action(

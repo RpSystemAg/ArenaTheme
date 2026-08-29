@@ -10,7 +10,7 @@
 	<div class="arena-product__hero wp-block-columns">
 		<!-- wp:column {"width":"55%","className":"arena-product__gallery"} -->
 		<div class="arena-product__gallery wp-block-column" style="flex-basis:55%">
-			<!-- wp:woocommerce/product-image {"showSaleBadge":true,"saleBadgeAlign":"left","isDescendentOfSingleProductTemplate":true,"aspectRatio":"4/5","sizeSlug":"arena-card-lg","className":"arena-product__image"} /-->
+			<!-- wp:arena/product-gallery /-->
 		</div>
 		<!-- /wp:column -->
 
@@ -70,6 +70,15 @@
 	<!-- /wp:group -->
 	<!-- /wp:woocommerce/product-template -->
 	<!-- /wp:woocommerce/related-products -->
+
+	<!-- wp:group {"className":"arena-product__upsell","style":{"spacing":{"padding":{"top":"var:preset|spacing|80"}}},"layout":{"type":"constrained"}} -->
+	<div class="arena-product__upsell wp-block-group" style="padding-top:var(--wp--preset--spacing--80)">
+		<!-- wp:heading {"level":2,"className":"arena-product__upsell-title","fontSize":"3xl"} -->
+		<h2 class="arena-product__upsell-title has-3xl-font-size wp-block-heading">Complete the kit</h2>
+		<!-- /wp:heading -->
+		<!-- wp:pattern {"slug":"arena-commerce/product-editorial-grid"} /-->
+	</div>
+	<!-- /wp:group -->
 </main>
 <!-- /wp:group -->
 

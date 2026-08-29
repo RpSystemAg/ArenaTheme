@@ -1,0 +1,39 @@
+
+<!-- wp:group {"tagName":"main","align":"full","layout":{"type":"constrained"}} -->
+<main class="wp-block-group alignfull" data-arena-pattern="kit-bookshop-home">
+<!-- wp:columns {"align":"wide"} -->
+<div class="wp-block-columns alignwide">
+<!-- wp:column {"width":"40%"} -->
+<div class="wp-block-column" style="flex-basis:40%">
+<!-- wp:image {"aspectRatio":"2/3","scale":"cover","style":{"border":{"radius":"8px"}}} -->
+<figure class="wp-block-image" style="border-radius:8px"><img src="{{t:home.image}}" alt="{{t:home.imageAlt}}" style="aspect-ratio:2/3;object-fit:cover"/></figure>
+<!-- /wp:image -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column {"width":"60%"} -->
+<div class="wp-block-column" style="flex-basis:60%">
+<!-- wp:paragraph {"fontSize":"caption","style":{"typography":{"textTransform":"uppercase"}}} -->
+<p class="has-caption-font-size">{{t:home.eyebrow}}</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading {"level":1,"fontSize":"display"} -->
+<h1 class="wp-block-heading has-display-font-size">{{t:home.title}}</h1>
+<!-- /wp:heading -->
+<!-- wp:paragraph {"fontSize":"lg"} -->
+<p class="has-lg-font-size">{{t:home.copy}}</p>
+<!-- /wp:paragraph -->
+<!-- wp:quote {"className":"is-style-plain"} -->
+<blockquote class="wp-block-quote is-style-plain"><p>{{t:home.quote}}</p><cite>{{t:home.quoteCite}}</cite></blockquote>
+<!-- /wp:quote -->
+<!-- wp:buttons -->
+<div class="wp-block-buttons"><!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="{{t:link.collection}}">{{t:home.cta}}</a></div><!-- /wp:button --></div>
+<!-- /wp:buttons -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+{{pattern:case-study-quote}}
+{{pattern:product-editorial-grid}}
+{{pattern:quick-links-list}}
+</main>
+<!-- /wp:group -->
+
