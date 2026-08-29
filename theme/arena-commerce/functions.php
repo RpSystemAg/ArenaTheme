@@ -87,6 +87,8 @@ add_action(
 			'Arena_Theme\Block_Patterns',
 			'Arena_Theme\Accessibility'
 		);
+
+		arena_theme_boot( 'Arena_Theme\Bottom_Nav' );
 	},
 	5
 );

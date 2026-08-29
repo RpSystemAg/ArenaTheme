@@ -5,6 +5,7 @@
 	"description": "Quality gate tooling for the Arena Commerce WordPress stack.",
 	"scripts": {
 		"lint:js": "eslint .",
+		"test:anti-clone": "node tests/anti-clone.mjs",
 		"test:e2e": "playwright test",
 		"wp-env": "wp-env"
 	},

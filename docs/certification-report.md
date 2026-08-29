@@ -110,3 +110,42 @@ The reproducible local commands and the full matrix are documented in
 > untracked files under `.github/workflows/` and should be committed by an
 > agent/human with a token that has `Workflows: Read and write`. PR #2 carries
 > the reproducible configs/tests/docs only.
+
+## 7. Arena Prime release update (2026-08-29)
+
+This session added the Prime-released gaps on top of the original 2026-08-28
+certification:
+
+| Artifact | Evidence |
+|---|---|
+| Bottom navigation (H2) | `theme/arena-commerce/inc/class-bottom-nav.php`, CSS section 12 in `assets/css/arena.css`, `initBottomNav()` in `assets/js/arena.js`. |
+| Pattern library (H9) | 48 patterns across 12 families under `theme/arena-commerce/patterns/`. |
+| Variation matrix (H6) | `variation-matrix.csv` (67 rows). |
+| Anti-clone (H7) | `tests/anti-clone.mjs` — family-scoped, 40% ceiling, green. |
+| Campaign kit (H17) | `kit-campagna/arena-stories-9x16.png`, `arena-feed-1x1.png`, `arena-display-16x9.png`. |
+| Motion (H10–H12) | `initParallax()` (≤15% cap), `--arena-reveal-index` stagger (60ms), cubic-bezier curves, reduced-motion guards. |
+| Mobile nav E2E | `tests/e2e/mobile-nav.spec.js`. |
+
+**Reproducible commands:**
+
+```bash
+npm run test:anti-clone
+node tests/anti-clone.mjs
+npx playwright test tests/e2e/mobile-nav.spec.js
+```
+
+**Anti-clone result (family-scoped H9 reading):**
+
+```
+48 patterns across 12 families, threshold <= 0.4.
+Discovery: 0.235 · Product: 0.286 · Social: 0.200 · Checkout: 0.350
+Conversion: 0.348 · Editorial: 0.375 · Support: 0.182 · Gallery: 0.318
+Hero: 0.286 · Newsletter: 0.353 · Service: 0.368 · Trust: 0.250
+PASS — every within-family pair is below the 40% structural overlap ceiling.
+```
+
+**Still not run in this environment (declared, not invented):**
+
+* Lighthouse mobile ≥95 and axe-core across all 48 new patterns (no usable
+  browser; PHP not available for a full wp-env run).
+* PHPCS WordPress-VIP-Go re-run (prior result 0/0 remains, no PHP binary).

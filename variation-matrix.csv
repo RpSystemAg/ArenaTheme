@@ -1,0 +1,68 @@
+artifact_type,artifact,family,layout_grid,scroll_axis,visual_hierarchy,interactive_module,density
+pattern,hero-commerce,Hero,full split 58/42,vertical,image → headline → CTA,buttons,high
+pattern,hero-media-text,Hero,asymmetric media-right 58/42,vertical,eyebrow → headline → price → CTA,buttons + price,medium
+pattern,hero-cover-short,Hero,full-bleed centered,vertical,headline alone,single button,low
+pattern,hero-stack-copy,Hero,single column constrained,vertical,eyebrow → headline → claim list → CTA,list + buttons,medium-high
+pattern,trust-bar,Trust,4-equal columns,vertical,promise → proof,none,medium
+pattern,trust-stats,Trust,3-equal columns dark,vertical,number → caption,separator,medium-high
+pattern,trust-guarantee,Trust,media-left 45/55,vertical,headline → paragraph → note → CTA,buttons,medium
+pattern,trust-check-list,Trust,split 55/45 + cover,vertical,"headline → checklist, panel → CTA",list + button,medium-high
+pattern,product-grid,Product,query loop 4-up,vertical,title → cards → price,query + add-to-cart,high
+pattern,carousel-showcase,Product,horizontal snap rail,horizontal,eyebrow → headline → cards → progress,carousel controls,medium
+pattern,product-feature-podium,Product,sticky media 55/45,vertical,product → price → sizes → CTA,size nav + button,high
+pattern,product-editorial-grid,Product,mixed 58/42 vertical stack,vertical,headline → hero item → supporting cuts,link cards,medium-high
+pattern,feature-bento,Editorial,asymmetric bento grid,vertical,headline → feature tiles,links,high
+pattern,sticky-scroll-story,Editorial,pinned left + chapters,vertical,chapter number → heading → copy,none,medium
+pattern,editorial-timeline,Editorial,single column + separators,vertical,label → headline → years → closing note,none,medium-high
+pattern,editorial-quote-strip,Editorial,full-bleed centered quote,vertical,quote alone,none,low
+pattern,testimonials-scroller,Social,horizontal snap quotes,horizontal,headline → quotes → controls,carousel controls,medium
+pattern,social-proof-meters,Social,split 45/55 score + bars,vertical,score → distribution,meter bars,medium-high
+pattern,reviews-compact,Social,3-equal quote columns,vertical,stars → quote → name,quote cards,medium
+pattern,case-study-quote,Social,media-right 58/42,vertical,label → pull line → supporting copy → CTA,buttons,medium
+pattern,cta-banner,Conversion,full-bleed centered cover,vertical,headline → CTA,single button,low
+pattern,cta-split-panel,Conversion,split 55/45 image-right,vertical,promise → headline → CTA,image + button,medium
+pattern,cta-inline-band,Conversion,single horizontal row,none,headline → action,single nav link,low
+pattern,cta-countdown,Conversion,split 50/50 copy + countdown,vertical,headline → timing units → CTA,list + button,medium-high
+pattern,faq-accordion,Support,single column accordion,vertical,question → answer,accordion,medium-high
+pattern,support-tiles,Support,3-equal cards,vertical,title → description → CTA,card buttons,medium-high
+pattern,support-steps,Support,single column numbered,vertical,headline → steps → CTA,list + button,medium
+pattern,help-contact-split,Support,split 38/62 links + form,vertical,"title → links, form",form + nav,high
+pattern,marquee-logos,Discovery,horizontal marquee track,horizontal,logos only,marquee pause,low
+pattern,category-tiles,Discovery,4-equal cover tiles,vertical,headline → category,whole-tile cover,medium-high
+pattern,quick-links-list,Discovery,2-column nav list,vertical,headline → links,nav,medium
+pattern,breadcrumb-map,Discovery,path strip + horizontal image rail,horizontal,path → destination images,snap rail,medium
+pattern,newsletter-signup,Newsletter,single column form,vertical,headline → fields → CTA,form + consent,medium-high
+pattern,newsletter-hero,Newsletter,full-bleed centered form,vertical,headline → form,form,medium
+pattern,newsletter-cards,Newsletter,3 cards + action,vertical,headline → benefit cards → CTA,card buttons,medium-high
+pattern,newsletter-confirm,Newsletter,centered low-density card,vertical,check → headline → paragraph → CTA,single button,low
+pattern,gallery-masonry,Gallery,3 staggered image columns,vertical,headline → photos,none,high
+pattern,gallery-snap,Gallery,horizontal image rail,horizontal,headline → photos → controls,carousel controls,medium
+pattern,gallery-compare,Gallery,2-equal before/after + rail,vertical,headline → before/after → caption,draggable rail,medium
+pattern,gallery-360,Gallery,hero + thumbnail nav,vertical,hero image → thumbs → action,thumb nav + button,medium-high
+pattern,checkout-summary,Checkout,split 58/42 lines + totals,vertical,headline → lines → totals → CTA,list + button,high
+pattern,order-confirmation,Checkout,centered confirmation,vertical,check → headline → order number → CTA,single button,low
+pattern,payment-reassurance,Checkout,3 icon cells,vertical,icon → title → copy,icon cells,medium
+pattern,cost-transparency,Checkout,single column table,vertical,headline → cost rows → total → CTA,table + button,medium-high
+pattern,service-warranty,Service,split 44/56 panel + copy,vertical,panel number → headline → copy → CTA,button,medium
+pattern,service-pickup,Service,media-left 50/50 + steps,vertical,headline → steps → CTA,list + button,medium
+pattern,service-membership,Service,3-tier pricing columns,vertical,headline → tiers → price → CTA,card buttons,high
+pattern,service-status,Service,single column status module,vertical,chip → status → timeline → CTA,list + button,medium
+template,front-page,Commerce/Full page,full-width stacked sections,vertical,hero-led multi-section,carousel/accordion/reveal,high
+template,index,Article,grid cards,vertical,title → query cards,pagination,medium
+template,archive,Article,query grid,vertical,title → query cards,pagination,medium
+template,archive-product,Commerce,product loop grid,vertical,title → products,add-to-cart,high
+template,taxonomy-product_cat,Commerce,product loop grid,vertical,title → products,add-to-cart,high
+template,taxonomy-product_tag,Commerce,product loop grid,vertical,title → products,add-to-cart,high
+template,search,Article,query grid,vertical,title → results,pagination,medium
+template,single,Article,wide header + prose,vertical,title → featured → body → meta,comments/prev-next,medium
+template,page,Article,single column,vertical,title → body,none,medium
+template,page-no-title,Article,single column,vertical,body,none,low
+template,404,Error,centered message,vertical,headline → action,single link,low
+template,blank,Commerce,empty canvas,none,—,none,low
+template,single-product,Commerce,split gallery + details,vertical,gallery → title → price → purchase,add-to-cart/accordion,high
+template,single-product-full,Commerce,full-width gallery,vertical,gallery → title → price → purchase,add-to-cart,high
+template,page-cart,Commerce,cart lines + totals,vertical,items → totals → checkout,quantity/buttons,high
+template,page-checkout,Commerce,form + order summary,vertical,form → review → submit,form,high
+template,page-order-confirmation,Commerce,confirmation,vertical,check → order → next step,single button,low
+template,page-my-account,Commerce,account nav + content,vertical,nav → content,nav/form,high
+template,product-search-results,Commerce,search results list,vertical,title → results,search + pagination,medium

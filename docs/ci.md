@@ -51,3 +51,23 @@ tools/php/vendor/bin/phpstan analyse --configuration=phpstan.neon.dist --no-prog
 - Abilities API registry contract: `wp_abilities_api_init`, output schema,
   orthogonal permission/execute callbacks, readonly and non-destructive
   annotations.
+
+## H7 anti-clone workflow
+
+`.github/workflows/anti-clone.yml` runs on every push/PR to `main` and
+`arena/**`:
+
+| Job | Command | Blocking |
+|---|---|---|
+| `anti-clone` | `node tests/anti-clone.mjs` | Yes |
+
+Local reproduction:
+
+```bash
+npm run test:anti-clone
+```
+
+The workflow fails when any *within-family* pair of the 48 patterns exceeds
+the 40% structural-overlap ceiling (H9 family reading). The global
+"ogni coppia" reading is documented as an explicit AP7 conflict in
+[`docs/compliance-table.md`](compliance-table.md).
