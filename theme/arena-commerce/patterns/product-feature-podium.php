@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:group {"align":"full","className":"arena-product-podium","backgroundColor":"surface","style":{"spacing":{"padding":{"top":"var:preset|spacing|90","bottom":"var:preset|spacing|90","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"constrained"}} -->
-<div class="arena-product-podium wp-block-group alignfull has-surface-background-color has-background" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--50)">
+<div class="arena-product-podium wp-block-group alignfull has-surface-background-color has-background" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--50)" data-arena-pattern="product-feature-podium" data-arena-family="Product" data-arena-module="product-podium-sticky">
 	<!-- wp:columns {"className":"arena-product-podium__columns","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|70","top":"var:preset|spacing|70"}}}} -->
 	<div class="arena-product-podium__columns wp-block-columns">
 		<!-- wp:column {"width":"55%"} -->
@@ -57,5 +57,7 @@
 		<!-- /wp:column -->
 	</div>
 	<!-- /wp:columns -->
+
+	<span aria-hidden="true" class="arena-product-feature-podium__product-size-nav" data-arena-role="product-size-nav"></span>
 </div>
 <!-- /wp:group -->

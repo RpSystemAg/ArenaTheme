@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:group {"align":"full","className":"arena-editorial-timeline","backgroundColor":"foreground","textColor":"base","style":{"spacing":{"padding":{"top":"var:preset|spacing|90","bottom":"var:preset|spacing|90","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"constrained","contentSize":"52rem"}} -->
-<div class="arena-editorial-timeline wp-block-group alignfull has-base-color has-foreground-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--50)">
+<div class="arena-editorial-timeline wp-block-group alignfull has-base-color has-foreground-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--50)" data-arena-pattern="editorial-timeline" data-arena-family="Editorial" data-arena-module="editorial-timeline">
 	<!-- wp:paragraph {"fontSize":"xs","textColor":"accent"} -->
 	<p class="has-accent-color has-text-color has-xs-font-size">How it was made</p>
 	<!-- /wp:paragraph -->
@@ -36,5 +36,7 @@
 	<!-- wp:paragraph {"fontSize":"sm","textColor":"surface"} -->
 	<p class="has-surface-color has-text-color has-sm-font-size">We publish the full field-test log with every product.</p>
 	<!-- /wp:paragraph -->
+
+	<span aria-hidden="true" class="arena-editorial-timeline__timeline-year-marker" data-arena-role="timeline-year-marker"></span>
 </div>
 <!-- /wp:group -->

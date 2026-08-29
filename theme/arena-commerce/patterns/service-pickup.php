@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:group {"align":"full","className":"arena-service-pickup","style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|80","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"constrained"}} -->
-<div class="arena-service-pickup wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--80);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--80);padding-left:var(--wp--preset--spacing--50)">
+<div class="arena-service-pickup wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--80);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--80);padding-left:var(--wp--preset--spacing--50)" data-arena-pattern="service-pickup" data-arena-family="Service" data-arena-module="service-pickup-steps">
 	<!-- wp:media-text {"align":"wide","mediaPosition":"left","mediaId":4,"mediaType":"image","mediaSizeSlug":"arena-featured","verticalAlignment":"center","className":"arena-service-pickup__split"} -->
 	<div class="wp-block-media-text alignwide is-stacked-on-mobile is-vertically-aligned-center arena-service-pickup__split">
 		<figure class="wp-block-media-text__media"><img src="" alt="Courier picking up a repair parcel"/></figure>
@@ -37,5 +37,7 @@
 		</div>
 	</div>
 	<!-- /wp:media-text -->
+
+	<span aria-hidden="true" class="arena-service-pickup__pickup-step-list" data-arena-role="pickup-step-list"></span>
 </div>
 <!-- /wp:group -->

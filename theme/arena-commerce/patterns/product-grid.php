@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:group {"align":"full","className":"arena-products","style":{"spacing":{"padding":{"top":"var:preset|spacing|90","bottom":"var:preset|spacing|90","left":"var:preset|spacing|50","right":"var:preset|spacing|50"},"blockGap":"var:preset|spacing|60"}},"layout":{"type":"constrained"}} -->
-<div class="arena-products wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--50)">
+<div class="arena-products wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--50)" data-arena-pattern="product-grid" data-arena-family="Product" data-arena-module="product-query-grid">
 	<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
 	<div class="wp-block-group">
 		<!-- wp:heading {"level":2,"fontSize":"4xl"} -->
@@ -53,5 +53,7 @@
 		<!-- /wp:query-no-results -->
 	</div>
 	<!-- /wp:query -->
+
+	<span aria-hidden="true" class="arena-product-grid__product-query-loop" data-arena-role="product-query-loop"></span>
 </div>
 <!-- /wp:group -->

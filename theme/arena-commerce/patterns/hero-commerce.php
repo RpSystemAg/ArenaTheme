@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:group {"align":"full","className":"arena-hero","style":{"spacing":{"padding":{"top":"var:preset|spacing|90","bottom":"var:preset|spacing|90","left":"var:preset|spacing|50","right":"var:preset|spacing|50"},"blockGap":"var:preset|spacing|60"}},"layout":{"type":"constrained"}} -->
-<div class="arena-hero wp-block-group alignfull" data-arena-stagger style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--50)">
+<div class="arena-hero wp-block-group alignfull" data-arena-stagger style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--50)" data-arena-pattern="hero-commerce" data-arena-family="Hero" data-arena-module="hero-split-commerce">
 	<!-- wp:columns {"verticalAlignment":"center","className":"arena-hero__columns","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|80"}}}} -->
 	<div class="arena-hero__columns wp-block-columns are-vertically-aligned-center">
 		<!-- wp:column {"verticalAlignment":"center","width":"52%"} -->
@@ -64,5 +64,7 @@
 		<!-- /wp:column -->
 	</div>
 	<!-- /wp:columns -->
+
+	<span aria-hidden="true" class="arena-hero-commerce__hero-sku-price" data-arena-role="hero-sku-price"></span>
 </div>
 <!-- /wp:group -->

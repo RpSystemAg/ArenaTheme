@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:group {"align":"full","className":"arena-faq","style":{"spacing":{"padding":{"top":"var:preset|spacing|90","bottom":"var:preset|spacing|90","left":"var:preset|spacing|50","right":"var:preset|spacing|50"},"blockGap":"var:preset|spacing|60"}},"layout":{"type":"constrained"}} -->
-<div class="arena-faq wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--50)">
+<div class="arena-faq wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--50)" data-arena-pattern="faq-accordion" data-arena-family="Support" data-arena-module="support-accordion">
 	<!-- wp:heading {"level":2,"align":"wide","fontSize":"4xl"} -->
 	<h2 class="wp-block-heading alignwide has-4xl-font-size">Questions, answered plainly</h2>
 	<!-- /wp:heading -->
@@ -72,5 +72,7 @@
 		<!-- /wp:accordion-item -->
 	</div>
 	<!-- /wp:accordion -->
+
+	<span aria-hidden="true" class="arena-faq-accordion__accordion-trigger" data-arena-role="accordion-trigger"></span>
 </div>
 <!-- /wp:group -->

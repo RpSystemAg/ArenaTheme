@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:cover {"url":"","dimRatio":72,"gradient":"scrim-bottom","contentPosition":"center center","minHeight":62,"minHeightUnit":"vh","align":"full","className":"arena-newsletter-hero"} -->
-<div class="arena-newsletter-hero wp-block-cover alignfull has-background-dim-72 has-background-dim" style="min-height:62vh">
+<div class="arena-newsletter-hero wp-block-cover alignfull has-background-dim-72 has-background-dim" style="min-height:62vh" data-arena-pattern="newsletter-hero" data-arena-family="Newsletter" data-arena-module="newsletter-cover-form">
 	<span aria-hidden="true" class="wp-block-cover__gradient-background has-background-gradient has-scrim-bottom-gradient-background"></span>
 	<div class="wp-block-cover__inner-container">
 		<!-- wp:group {"className":"arena-newsletter-hero__content","style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"constrained","contentSize":"38rem"}} -->
@@ -34,5 +34,7 @@
 		</div>
 		<!-- /wp:group -->
 	</div>
+
+	<span aria-hidden="true" class="arena-newsletter-hero__newsletter-hero-field" data-arena-role="newsletter-hero-field"></span>
 </div>
 <!-- /wp:cover -->

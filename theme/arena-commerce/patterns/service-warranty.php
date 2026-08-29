@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:group {"align":"full","className":"arena-service-warranty","backgroundColor":"surface","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"constrained"}} -->
-<div class="arena-service-warranty wp-block-group alignfull has-surface-background-color has-background" style="padding-top:var(--wp--preset--spacing--70);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--50)">
+<div class="arena-service-warranty wp-block-group alignfull has-surface-background-color has-background" style="padding-top:var(--wp--preset--spacing--70);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--50)" data-arena-pattern="service-warranty" data-arena-family="Service" data-arena-module="service-warranty-panel">
 	<!-- wp:columns {"className":"arena-service-warranty__columns","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|50","top":"var:preset|spacing|50"}}}} -->
 	<div class="arena-service-warranty__columns wp-block-columns">
 		<!-- wp:column {"width":"44%"} -->
@@ -37,5 +37,7 @@
 		<!-- /wp:column -->
 	</div>
 	<!-- /wp:columns -->
+
+	<span aria-hidden="true" class="arena-service-warranty__warranty-panel-number" data-arena-role="warranty-panel-number"></span>
 </div>
 <!-- /wp:group -->

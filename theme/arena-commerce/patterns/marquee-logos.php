@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:group {"align":"full","className":"arena-marquee","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"},"blockGap":"var:preset|spacing|50"}},"layout":{"type":"constrained"}} -->
-<div class="arena-marquee wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)">
+<div class="arena-marquee wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)" data-arena-pattern="marquee-logos" data-arena-family="Discovery" data-arena-module="discovery-marquee">
 	<!-- wp:paragraph {"align":"center","className":"arena-marquee__label","fontSize":"xs","textColor":"muted","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.14em","fontWeight":"600"}}} -->
 	<p class="has-text-align-center arena-marquee__label has-muted-color has-text-color has-xs-font-size" style="font-weight:600;letter-spacing:0.14em;text-transform:uppercase">Featured in</p>
 	<!-- /wp:paragraph -->
@@ -43,5 +43,7 @@
 		<!-- /wp:group -->
 	</div>
 	<!-- /wp:group -->
+
+	<span aria-hidden="true" class="arena-marquee-logos__marquee-pause-hit" data-arena-role="marquee-pause-hit"></span>
 </div>
 <!-- /wp:group -->

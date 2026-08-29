@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:group {"align":"full","className":"arena-trust-stats","backgroundColor":"foreground","textColor":"base","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"constrained"}} -->
-<div class="arena-trust-stats wp-block-group alignfull has-base-color has-foreground-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--70);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--50)">
+<div class="arena-trust-stats wp-block-group alignfull has-base-color has-foreground-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--70);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--50)" data-arena-pattern="trust-stats" data-arena-family="Trust" data-arena-module="trust-stats-dark">
 	<!-- wp:paragraph {"className":"is-style-arena-eyebrow arena-eyebrow","fontSize":"xs"} -->
 	<p class="is-style-arena-eyebrow arena-eyebrow has-xs-font-size">Audited numbers</p>
 	<!-- /wp:paragraph -->
@@ -59,5 +59,7 @@
 		<!-- /wp:column -->
 	</div>
 	<!-- /wp:columns -->
+
+	<span aria-hidden="true" class="arena-trust-stats__trust-stat-number" data-arena-role="trust-stat-number"></span>
 </div>
 <!-- /wp:group -->

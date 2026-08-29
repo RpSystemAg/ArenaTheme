@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:group {"align":"full","className":"arena-service-status","backgroundColor":"surface","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"constrained","contentSize":"42rem"}} -->
-<div class="arena-service-status wp-block-group alignfull has-surface-background-color has-background" style="padding-top:var(--wp--preset--spacing--70);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--50)">
+<div class="arena-service-status wp-block-group alignfull has-surface-background-color has-background" style="padding-top:var(--wp--preset--spacing--70);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--50)" data-arena-pattern="service-status" data-arena-family="Service" data-arena-module="service-status-chip">
 	<!-- wp:group {"className":"arena-service-status__chip","style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
 	<div class="arena-service-status__chip wp-block-group">
 		<!-- wp:paragraph {"fontSize":"sm"} --><p class="has-sm-font-size">Repair AR-0913</p><!-- /wp:paragraph -->
@@ -33,5 +33,7 @@
 		<!-- /wp:button -->
 	</div>
 	<!-- /wp:buttons -->
+
+	<span aria-hidden="true" class="arena-service-status__status-chip-line" data-arena-role="status-chip-line"></span>
 </div>
 <!-- /wp:group -->

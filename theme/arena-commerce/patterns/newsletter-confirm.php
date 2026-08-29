@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:group {"align":"full","className":"arena-newsletter-confirm","backgroundColor":"surface","style":{"spacing":{"padding":{"top":"var:preset|spacing|90","bottom":"var:preset|spacing|90","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"constrained","contentSize":"38rem"}} -->
-<div class="arena-newsletter-confirm wp-block-group alignfull has-surface-background-color has-background" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--50)">
+<div class="arena-newsletter-confirm wp-block-group alignfull has-surface-background-color has-background" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--50)" data-arena-pattern="newsletter-confirm" data-arena-family="Newsletter" data-arena-module="newsletter-confirm">
 	<!-- wp:group {"className":"arena-newsletter-confirm__card","style":{"spacing":{"blockGap":"var:preset|spacing|40","padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}},"border":{"radius":"var:preset|spacing|50"}},"layout":{"type":"constrained"}} -->
 	<div class="arena-newsletter-confirm__card wp-block-group" style="border-radius:var(--wp--preset--spacing--50);padding-top:var(--wp--preset--spacing--60);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--60);padding-left:var(--wp--preset--spacing--40)">
 		<!-- wp:paragraph {"className":"arena-newsletter-confirm__check","fontSize":"4xl","textColor":"success"} -->
@@ -33,5 +33,7 @@
 		<!-- /wp:buttons -->
 	</div>
 	<!-- /wp:group -->
+
+	<span aria-hidden="true" class="arena-newsletter-confirm__confirm-check-icon" data-arena-role="confirm-check-icon"></span>
 </div>
 <!-- /wp:group -->

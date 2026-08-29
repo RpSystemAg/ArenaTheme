@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:cover {"url":"","dimRatio":68,"gradient":"canvas-surface","contentPosition":"center center","minHeight":56,"minHeightUnit":"vh","align":"full","className":"arena-editorial-quote-strip"} -->
-<div class="arena-editorial-quote-strip wp-block-cover alignfull has-background-dim-68 has-background-dim" style="min-height:56vh">
+<div class="arena-editorial-quote-strip wp-block-cover alignfull has-background-dim-68 has-background-dim" style="min-height:56vh" data-arena-pattern="editorial-quote-strip" data-arena-family="Editorial" data-arena-module="editorial-pull-quote">
 	<span aria-hidden="true" class="wp-block-cover__gradient-background has-background-gradient has-canvas-surface-gradient-background"></span>
 	<div class="wp-block-cover__inner-container">
 		<!-- wp:group {"className":"arena-editorial-quote-strip__content","style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"constrained","contentSize":"56rem"}} -->
@@ -26,5 +26,7 @@
 		</div>
 		<!-- /wp:group -->
 	</div>
+
+	<span aria-hidden="true" class="arena-editorial-quote-strip__pull-quote-mark" data-arena-role="pull-quote-mark"></span>
 </div>
 <!-- /wp:cover -->

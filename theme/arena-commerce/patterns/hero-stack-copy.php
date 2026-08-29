@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:group {"align":"full","className":"arena-hero-stack-copy","backgroundColor":"foreground","textColor":"base","style":{"spacing":{"padding":{"top":"var:preset|spacing|100","bottom":"var:preset|spacing|100","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"constrained","contentSize":"56rem"}} -->
-<div class="arena-hero-stack-copy wp-block-group alignfull has-base-color has-foreground-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--100);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--100);padding-left:var(--wp--preset--spacing--50)">
+<div class="arena-hero-stack-copy wp-block-group alignfull has-base-color has-foreground-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--100);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--100);padding-left:var(--wp--preset--spacing--50)" data-arena-pattern="hero-stack-copy" data-arena-family="Hero" data-arena-module="hero-stack-claimlist">
 	<!-- wp:group {"className":"arena-hero-stack-copy__inner","style":{"spacing":{"blockGap":"var:preset|spacing|50"}},"layout":{"type":"constrained"}} -->
 	<div class="arena-hero-stack-copy__inner wp-block-group">
 		<!-- wp:paragraph {"fontSize":"xs","textColor":"accent"} -->
@@ -40,5 +40,7 @@
 		<!-- /wp:buttons -->
 	</div>
 	<!-- /wp:group -->
+
+	<span aria-hidden="true" class="arena-hero-stack-copy__hero-claim-list" data-arena-role="hero-claim-list"></span>
 </div>
 <!-- /wp:group -->

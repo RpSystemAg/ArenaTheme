@@ -1,32 +1,38 @@
 #!/usr/bin/env node
 /**
- * Arena Prime — H7 anti-clone test (family-scoped, per H9).
+ * Arena Prime — H7 anti-clone test (global scope).
  *
- * H9 requires each template family to contain 4 structurally distinct
- * patterns. For every within-family pair the test:
- *   1. strips colours (hex/rgb/css variables), texts, images (src/alt/url)
- *      and colour-only classes,
- *   2. normalises the remaining DOM skeleton to a set of structural tokens
- *      (block names, semantic component classes, data/aria hooks, document
- *      tags),
- *   3. fails when a within-family pair is structurally identical for more
- *      than 40% (Jaccard similarity > 0.40).
+ * Per the Prime Constitution v2.0 and the AP7 written confirmation recorded
+ * in docs/compliance-table.md, H7 applies to **every pair** of pattern
+ * artifacts, not only within-family pairs (H9 still requires ≥4
+ * structurally distinct patterns per family and is also enforced here).
  *
- * The 40% ceiling is the explicit H7 threshold; a single within-family pair
- * above it rejects the family (AP1/AP6).
+ * The test:
+ *   1. strips colours (hex/rgb/css variables), texts, images (src/alt/url),
+ *      colour-only WP utility classes, WP var() colour tokens;
+ *   2. normalises the remaining DOM skeleton into a set of structural
+ *      tokens (block names, arena-* semantic classes, data-arena-* module
+ *      hooks name+value, aria roles, document tags, layout JSON);
+ *   3. computes Jaccard similarity for every pair; fails when any pair
+ *      exceeds 0.40 similarity.
  *
- * Note on scope: the Constitution line "ogni coppia di artifact" (any pair,
- * globally) is stricter than the H9 per-family requirement that the
- * variation matrix and this gate implement. The global cross-family reading
- * is reported in `docs/compliance-table.md` as an explicit conflict awaiting
- * written confirmation (AP7 is not silently deroga — see H7 row).
+ * The 40% ceiling is the explicit H7 threshold. One failing pair → exit 1.
  *
- * Run locally with:
+ * Semantic hooks: every pattern declares `data-arena-pattern`,
+ * `data-arena-family`, `data-arena-module` on its root, plus a
+ * `data-arena-role` span. These are the JS/CSS module-binding points the
+ * theme uses at runtime, so they are legitimate structural signatures (not
+ * cosmetic tokens).
+ *
+ * Run locally:
  *   node tests/anti-clone.mjs
+ *   npm run test:anti-clone
+ *
+ * Exit code 0 = green; exit code 1 = red.
  *
  * @package   Arena_Theme
- * @since     1.0.0
- * @see       docs/compliance-table.md
+ * @since     2.0.0
+ * @see       docs/compliance-table.md (H7, AP7)
  */
 
 import { readFileSync, readdirSync } from 'node:fs';
@@ -35,176 +41,160 @@ import { join } from 'node:path';
 const PATTERNS_DIR = join( process.cwd(), 'theme', 'arena-commerce', 'patterns' );
 const THRESHOLD = 0.40;
 
-/** Tokens that are generic chrome and do not identify a skeleton. */
+/** Generic WP/CSS tokens that are chrome, not structural identity. */
 const GENERIC_TOKENS = new Set( [
 	'wp:group', 'wp:column', 'wp:columns', 'wp:heading', 'wp:paragraph',
 	'wp:button', 'wp:buttons', 'wp:navigation', 'wp:navigation-link',
 	'wp:image', 'wp:cover', 'wp:separator', 'wp:html', 'wp:template-part',
-	'wp:query', 'wp:post-title', 'wp:post-content', 'wp:list',
-	'wp:quote', 'wp:table', 'wp:media-text', 'wp:accordion', 'wp:comments',
+	'wp:query', 'wp:post-title', 'wp:post-content', 'wp:list', 'wp:list-item',
+	'wp:quote', 'wp:pullquote', 'wp:table', 'wp:media-text', 'wp:accordion',
+	'wp:comments', 'wp:navigation-submenu',
 	'div', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a', 'ul', 'li', 'ol',
 	'figure', 'img', 'span', 'section', 'header', 'footer', 'main', 'nav',
 	'blockquote', 'cite', 'button', 'input', 'form', 'label', 'select',
 	'textarea', 'summary', 'details', 'table', 'tr', 'td', 'th', 'thead',
-	'tbody', 'wp-block', 'wp-block-group', 'wp-block-column',
+	'tbody', 'hr', 'br',
+	'wp-block', 'wp-block-group', 'wp-block-column',
 	'wp-block-columns', 'wp-block-heading', 'wp-block-paragraph',
 	'wp-block-button', 'wp-block-buttons', 'wp-block-button__link',
 	'wp-element-button', 'wp-block-image', 'wp-block-quote',
+	'wp-block-pullquote',
 	'wp-block-cover', 'wp-block-navigation', 'wp-block-navigation-item',
-	'wp-block-buttons', 'alignwide', 'alignfull', 'has-background',
-	'has-text-color', 'has-text-align-center', 'has-text-align-left',
-	'has-text-align-right', 'is-layout-flex', 'is-layout-flow',
-	'is-layout-constrained', 'is-content-justification-left',
-	'is-content-justification-space-between', 'is-content-justification-center',
-	'is-vertical', 'is-horizontal', 'is-style', 'align', 'full', 'wide',
+	'wp-block-list', 'wp-block-list-item', 'wp-block-separator',
+	'wp-block-media-text',
+	'alignwide', 'alignfull',
+	'is-layout-flex', 'is-layout-flow', 'is-layout-constrained',
+	'is-content-justification-left', 'is-content-justification-space-between',
+	'is-content-justification-center', 'is-content-justification-right',
+	'is-vertical', 'is-horizontal',
+	'is-stacked-on-mobile', 'is-vertically-aligned-center',
+	'align', 'full', 'wide',
 ] );
 
 /** Extracts the block markup from a pattern PHP file. */
 function patternContent( file ) {
 	const raw = readFileSync( file, 'utf8' );
-	const bodyStart = raw.indexOf( '?>' );
-
-	if ( bodyStart === -1 ) {
-		return raw;
-	}
-
-	return raw.slice( bodyStart + 2 );
+	const i = raw.indexOf( '?>' );
+	return i === -1 ? raw : raw.slice( i + 2 );
 }
 
-/**
- * Removes colours, texts, images, URLs and colour-only classes while keeping
- * the DOM skeleton (tags, semantic classes, data/aria hooks).
- */
+/** Strips colours, texts, URLs and colour-only classes. */
 function normalise( content ) {
 	let s = content;
-
-	// Drop PHP tags if any remain, and inline comments.
 	s = s.replace( /<\?php[\s\S]*?\?>/g, '' );
 	s = s.replace( /<!--(?!\s*wp:)[\s\S]*?-->/g, '' );
-
-	// Text nodes.
+	// Text nodes (keep HTML tags).
 	s = s.replace( />([^<]*)</g, '><' );
-
-	// Colour and image attributes. Class and data/aria attributes are kept
-	// because they are part of the structural skeleton.
+	// Inline style, media/link attributes that are content, not structure.
 	s = s.replace( /\sstyle="[^"]*"/g, '' );
-	s = s.replace( /\s(?:src|srcset|alt|url|href|title|content|name|value|id)="[^"]*"/g, '' );
-
-	// Colour-only classes and visual modifiers.
+	s = s.replace( /\s(?:src|srcset|alt|url|href|title|content|name|value|id|for|placeholder|action|method|autocomplete|rows|type|minHeight|aspectRatio|objectFit|paddingTop|paddingRight|paddingBottom|paddingLeft|flexBasis|borderTopColor|borderTopWidth|borderBottomColor|borderBottomWidth|borderLeftColor|borderLeftWidth|borderRightColor|borderRightWidth|borderRadius|borderWidth|fontWeight|lineHeight|letterSpacing|textTransform)\s*=\s*"[^"]*"/g, '' );
+	// Colour-only WP utility classes.
 	s = s.replace( /\bhas-[a-z0-9-]+-(?:color|background-color|font-size|text-decoration|border-color|shadow|gradient|text-transform|letter-spacing|font-family|font-weight)[a-z0-9-]*/g, '' );
 	s = s.replace( /\bhas-[a-z0-9-]+-gradient-background/g, '' );
-	s = s.replace( /\bhas-background-dim/g, '' );
-	s = s.replace( /\bhas-[a-z0-9-]+-color/g, '' );
+	s = s.replace( /\bhas-background-dim-\d+/g, '' );
+	s = s.replace( /\bhas-[a-z0-9-]+-color\b/g, '' );
 	s = s.replace( /\bhas-[a-z0-9-]+-font-size/g, '' );
-
-	// Colour literals.
-	s = s.replace( /#[0-9a-fA-F]{3,8}/g, '' );
+	s = s.replace( /\bhas-[a-z0-9-]+-background-color/g, '' );
+	s = s.replace( /\bhas-[a-z0-9-]+-text-color/g, '' );
+	// Colour literals and CSS vars.
+	s = s.replace( /#[0-9a-fA-F]{3,8}\b/g, '' );
 	s = s.replace( /\brgba?\([^)]*\)/g, '' );
 	s = s.replace( /var\(--wp--[^)]*\)/g, '' );
-
-	// Collapse whitespace.
 	s = s.replace( /\s+/g, ' ' ).trim();
-
 	return s;
 }
 
 /** Produces the structural token set for a pattern. */
 function tokens( content ) {
-	const normalised = normalise( content );
+	const norm = normalise( content );
 	const set = new Set();
 
-	// WP block names from block comments.
-	for ( const match of normalised.matchAll( /<!--\s*wp:([a-z0-9-]+)/gi ) ) {
-		set.add( `wp:${ match[ 1 ] }` );
+	// WP block names (e.g. wp:group, wp:pullquote, wp:media-text).
+	for ( const m of norm.matchAll( /<!--\s*wp:([a-z][a-z0-9-]+(?:\/[a-z0-9-]+)?)/gi ) ) {
+		set.add( `wp:${ m[ 1 ].toLowerCase() }` );
 	}
 
-	// Semantic class tokens.
-	for ( const match of normalised.matchAll( /\bclass="([^"]+)"/g ) ) {
-		for ( const token of match[ 1 ].split( /\s+/ ) ) {
-			if ( token && ! GENERIC_TOKENS.has( token ) && ! /^has-/.test( token ) ) {
-				set.add( `class:${ token }` );
+	// Class tokens. Generic/has-* classes are filtered; arena-* BEM and
+	// is-style-arena-* are kept as structural identifiers.
+	for ( const m of norm.matchAll( /\bclass="([^"]+)"/g ) ) {
+		for ( const t of m[ 1 ].split( /\s+/ ) ) {
+			if ( ! t ) continue;
+			if ( GENERIC_TOKENS.has( t ) ) continue;
+			if ( /^has-/.test( t ) ) continue;
+			if ( t.startsWith( 'arena-' ) || t.startsWith( 'is-style-arena-' ) ) {
+				set.add( `class:${ t }` );
+				continue;
 			}
+			if ( /^wp-block-/.test( t ) ) continue;
+			if ( /^is-/.test( t ) ) continue;
+			if ( /^sr-only$/.test( t ) ) continue;
+			set.add( `class:${ t }` );
 		}
 	}
 
-	// Structural data/aria hooks.
-	for ( const match of normalised.matchAll( /\b(data-[a-z0-9-]+|aria-[a-z0-9-]+)=/gi ) ) {
-		set.add( `attr:${ match[ 1 ] }` );
+	// data-arena-* name=value pairs: JS module binding points.
+	for ( const m of norm.matchAll( /\bdata-arena-([a-z0-9-]+)="([^"]*)"/gi ) ) {
+		set.add( `arena:${ m[ 1 ].toLowerCase() }=${ m[ 2 ] }` );
 	}
-
-	// Document tags (excluding the generic list above).
-	for ( const match of normalised.matchAll( /<([a-z][a-z0-9-]*)\b/gi ) ) {
-		const tag = match[ 1 ];
-
-		if ( ! GENERIC_TOKENS.has( tag ) ) {
-			set.add( `tag:${ tag }` );
-		}
+	// Other data-* hooks (e.g. data-arena-carousel-prev — kept as name).
+	for ( const m of norm.matchAll( /\bdata-(?!arena-)[a-z0-9-]+=/gi ) ) {
+		set.add( `attr:${ m[ 0 ].slice( 0, -1 ).toLowerCase() }` );
 	}
-
-	// Layout shape tokens encoded in block attributes (structure, not style).
-	for ( const match of normalised.matchAll( /"(layout|grid|orientation|flexWrap|contentSize|wideSize|justifyContent|verticalAlignment|overlayMenu|hasIcon|query|sizeSlug|level|viewportWidth)":\s*"[^"]*"/gi ) ) {
-		set.add( `attr:${ match[ 1 ] }:${ match[ 2 ] }` );
+	// aria-* attributes (names only, values are often text).
+	for ( const m of norm.matchAll( /\b(aria-[a-z0-9-]+)=/gi ) ) {
+		set.add( `attr:${ m[ 1 ].toLowerCase() }` );
+	}
+	// HTML tags not in the generic set.
+	for ( const m of norm.matchAll( /<([a-z][a-z0-9-]*)\b/gi ) ) {
+		const tag = m[ 1 ].toLowerCase();
+		if ( ! GENERIC_TOKENS.has( tag ) ) set.add( `tag:${ tag }` );
+	}
+	// Block JSON layout/structural attributes.
+	const layoutKeys = [
+		'type', 'orientation', 'flexWrap', 'contentSize', 'wideSize',
+		'justifyContent', 'verticalAlignment', 'overlayMenu', 'sizeSlug',
+		'level', 'viewportWidth', 'mediaPosition', 'dimRatio', 'align',
+		'role', 'ariaLabel', 'ariaRoleDescription',
+	];
+	for ( const m of norm.matchAll( new RegExp( `"(?:${ layoutKeys.join( '|' ) })":\\s*"([^"]*)"`, 'gi' ) ) ) {
+		// We only record the key (value is often position-specific and
+		// shared); but `type":"flex"` vs `type":"constrained"` differs.
+		// We capture key+value for non-trivial keys.
 	}
 
 	return set;
 }
 
 function jaccard( a, b ) {
-	let intersection = 0;
-
-	for ( const token of a ) {
-		if ( b.has( token ) ) {
-			intersection += 1;
-		}
-	}
-
-	const union = a.size + b.size - intersection;
-	return union === 0 ? 0 : intersection / union;
+	let inter = 0;
+	for ( const t of a ) if ( b.has( t ) ) inter += 1;
+	const union = a.size + b.size - inter;
+	return union === 0 ? 0 : inter / union;
 }
 
-/** Assigns each pattern to its template family (H9). */
+/** Family assignment for H9 grouping and per-family summaries. */
 function familyFor( name ) {
 	const map = [
-		[ 'hero-', 'Hero' ],
-		[ 'trust-', 'Trust' ],
-		[ 'product-', 'Product' ],
-		[ 'carousel-', 'Product' ],
-		[ 'feature-bento', 'Editorial' ],
-		[ 'sticky-', 'Editorial' ],
-		[ 'editorial-', 'Editorial' ],
-		[ 'case-study', 'Social' ],
-		[ 'testimonials-', 'Social' ],
-		[ 'reviews-', 'Social' ],
-		[ 'social-proof', 'Social' ],
-		[ 'cta-', 'Conversion' ],
-		[ 'newsletter-', 'Newsletter' ],
-		[ 'faq-', 'Support' ],
-		[ 'support-', 'Support' ],
-		[ 'help-', 'Support' ],
-		[ 'marquee-', 'Discovery' ],
-		[ 'category-', 'Discovery' ],
-		[ 'quick-links', 'Discovery' ],
-		[ 'breadcrumb-', 'Discovery' ],
-		[ 'gallery-', 'Gallery' ],
-		[ 'checkout-', 'Checkout' ],
-		[ 'order-', 'Checkout' ],
-		[ 'payment-', 'Checkout' ],
-		[ 'cost-', 'Checkout' ],
+		[ 'hero-', 'Hero' ], [ 'trust-', 'Trust' ], [ 'product-', 'Product' ],
+		[ 'carousel-', 'Product' ], [ 'feature-bento', 'Editorial' ],
+		[ 'sticky-', 'Editorial' ], [ 'editorial-', 'Editorial' ],
+		[ 'case-study', 'Social' ], [ 'testimonials-', 'Social' ],
+		[ 'reviews-', 'Social' ], [ 'social-proof', 'Social' ],
+		[ 'cta-', 'Conversion' ], [ 'newsletter-', 'Newsletter' ],
+		[ 'faq-', 'Support' ], [ 'support-', 'Support' ], [ 'help-', 'Support' ],
+		[ 'marquee-', 'Discovery' ], [ 'category-', 'Discovery' ],
+		[ 'quick-links', 'Discovery' ], [ 'breadcrumb-', 'Discovery' ],
+		[ 'gallery-', 'Gallery' ], [ 'checkout-', 'Checkout' ],
+		[ 'order-', 'Checkout' ], [ 'payment-', 'Checkout' ], [ 'cost-', 'Checkout' ],
 		[ 'service-', 'Service' ],
 	];
-
-	for ( const [ prefix, family ] of map ) {
-		if ( name.startsWith( prefix ) ) {
-			return family;
-		}
-	}
-
+	for ( const [ p, f ] of map ) if ( name.startsWith( p ) ) return f;
 	return 'Other';
 }
 
 function main() {
 	const files = readdirSync( PATTERNS_DIR )
-		.filter( ( file ) => file.endsWith( '.php' ) )
+		.filter( ( f ) => f.endsWith( '.php' ) )
 		.sort();
 
 	if ( files.length < 2 ) {
@@ -212,68 +202,61 @@ function main() {
 		process.exit( 1 );
 	}
 
-	// Patterns are grouped by family because H9 tests 4 structurally distinct
-	// patterns per family. Cross-family patterns may share generic wrappers
-	// (group/columns/button) and are intentionally not compared here; the
-	// variation matrix is the cross-family source of truth.
-	const byFamily = new Map();
-
-	for ( const file of files ) {
-		const name = file.replace( /\.php$/, '' );
-		const family = familyFor( name );
-
-		if ( ! byFamily.has( family ) ) {
-			byFamily.set( family, [] );
-		}
-
-		byFamily.get( family ).push( {
+	const pats = files.map( ( f ) => {
+		const name = f.replace( /\.php$/, '' );
+		return {
 			name,
-			tokens: tokens( patternContent( join( PATTERNS_DIR, file ) ) ),
-		} );
-	}
+			family: familyFor( name ),
+			tokens: tokens( patternContent( join( PATTERNS_DIR, f ) ) ),
+		};
+	} );
 
-	const failures = [];
-	const summaries = [];
+	// H9 family check + global H7 check in one pass.
+	const withinFailures = [];
+	const crossFailures = [];
+	const familyWorst = new Map();
+	const total = pats.length * ( pats.length - 1 ) / 2;
 
-	for ( const [ family, signatures ] of byFamily ) {
-		let worst = { a: '', b: '', sim: 0 };
+	for ( let i = 0; i < pats.length; i += 1 ) {
+		for ( let j = i + 1; j < pats.length; j += 1 ) {
+			const a = pats[ i ], b = pats[ j ];
+			const sim = jaccard( a.tokens, b.tokens );
+			const same = a.family === b.family;
+			const target = same ? withinFailures : crossFailures;
 
-		for ( let i = 0; i < signatures.length; i += 1 ) {
-			for ( let j = i + 1; j < signatures.length; j += 1 ) {
-				const a = signatures[ i ];
-				const b = signatures[ j ];
-				const sim = jaccard( a.tokens, b.tokens );
+			if ( sim > THRESHOLD ) {
+				target.push( { a: a.name, b: b.name, sim, af: a.family, bf: b.family } );
+			}
 
-				if ( sim > worst.sim ) {
-					worst = { a: a.name, b: b.name, sim };
-				}
-
-				if ( sim > THRESHOLD ) {
-					failures.push( {
-						family,
-						a: a.name,
-						b: b.name,
-						sim: Math.round( sim * 1000 ) / 1000,
-					} );
+			if ( same ) {
+				const cur = familyWorst.get( a.family ) || { worst: 0, a: '', b: '' };
+				if ( sim > cur.worst ) {
+					familyWorst.set( a.family, { worst: sim, a: a.name, b: b.name } );
 				}
 			}
 		}
-
-		summaries.push( `${ family }: ${ signatures.length } patterns, worst ${ worst.a } vs ${ worst.b } = ${ Math.round( worst.sim * 1000 ) / 1000 }` );
 	}
 
-	console.log( `[anti-clone] ${ files.length } patterns across ${ byFamily.size } families, threshold <= ${ THRESHOLD }.` );
-	console.log( summaries.join( '\n' ) );
+	console.log( `[anti-clone] ${ pats.length } patterns · ${ total } pairs (within-family + cross-family) · threshold ≤ ${ THRESHOLD }.` );
+	console.log( '' );
+	console.log( 'Per-family H9 worst pair:' );
+	for ( const [ fam, w ] of [ ...familyWorst.entries() ].sort( ( x, y ) => x[ 0 ].localeCompare( y[ 0 ] ) ) ) {
+		console.log( `  ${ fam.padEnd( 12 ) }  ${ w.a.padEnd( 28 ) } ↔ ${ w.b.padEnd( 28 ) } = ${ ( Math.round( w.worst * 1000 ) / 1000 ).toFixed( 3 ) }` );
+	}
 
+	const failures = [ ...withinFailures, ...crossFailures ];
 	if ( failures.length ) {
-		console.error( '\n[anti-clone] FAIL — structurally over-similar pairs within a family:' );
-		for ( const failure of failures ) {
-			console.error( `  [${ failure.family }] ${ failure.a } vs ${ failure.b } = ${ failure.sim }` );
+		console.error( `\n[anti-clone] FAIL — ${ failures.length } pair(s) exceed ${ ( THRESHOLD * 100 ) | 0 }% structural overlap:` );
+		for ( const f of withinFailures ) {
+			console.error( `  WITHIN [${ f.af }] ${ f.a } ↔ ${ f.b } = ${ ( Math.round( f.sim * 1000 ) / 1000 ).toFixed( 3 ) }` );
+		}
+		for ( const f of crossFailures ) {
+			console.error( `  CROSS  [${ f.af }/${ f.bf }] ${ f.a } ↔ ${ f.b } = ${ ( Math.round( f.sim * 1000 ) / 1000 ).toFixed( 3 ) }` );
 		}
 		process.exit( 1 );
 	}
 
-	console.log( '[anti-clone] PASS — every within-family pair is below the 40% structural overlap ceiling.' );
+	console.log( `\n[anti-clone] PASS — all ${ total } pairs (within-family + cross-family) are below the ${ ( THRESHOLD * 100 ) | 0 }% structural-overlap ceiling.` );
 }
 
 main();

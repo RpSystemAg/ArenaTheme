@@ -425,6 +425,164 @@
 		);
 	}
 
+	/* ----------------------------------------------------------------- FLIP
+	 *
+	 * First-Last-Invert-Play helper. When a container's children are reordered
+	 * (e.g. a sort/filter on a product grid, a tab switch on a testimonial,
+	 * a size-select reflow), calling arenaFlip( container ) measures the
+	 * "first" positions, lets the caller mutate the DOM, then plays a
+	 * transform-only animation from the old geometry to the new. H11: only
+	 * transform/opacity, 200-500ms, spring curve, disabled under reduced
+	 * motion.
+	 *
+	 * Exposed on window.Arena.flip for block/view-script consumption, and
+	 * auto-applied to [data-arena-flip] containers whose children change
+	 * (e.g. when a parent toggles a class that reflows the grid).
+	 */
+	function initFLIP() {
+		if ( reduced ) {
+			// Still expose window.Arena.flip as a no-op so blocks that call
+			// it don't crash; the no-op return means no transform animation
+			// runs under reduced motion (H12).
+			window.Arena = window.Arena || {};
+			window.Arena.flip = function () {};
+			return;
+		}
+
+		if ( typeof window.MutationObserver === 'undefined' ) {
+			return;
+		}
+
+		function measure( el ) {
+			var box = el.getBoundingClientRect();
+			return { left: box.left, top: box.top, width: box.width, height: box.height };
+		}
+
+		function flip( container ) {
+			if ( reduced ) {
+				return;
+			}
+
+			var children = Array.prototype.slice.call( container.children );
+
+			if ( ! children.length ) {
+				return;
+			}
+
+			var first = new Map();
+			children.forEach( function ( child ) {
+				first.set( child, measure( child ) );
+			} );
+
+			// Wait one frame so the caller's DOM mutations commit before we
+			// measure "last" and invert.
+			requestAnimationFrame( function () {
+				children.forEach( function ( child ) {
+					var start = first.get( child );
+
+					if ( ! start ) {
+						return;
+					}
+
+					var end = measure( child );
+					var dx = start.left - end.left;
+					var dy = start.top - end.top;
+					var sx = start.width / end.width;
+					var sy = start.height / end.height;
+					var moved = Math.abs( dx ) > 0.5 || Math.abs( dy ) > 0.5;
+					var scaled = Math.abs( sx - 1 ) > 0.005 || Math.abs( sy - 1 ) > 0.005;
+
+					if ( ! moved && ! scaled ) {
+						return;
+					}
+
+					child.style.transition = 'none';
+					child.style.transformOrigin = 'top left';
+					child.style.transform =
+						'translate3d(' + dx.toFixed( 2 ) + 'px,' + dy.toFixed( 2 ) + 'px,0)' +
+						( scaled ? ' scale(' + sx.toFixed( 4 ) + ',' + sy.toFixed( 4 ) + ')' : '' );
+
+					// Force reflow.
+					void child.offsetWidth;
+
+					var duration = parseInt(
+						container.getAttribute( 'data-arena-flip-duration' ) || '360',
+						10
+					);
+					duration = Math.max( 200, Math.min( 500, duration ) );
+
+					child.style.transition =
+						'transform ' + duration + 'ms cubic-bezier(0.2,0,0,1)';
+					child.style.transform = '';
+
+					var cleanup = function () {
+						child.style.transition = '';
+						child.style.transformOrigin = '';
+						child.removeEventListener( 'transitionend', cleanup );
+					};
+					child.addEventListener( 'transitionend', cleanup );
+					setTimeout( cleanup, duration + 50 );
+				} );
+			} );
+		}
+
+		// Observe [data-arena-flip] containers and run FLIP when their
+		// immediate child list changes (reorder/insert/remove).
+		var roots = document.querySelectorAll( '[data-arena-flip]' );
+		var mo = new MutationObserver( function ( records ) {
+			records.forEach( function ( rec ) {
+				if ( rec.target && rec.target.matches && rec.target.matches( '[data-arena-flip]' ) ) {
+					// The observer fired AFTER the mutation, so call flip
+					// on the next microtask — our flip function re-measures
+					// from current position as "first" of the next flip.
+					// We therefore use a data-arena-flip-pending class set
+					// by the trigger to indicate that we should animate
+					// the current state into the new state.
+					if ( rec.target.classList.contains( 'arena-flip-pending' ) ) {
+						flip( rec.target );
+						rec.target.classList.remove( 'arena-flip-pending' );
+					}
+				}
+			} );
+		} );
+
+		Array.prototype.forEach.call( roots, function ( root ) {
+			mo.observe( root, { childList: true, subtree: false } );
+
+			// Also trigger FLIP on [data-arena-flip-trigger] clicks that
+			// target this root via data-arena-flip-for="id".
+		} );
+
+		document.addEventListener( 'click', function ( event ) {
+			var trigger = event.target && event.target.closest
+				? event.target.closest( '[data-arena-flip-trigger]' )
+				: null;
+
+			if ( ! trigger ) {
+				return;
+			}
+
+			var id = trigger.getAttribute( 'data-arena-flip-trigger' );
+			var root = id ? document.getElementById( id ) : trigger.parentElement;
+
+			if ( root && root.matches( '[data-arena-flip]' ) ) {
+				root.classList.add( 'arena-flip-pending' );
+				// Flip runs on the next mutation; if no mutation (class-only
+				// reorder, e.g. CSS order change), run immediately.
+				setTimeout( function () {
+					if ( root.classList.contains( 'arena-flip-pending' ) ) {
+						flip( root );
+						root.classList.remove( 'arena-flip-pending' );
+					}
+				}, 0 );
+			}
+		} );
+
+		// Public API for block view scripts.
+		window.Arena = window.Arena || {};
+		window.Arena.flip = flip;
+	}
+
 	/* --------------------------------------------------------------- Boot */
 	function boot() {
 		initReveal();
@@ -432,6 +590,7 @@
 		initBottomNav();
 		initMarquee();
 		initDialogs();
+		initFLIP();
 
 		var carousels = document.querySelectorAll( '[data-arena-carousel], .arena-carousel' );
 		Array.prototype.forEach.call( carousels, initCarousel );

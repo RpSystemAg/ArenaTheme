@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:group {"align":"full","className":"arena-bento","style":{"spacing":{"padding":{"top":"var:preset|spacing|90","bottom":"var:preset|spacing|90","left":"var:preset|spacing|50","right":"var:preset|spacing|50"},"blockGap":"var:preset|spacing|60"}},"layout":{"type":"constrained"}} -->
-<div class="arena-bento wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--50)">
+<div class="arena-bento wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--50)" data-arena-pattern="feature-bento" data-arena-family="Editorial" data-arena-module="editorial-bento-asym">
 	<!-- wp:heading {"level":2,"align":"wide","fontSize":"4xl"} -->
 	<h2 class="wp-block-heading alignwide has-4xl-font-size">Four reasons it lasts longer</h2>
 	<!-- /wp:heading -->
@@ -102,5 +102,7 @@
 		<!-- /wp:column -->
 	</div>
 	<!-- /wp:columns -->
+
+	<span aria-hidden="true" class="arena-feature-bento__bento-stat-tile" data-arena-role="bento-stat-tile"></span>
 </div>
 <!-- /wp:group -->

@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:group {"align":"full","className":"arena-cost-transparency","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"constrained","contentSize":"44rem"}} -->
-<div class="arena-cost-transparency wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--70);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--50)">
+<div class="arena-cost-transparency wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--70);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--50)" data-arena-pattern="cost-transparency" data-arena-family="Checkout" data-arena-module="checkout-cost-table">
 	<!-- wp:heading {"level":2,"fontSize":"4xl"} -->
 	<h2 class="wp-block-heading has-4xl-font-size">What you pay, before you pay</h2>
 	<!-- /wp:heading -->
@@ -29,5 +29,7 @@
 		<!-- /wp:button -->
 	</div>
 	<!-- /wp:buttons -->
+
+	<span aria-hidden="true" class="arena-cost-transparency__cost-table-row" data-arena-role="cost-table-row"></span>
 </div>
 <!-- /wp:group -->

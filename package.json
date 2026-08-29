@@ -1,12 +1,22 @@
 {
 	"name": "arena-commerce-quality",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"private": true,
-	"description": "Quality gate tooling for the Arena Commerce WordPress stack.",
+	"description": "Quality gate tooling for the Arena Prime v2.0 WordPress stack.",
 	"scripts": {
 		"lint:js": "eslint .",
+		"test": "npm run test:quality && npm run test:e2e",
+		"test:quality": "npm run test:anti-clone && npm run test:axe && npm run test:billboard && npm run test:family && npm run test:flip && npm run test:mobilenav && npm run test:lighthouse-budget",
 		"test:anti-clone": "node tests/anti-clone.mjs",
+		"test:axe": "node tests/axe-static.test.mjs",
+		"test:billboard": "node tests/h14-billboard.test.mjs",
+		"test:family": "node tests/h15-family-system.test.mjs",
+		"test:flip": "node tests/h11-flip.test.mjs",
+		"test:mobilenav": "node tests/h2-mobilenav.test.mjs",
+		"test:lighthouse-budget": "node tests/lighthouse-budget.test.mjs",
+		"test:lighthouse-real": "node tests/lighthouse-run.mjs",
 		"test:e2e": "playwright test",
+		"build:dist": "node tools/build-dists.mjs",
 		"wp-env": "wp-env"
 	},
 	"devDependencies": {
