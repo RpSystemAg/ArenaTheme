@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" role="img" aria-labelledby="t d" width="1920" height="1080">
+<title id="t">Atelier Mode — Book a fitting</title>
+<desc id="d">Atelier Mode: Clothes cut once, worn for decades</desc>
+<rect width="1920" height="1080" fill="#FDFAF5"/>
+<rect x="0" y="777.6" width="1920" height="302.40000000000003" fill="#1f1f1f" opacity="0.06"/>
+<rect x="153.6" y="712.8000000000001" width="384" height="2" fill="#92400E"/>
+<text x="230.39999999999998" y="194.4" font-family="'SF Mono', 'Cascadia Mono', ui-monospace, Menlo, Consolas, monospace" font-size="31" letter-spacing="4" fill="#92400E" text-transform="uppercase">ATELIER MODE · BANNER</text>
+<text x="230.39999999999998" y="453.59999999999997" font-family="'Iowan Old Style', Georgia, 'Times New Roman', serif" font-size="92" font-weight="800" fill="#1f1f1f">Clothes cut once, worn for</text>
+<text x="230.39999999999998" y="552.96" font-family="'Iowan Old Style', Georgia, 'Times New Roman', serif" font-size="92" font-weight="800" fill="#1f1f1f">decades</text>
+<text x="230.39999999999998" y="648" font-family="'Iowan Old Style', Georgia, 'Times New Roman', serif" font-size="37" fill="#1f1f1f" opacity="0.72">Ready in one click.</text>
+<rect x="230.39999999999998" y="842.4" width="420" height="86.4" rx="43.2" fill="#92400E"/>
+<text x="258.4" y="898.56" font-family="'Iowan Old Style', Georgia, 'Times New Roman', serif" font-size="35" font-weight="700" fill="#fff">Book a fitting</text>
+<text x="230.39999999999998" y="1015.1999999999999" font-family="'SF Mono', 'Cascadia Mono', ui-monospace, Menlo, Consolas, monospace" font-size="24" fill="#1f1f1f" opacity="0.6">arena-commerce · kit/atelier-mode</text>
+</svg>

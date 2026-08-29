@@ -1,0 +1,43 @@
+
+<!-- wp:group {"tagName":"main","align":"full","layout":{"type":"constrained"}} -->
+<main class="wp-block-group alignfull" data-arena-pattern="kit-atelier-mode-home">
+<!-- wp:columns {"verticalAlignment":"center"} -->
+<div class="wp-block-columns are-vertically-aligned-center">
+<!-- wp:column {"width":"55%"} -->
+<div class="wp-block-column" style="flex-basis:55%">
+<!-- wp:paragraph {"fontSize":"caption","style":{"typography":{"letterSpacing":"0.14em","textTransform":"uppercase"}}} -->
+<p class="has-caption-font-size">{{t:home.eyebrow}}</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading {"level":1,"fontSize":"display"} -->
+<h1 class="wp-block-heading has-display-font-size">{{t:home.title}}</h1>
+<!-- /wp:heading -->
+<!-- wp:paragraph {"fontSize":"lg"} -->
+<p class="has-lg-font-size">{{t:home.copy}}</p>
+<!-- /wp:paragraph -->
+<!-- wp:buttons -->
+<div class="wp-block-buttons">
+<!-- wp:button -->
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="{{t:link.collection}}">{{t:home.cta}}</a></div>
+<!-- /wp:button -->
+<!-- wp:button {"className":"is-style-outline"} -->
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="{{t:link.about}}">{{t:home.cta2}}</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:buttons -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column {"width":"45%"} -->
+<div class="wp-block-column" style="flex-basis:45%">
+<!-- wp:image {"aspectRatio":"3/4","scale":"cover","sizeSlug":"large"} -->
+<figure class="wp-block-image size-large"><img src="{{t:home.image}}" alt="{{t:home.imageAlt}}" style="aspect-ratio:3/4;object-fit:cover"/></figure>
+<!-- /wp:image -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+{{pattern:gallery-masonry}}
+{{pattern:editorial-timeline}}
+{{pattern:newsletter-signup}}
+</main>
+<!-- /wp:group -->
+

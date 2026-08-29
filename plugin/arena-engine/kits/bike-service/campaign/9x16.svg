@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" role="img" aria-labelledby="t d" width="1080" height="1920">
+<title id="t">Bike Service Workshop — Book a service</title>
+<desc id="d">Bike Service Workshop: The workshop that texts you before you ask</desc>
+<rect width="1080" height="1920" fill="#FFFFFF"/>
+<rect x="129.6" y="1344" width="388.8" height="230.39999999999998" rx="6" fill="#f2f0eb"/>
+<rect x="561.6" y="1344" width="388.8" height="230.39999999999998" rx="6" fill="none" stroke="#595959" stroke-width="2"/>
+<text x="129.6" y="345.59999999999997" font-family="'SF Mono', 'Cascadia Mono', ui-monospace, Menlo, Consolas, monospace" font-size="28" letter-spacing="4" fill="#595959" text-transform="uppercase">BIKE SERVICE WORKSHOP · STORY</text>
+<text x="129.6" y="806.4" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="81" font-weight="800" fill="#1f1f1f">The workshop that texts</text>
+<text x="129.6" y="893.88" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="81" font-weight="800" fill="#1f1f1f">you before you ask</text>
+<text x="129.6" y="1152" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="32" fill="#1f1f1f" opacity="0.72">Ready in one click.</text>
+<rect x="129.6" y="1497.6000000000001" width="420" height="153.6" rx="76.8" fill="#595959"/>
+<text x="157.6" y="1597.44" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="31" font-weight="700" fill="#fff">Book a service</text>
+<text x="129.6" y="1804.8" font-family="'SF Mono', 'Cascadia Mono', ui-monospace, Menlo, Consolas, monospace" font-size="21" fill="#1f1f1f" opacity="0.6">arena-commerce · kit/bike-service</text>
+</svg>

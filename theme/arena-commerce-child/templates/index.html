@@ -1,0 +1,29 @@
+<!-- Arena Commerce Child — index template (H50).
+     The child reuses the parent loop part: no template logic is duplicated.
+     To diverge, copy a PART (parts/loop-grid.html) rather than this file. -->
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","align":"full","layout":{"type":"constrained"}} -->
+<main class="wp-block-group alignfull">
+	<!-- wp:query {"queryId":0,"query":{"perPage":10,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true}} -->
+	<div class="wp-block-query">
+		<!-- wp:post-template -->
+		<!-- wp:group {"layout":{"type":"flex","orientation":"vertical"}} -->
+		<div class="wp-block-group">
+			<!-- wp:post-title {"isLink":true,"fontSize":"h2"} /-->
+			<!-- wp:post-date {"fontSize":"caption"} /-->
+			<!-- wp:post-featured-image {"aspectRatio":"16/9"} /-->
+			<!-- wp:post-excerpt {"excerptLength":28} /-->
+		</div>
+		<!-- /wp:group -->
+		<!-- /wp:post-template -->
+		<!-- wp:query-pagination -->
+		<!-- wp:query-pagination-previous /-->
+		<!-- wp:query-pagination-next /-->
+		<!-- /wp:query-pagination -->
+	</div>
+	<!-- /wp:query -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

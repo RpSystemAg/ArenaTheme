@@ -66,3 +66,13 @@ template,page-checkout,Commerce,form + order summary,vertical,form → review �
 template,page-order-confirmation,Commerce,confirmation,vertical,check → order → next step,single button,low
 template,page-my-account,Commerce,account nav + content,vertical,nav → content,nav/form,high
 template,product-search-results,Commerce,search results list,vertical,title → results,search + pagination,medium
+pattern,author-box,Blog,author inset panel,vertical,avatar → name → role → bio,author archive link,low
+pattern,related-posts,Blog,3-col below article,vertical,title → posts → meta,post links,medium
+pattern,post-navigation,Blog,prev/next split 50/50,vertical,prev label → title,next/prev links,low
+pattern,post-format-gallery,Blog,1/1 grid gallery,vertical,featured → thumbs,lightbox,medium
+pattern,post-format-quote,Blog,single quote block,vertical,quote → cite,none,low
+pattern,post-format-video,Blog,16/9 video lead,vertical,video → caption,video controls,medium
+pattern,checkout-steps,Checkout,horizontal steps rail,vertical,steps → current,step links,low
+pattern,footer-3-columns,Footer,3 zones + legal bar,vertical,brand → zones → legal,footer links,low
+pattern,footer-4-columns,Footer,4 zones + legal bar,vertical,brand → zones → legal,footer links,medium
+pattern,footer-5-columns,Footer,5 zones + legal bar,vertical,brand → zones → legal,footer links,medium

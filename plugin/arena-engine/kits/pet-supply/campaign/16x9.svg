@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" role="img" aria-labelledby="t d" width="1920" height="1080">
+<title id="t">Pet Supply Co. — Feed them better</title>
+<desc id="d">Pet Supply Co.: Dog food with nothing to hide</desc>
+<rect width="1920" height="1080" fill="#FFEB00"/>
+<circle cx="960" cy="820.8" r="172.8" fill="none" stroke="#7A0000" stroke-width="4"/>
+<path d="M 906 820.8 L 960 874.8 L 1035.6 766.8" fill="none" stroke="#7A0000" stroke-width="4" stroke-linecap="round"/>
+<text x="230.39999999999998" y="194.4" font-family="'SF Mono', 'Cascadia Mono', ui-monospace, Menlo, Consolas, monospace" font-size="31" letter-spacing="4" fill="#7A0000" text-transform="uppercase">PET SUPPLY CO. · BANNER</text>
+<text x="230.39999999999998" y="453.59999999999997" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="92" font-weight="800" fill="#1f1f1f">Dog food with nothing to</text>
+<text x="230.39999999999998" y="552.96" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="92" font-weight="800" fill="#1f1f1f">hide</text>
+<text x="230.39999999999998" y="648" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="37" fill="#1f1f1f" opacity="0.72">Ready in one click.</text>
+<rect x="230.39999999999998" y="842.4" width="420" height="86.4" rx="43.2" fill="#7A0000"/>
+<text x="258.4" y="898.56" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="35" font-weight="700" fill="#fff">Feed them better</text>
+<text x="230.39999999999998" y="1015.1999999999999" font-family="'SF Mono', 'Cascadia Mono', ui-monospace, Menlo, Consolas, monospace" font-size="24" fill="#1f1f1f" opacity="0.6">arena-commerce · kit/pet-supply</text>
+</svg>

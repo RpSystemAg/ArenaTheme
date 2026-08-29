@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" role="img" aria-labelledby="t d" width="1920" height="1080">
+<title id="t">Nordic Furniture — Shop the collection</title>
+<desc id="d">Nordic Furniture: Furniture that assembles in minutes, lasts for moves</desc>
+<rect width="1920" height="1080" fill="#FFFFFF"/>
+<circle cx="960" cy="464.4" r="324" fill="none" stroke="#595959" stroke-width="3"/>
+<circle cx="1284" cy="464.4" r="324" fill="#f2f0eb"/>
+<text x="230.39999999999998" y="194.4" font-family="'SF Mono', 'Cascadia Mono', ui-monospace, Menlo, Consolas, monospace" font-size="31" letter-spacing="4" fill="#595959" text-transform="uppercase">NORDIC FURNITURE · BANNER</text>
+<text x="230.39999999999998" y="453.59999999999997" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="92" font-weight="800" fill="#1f1f1f">Furniture that assembles</text>
+<text x="230.39999999999998" y="552.96" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="92" font-weight="800" fill="#1f1f1f">in minutes, lasts for</text>
+<text x="230.39999999999998" y="652.3199999999999" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="92" font-weight="800" fill="#1f1f1f">moves</text>
+<text x="230.39999999999998" y="648" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="37" fill="#1f1f1f" opacity="0.72">Ready in one click.</text>
+<rect x="230.39999999999998" y="842.4" width="420" height="86.4" rx="43.2" fill="#595959"/>
+<text x="258.4" y="898.56" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="35" font-weight="700" fill="#fff">Shop the collection</text>
+<text x="230.39999999999998" y="1015.1999999999999" font-family="'SF Mono', 'Cascadia Mono', ui-monospace, Menlo, Consolas, monospace" font-size="24" fill="#1f1f1f" opacity="0.6">arena-commerce · kit/nordic-furniture</text>
+</svg>

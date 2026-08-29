@@ -187,6 +187,9 @@ function familyFor( name ) {
 		[ 'gallery-', 'Gallery' ], [ 'checkout-', 'Checkout' ],
 		[ 'order-', 'Checkout' ], [ 'payment-', 'Checkout' ], [ 'cost-', 'Checkout' ],
 		[ 'service-', 'Service' ],
+		[ 'author-box', 'Blog' ], [ 'post-navigation', 'Blog' ],
+		[ 'post-format-', 'Blog' ], [ 'related-posts', 'Blog' ],
+		[ 'footer-', 'Footer' ],
 	];
 	for ( const [ p, f ] of map ) if ( name.startsWith( p ) ) return f;
 	return 'Other';

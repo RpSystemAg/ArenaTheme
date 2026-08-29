@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" role="img" aria-labelledby="t d" width="1920" height="1080">
+<title id="t">Tech Refurb Depot — Shop graded stock</title>
+<desc id="d">Tech Refurb Depot: Last year’s flagship, this year’s price</desc>
+<rect width="1920" height="1080" fill="#FFFFFF"/>
+<rect x="192" y="734.4000000000001" width="652.8000000000001" height="151.20000000000002" rx="8" fill="#f2f0eb"/>
+<rect x="960" y="734.4000000000001" width="768" height="151.20000000000002" rx="8" fill="#B42318" opacity="0.2"/>
+<text x="230.39999999999998" y="194.4" font-family="'SF Mono', 'Cascadia Mono', ui-monospace, Menlo, Consolas, monospace" font-size="31" letter-spacing="4" fill="#B42318" text-transform="uppercase">TECH REFURB DEPOT · BANNER</text>
+<text x="230.39999999999998" y="453.59999999999997" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="92" font-weight="800" fill="#1f1f1f">Last year’s flagship, this</text>
+<text x="230.39999999999998" y="552.96" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="92" font-weight="800" fill="#1f1f1f">year’s price</text>
+<text x="230.39999999999998" y="648" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="37" fill="#1f1f1f" opacity="0.72">Ready in one click.</text>
+<rect x="230.39999999999998" y="842.4" width="420" height="86.4" rx="43.2" fill="#B42318"/>
+<text x="258.4" y="898.56" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="35" font-weight="700" fill="#fff">Shop graded stock</text>
+<text x="230.39999999999998" y="1015.1999999999999" font-family="'SF Mono', 'Cascadia Mono', ui-monospace, Menlo, Consolas, monospace" font-size="24" fill="#1f1f1f" opacity="0.6">arena-commerce · kit/tech-refurb</text>
+</svg>

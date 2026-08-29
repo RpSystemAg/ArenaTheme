@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 620" width="960" height="620" role="img" aria-label="Import di un kit in un click">
+<rect width="960" height="620" fill="#fdfdfc"/>
+<rect x="16" y="16" width="928" height="588" fill="#fff" stroke="#c3c4c7" stroke-width="2" rx="12"/>
+<text x="40" y="58" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="26" font-weight="800" fill="#1f1f1f">Import di un kit in un click</text>
+<text x="40" y="84" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" fill="#50575e">Selettivo, con barra di avanzamento e annullamento totale (H20, G8)</text>
+<text x="920" y="586" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#8c8f94">DIAGRAMMA — wireframe schematico, non uno screenshot</text>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#2271b1"/></marker></defs>
+<rect x="40" y="110" width="280" height="190" rx="8" fill="#fff" stroke="#c3c4c7" stroke-width="1.5"/>
+<text x="180" y="210" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" fill="#1f1f1f">Scheda kit: pagine · famiglia · preset</text>
+<rect x="340" y="110" width="160" height="84" rx="8" fill="#e7f3fa" stroke="#2271b1" stroke-width="1.5"/>
+<text x="420" y="157" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" fill="#1f1f1f">Import kit</text>
+<rect x="520" y="110" width="160" height="84" rx="8" fill="#fff" stroke="#c3c4c7" stroke-width="1.5"/>
+<text x="600" y="157" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" fill="#1f1f1f">Solo una pagina</text>
+<rect x="700" y="110" width="200" height="84" rx="8" fill="#fef8ee" stroke="#d63638" stroke-width="1.5"/>
+<text x="800" y="157" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" fill="#1f1f1f">Sync / Annulla import</text>
+<rect x="340" y="214" width="380" height="86" rx="8" fill="#fff" stroke="#8c8f94" stroke-width="1.5"/>
+<text x="530" y="262" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="12" fill="#1f1f1f">Conferma esplicita prima di toccare contenuti esistenti</text>
+<rect x="40" y="330" width="860" height="18" rx="9" fill="#f0f0f1"/>
+<rect x="40" y="330" width="620" height="18" rx="9" fill="#2271b1"/>
+<text x="40" y="376" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="13" fill="#50575e">Importazione… (4/7) — menu, prodotti demo, pagine</text>
+<path d="M 90 420 L 90 480" stroke="#2271b1" stroke-width="2" marker-end="url(#a)"/>
+<rect x="40" y="480" width="410" height="100" rx="8" fill="#fff" stroke="#c3c4c7" stroke-width="1.5"/>
+<text x="245" y="535" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" fill="#1f1f1f">Pagine + menu + prodotti creati</text>
+<rect x="490" y="480" width="410" height="100" rx="8" fill="#fef8ee" stroke="#d63638" stroke-width="1.5"/>
+<text x="695" y="535" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="13" fill="#1f1f1f">Journal: id creati → «Annulla» li elimina tutti</text>
+</svg>

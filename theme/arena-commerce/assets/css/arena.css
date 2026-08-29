@@ -1,8 +1,23 @@
 /*!
- * Arena Commerce — component CSS.
+ * Arena Commerce — global component CSS (H45 decoupled core).
  * Design tokens live in theme.json; this file only contains what tokens cannot
  * express: component behaviour, focus management, motion and print.
- * Budget: 12 KB uncompressed / <4 KB gzipped. No @import, no web fonts.
+ *
+ * Since v3.1 the stylesheet is decoupled per module (H45): this file carries
+ * only what every page needs. Component CSS loads per module from
+ * assets/css/modules/ (see inc/class-assets.php):
+ *
+ *   arena-motion.css    carousels, marquee        (only when such markup exists)
+ *   arena-commerce.css  cart drawer, shop UI      (WooCommerce requests)
+ *   arena-blog.css      loops, meta, author box   (blog / archive / single)
+ *   arena-megamenu.css  mega menu + flyout        (when the header uses it)
+ *   arena-dark.css      dark palette twins        (always, ~4 KB)
+ *   arena-search.css    live search results       (when a search block exists)
+ *   arena-checkout.css  distraction-free checkout (checkout / account pages)
+ *
+ * Budget: a page loads only the modules it renders; per-page totals stay
+ * within the v2.0 budget (CSS ≤ 32 KB raw / ≤ 10 KB gzip per page).
+ * No @import, no web fonts.
  */
 
 /* ============================================================ 1. Foundations */
@@ -91,7 +106,7 @@ img { background-color: var(--wp--preset--color--surface); }
 	}
 }
 
-/* Windows High Contrast / forced-colors: never rely on colour alone. */
+/* Windows High Contrast / forced-colors: never rely on colour alone (H48). */
 @media (forced-colors: active) {
 	:where(a, button, input, select, textarea) { forced-color-adjust: none; }
 	.arena-card, .arena-frame { border: 1px solid CanvasText; }
@@ -132,6 +147,68 @@ img { background-color: var(--wp--preset--color--surface); }
 	text-align: center;
 }
 
+/* ================================================ 3b. Header variants (H27) */
+/* Transparent-over-hero: the header starts transparent above the page hero and
+   gains the solid canvas + shadow once the visitor scrolls. */
+body.arena-header-transparent .arena-header {
+	background: transparent;
+	border-bottom: 0;
+}
+
+body.arena-header-transparent .arena-header.arena-header--scrolled,
+.arena-header.arena-header--sticky.arena-header--scrolled {
+	background: var(--wp--preset--color--base);
+	box-shadow: 0 10px 30px -18px rgb(11 16 23 / 0.35);
+}
+
+.arena-header--scrolled { transition: box-shadow var(--wp--custom--motion--duration-medium) var(--wp--custom--easing--emphasized); }
+
+/* Text on the transparent header stays readable over the hero scrim. */
+body.arena-header-transparent .arena-header:not(.arena-header--scrolled) { color: #fff; }
+body.arena-header-transparent .arena-header:not(.arena-header--scrolled) :where(a, .wp-block-site-title a) { color: #fff; }
+
+/* Selectable mobile breakpoint (H27): .arena-bp-600 is the default, the panel
+   can switch to 782 or 960. Only the two visibility rules below change. */
+@media (width <= 600px) {
+	body.arena-bp-600 { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
+	body.arena-bp-600 .arena-bottom-nav { display: block; }
+	body.arena-bp-600 .arena-flyout-toggle { display: inline-flex; }
+}
+
+@media (width <= 782px) {
+	body.arena-bp-782 { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
+	body.arena-bp-782 .arena-bottom-nav { display: block; }
+	body.arena-bp-782 .arena-flyout-toggle { display: inline-flex; }
+}
+
+@media (width <= 960px) {
+	body.arena-bp-960 { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
+	body.arena-bp-960 .arena-bottom-nav { display: block; }
+	body.arena-bp-960 .arena-flyout-toggle { display: inline-flex; }
+}
+
+/* Header action buttons (theme toggle, flyout toggle): 44px targets, icons. */
+.arena-header-actions :where(.arena-theme-toggle, .arena-flyout-toggle) {
+	align-items: center;
+	background: transparent;
+	border: 1px solid var(--wp--preset--color--outline);
+	border-radius: var(--wp--custom--radius--full);
+	color: inherit;
+	cursor: pointer;
+	display: none; /* mobile-first: shown at the selected breakpoint */
+	justify-content: center;
+	padding: 0.5rem;
+}
+
+/* ================================================= 3c. Dark mode toggle (H47) */
+/* The toggle is an icon button rendered server-side in the header actions and
+   inside the mobile flyout (reachable from the bottom-nav "More" entry). */
+.arena-theme-toggle { display: inline-flex; }
+.arena-theme-toggle svg { block-size: 22px; inline-size: 22px; }
+.arena-theme-toggle .arena-theme-toggle__icon-sun { display: none; }
+[data-theme="dark"] .arena-theme-toggle .arena-theme-toggle__icon-sun { display: inline-block; }
+[data-theme="dark"] .arena-theme-toggle .arena-theme-toggle__icon-moon { display: none; }
+
 /* =============================================================== 4. Cards */
 .arena-card,
 .is-style-arena-card {
@@ -171,90 +248,7 @@ img { background-color: var(--wp--preset--color--surface); }
 	text-transform: uppercase;
 }
 
-/* ============================================================ 5. Carousel */
-/* Scroll-snap first: works with no JavaScript, with a trackpad, with a wheel
-   and with touch, and gives a native single-pointer alternative to dragging
-   (WCAG 2.5.7 Dragging Movements). */
-.arena-carousel { position: relative; }
-
-.arena-carousel__viewport {
-	display: flex;
-	gap: var(--wp--preset--spacing--50);
-	overflow-x: auto;
-	overscroll-behavior-x: contain;
-	scroll-behavior: smooth;
-	scroll-padding-inline: var(--wp--custom--spacing--outer);
-	scroll-snap-type: x mandatory;
-	scrollbar-width: none;
-	-webkit-overflow-scrolling: touch;
-}
-
-.arena-carousel__viewport::-webkit-scrollbar { display: none; }
-
-.arena-carousel__viewport > * {
-	flex: 0 0 clamp(16rem, 78%, 22rem);
-	scroll-snap-align: start;
-	scroll-snap-stop: always;
-}
-
-.arena-carousel__controls {
-	display: flex;
-	gap: var(--wp--preset--spacing--30);
-	justify-content: flex-end;
-	margin-block-start: var(--wp--preset--spacing--40);
-}
-
-.arena-carousel__control {
-	align-items: center;
-	background: var(--wp--preset--color--base);
-	border: 1px solid var(--wp--preset--color--border-strong);
-	border-radius: var(--wp--custom--radius--full);
-	color: var(--wp--preset--color--foreground);
-	cursor: pointer;
-	display: inline-flex;
-	justify-content: center;
-	padding: 0;
-	transition: background-color var(--wp--custom--motion--duration-fast) cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.arena-carousel__control:hover { background: var(--wp--preset--color--surface); }
-.arena-carousel__control[disabled] { cursor: not-allowed; opacity: 0.45; }
-
-.arena-carousel__progress {
-	background: var(--wp--preset--color--outline);
-	block-size: 3px;
-	border-radius: var(--wp--custom--radius--full);
-	margin-block-start: var(--wp--preset--spacing--40);
-	overflow: hidden;
-}
-
-.arena-carousel__progress-bar {
-	background: var(--wp--preset--color--primary);
-	block-size: 100%;
-	inline-size: 0;
-	transition: inline-size var(--wp--custom--motion--duration-fast) cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* =============================================================== 6. Marquee */
-.arena-marquee__viewport {
-	display: flex;
-	mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-	overflow: hidden;
-}
-
-.arena-marquee__track {
-	animation: arena-marquee 38s linear infinite;
-	flex: 0 0 auto;
-	gap: var(--wp--preset--spacing--70);
-	padding-inline-end: var(--wp--preset--spacing--70);
-}
-
-.arena-marquee:hover .arena-marquee__track,
-.arena-marquee:focus-within .arena-marquee__track { animation-play-state: paused; }
-
-@keyframes arena-marquee { to { transform: translate3d(-100%, 0, 0); } }
-
-/* ================================================================ 7. Reveal */
+/* ================================================================ 5. Reveal */
 /* Nothing is hidden before JavaScript opts in: the reveal only applies once
    arena.js adds .arena-motion-ready to <html>, and never under reduced motion. */
 .arena-motion-ready [data-arena-reveal] {
@@ -298,45 +292,10 @@ img { background-color: var(--wp--preset--color--surface); }
 	@keyframes arena-reveal-view { from { opacity: 0; transform: translate3d(0, 1.5rem, 0); } }
 }
 
-/* =========================================================== 8. Sticky col */
+/* =========================================================== 6. Sticky col */
 .is-style-arena-sticky, .arena-sticky { position: sticky; top: calc(6rem + var(--wp-admin--admin-bar--height, 0px)); }
 
-/* ============================================================ 9. Commerce */
-.arena-reassurance {
-	display: flex;
-	flex-wrap: wrap;
-	gap: var(--wp--preset--spacing--40);
-	list-style: none;
-	margin: var(--wp--preset--spacing--40) 0 0;
-	padding: 0;
-}
-
-.arena-reassurance__item { color: var(--wp--preset--color--muted); font-size: var(--wp--preset--font-size--sm); }
-
-.arena-breadcrumbs__list { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; margin: 0; padding: 0; }
-.arena-breadcrumbs__item { color: var(--wp--preset--color--muted); font-size: var(--wp--preset--font-size--sm); }
-.arena-breadcrumbs__item + .arena-breadcrumbs__item::before { content: "/"; padding-inline-end: 0.5rem; }
-
-.arena-qty { inline-size: 5.5rem; text-align: center; }
-
-/* Forms: WCAG 1.4.11 needs a 3:1 boundary, so borders use border-strong. */
-.arena-form :where(input:not([type="submit"]):not([type="checkbox"]):not([type="radio"]), select, textarea),
-.arena-prose :where(input:not([type="submit"]):not([type="checkbox"]):not([type="radio"]), select, textarea) {
-	background: var(--wp--preset--color--base);
-	border: 1px solid var(--wp--preset--color--border-strong);
-	border-radius: var(--wp--custom--radius--sm);
-	font: inherit;
-	min-height: 44px;
-	padding: 0.625rem 0.75rem;
-	inline-size: 100%;
-}
-
-.arena-form :where(input, select, textarea):focus-visible { outline-offset: 2px; }
-.arena-form :where(.error, [aria-invalid="true"]) { border-color: var(--wp--preset--color--danger); }
-
-.arena-prose :where(label) { display: block; font-weight: 600; margin-block-end: 0.375rem; }
-
-/* ============================================ 10. Reading experience / print */
+/* =============================================== 7. Reading experience / print */
 .arena-prose { font-size: var(--wp--preset--font-size--lg); line-height: 1.7; }
 .arena-prose :where(h2) { margin-block-start: 2em; }
 .arena-prose :where(h3) { margin-block-start: 1.75em; }
@@ -348,14 +307,13 @@ img { background-color: var(--wp--preset--color--surface); }
 	a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.8em; }
 }
 
-/* ===================================================== 11. Small screens */
+/* ===================================================== 8. Small screens */
 @media (width <= 600px) {
-	.arena-carousel__viewport > * { flex-basis: 82%; }
 	.is-style-arena-sticky, .arena-sticky { position: static; }
 	.arena-reassurance { gap: var(--wp--preset--spacing--30); }
 }
 
-/* ================================================= 12. Mobile bottom nav (H2) */
+/* ============================================ 9. Mobile bottom nav (H2) */
 /* Fixed 5-item bar, 64px + safe area, thumb-reach 100%, active indicator
    animated with a motion.dev-style curve, hidden by default on desktop. */
 .arena-bottom-nav {
@@ -452,12 +410,6 @@ img { background-color: var(--wp--preset--color--surface); }
 
 .arena-bottom-nav.arena-bottom-nav--hidden {
 	transform: translate3d(0, calc(100% + env(safe-area-inset-bottom, 0px)), 0);
-}
-
-/* Keep content clear of the fixed bar on handhelds. */
-@media (width <= 600px) {
-	.arena-bottom-nav { display: block; }
-	body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
 }
 
 @media (prefers-reduced-motion: reduce) {

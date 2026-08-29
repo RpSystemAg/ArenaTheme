@@ -65,6 +65,13 @@ final class Bottom_Nav {
 
 		$items = self::items();
 
+		/*
+		 * H47: the dark-mode toggle rides the bottom nav as an extra slot. It
+		 * is a button, not a navigation destination, so it never counts
+		 * against the 4–5 destination rule.
+		 */
+		$toggle = is_array( $items ) ? array_pop( $items ) : null;
+
 		if ( count( $items ) < 4 || count( $items ) > 5 ) {
 			return;
 		}
@@ -82,8 +89,16 @@ final class Bottom_Nav {
 							<span class="arena-bottom-nav__indicator" aria-hidden="true"></span>
 						</a>
 					</li>
-				<?php endforeach; ?>
-			</ul>
+					<?php endforeach; ?>
+					<?php if ( $toggle && ! empty( $toggle['toggle'] ) ) : ?>
+						<li class="arena-bottom-nav__item">
+							<button type="button" class="arena-bottom-nav__link arena-theme-toggle" data-arena-theme-toggle aria-label="<?php esc_attr_e( 'Toggle dark mode', 'arena-commerce' ); ?>">
+								<span class="arena-bottom-nav__icon" aria-hidden="true"><?php echo Dark_Mode::icon_moon() . Dark_Mode::icon_sun(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static allow-listed SVGs. ?></span>
+								<span class="arena-bottom-nav__label"><?php echo esc_html( $toggle['label'] ); ?></span>
+							</button>
+						</li>
+					<?php endif; ?>
+				</ul>
 		</nav>
 		<?php
 	}
@@ -136,12 +151,24 @@ final class Bottom_Nav {
 			),
 		);
 
+		/*
+		 * H47 — the scheme toggle is always reachable with a thumb: it rides
+		 * the bottom nav (a button, rendered after the destinations).
+		 */
+		$items[] = array(
+			'label'  => __( 'Theme', 'arena-commerce' ),
+			'icon'   => 'theme',
+			'toggle' => 'theme',
+			'href'   => '',
+		);
+
 		/**
 		 * Filters the bottom navigation items.
 		 *
 		 * @since 1.0.0
 		 *
-		 * @param array[] $items List of {label, href, icon, current}.
+		 * @param array[] $items List of {label, href, icon, current} plus the
+		 *                       trailing H47 scheme-toggle slot.
 		 */
 		return apply_filters( 'arena_theme_bottom_nav_items', $items );
 	}

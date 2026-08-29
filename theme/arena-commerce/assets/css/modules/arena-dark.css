@@ -1,0 +1,206 @@
+/*!
+ * Arena Commerce — dark mode module CSS (H47/H48).
+ *
+ * Real dark mode: the palette CSS custom properties emitted by core from
+ * theme.json are swapped under [data-theme="dark"]. No filter: invert(), no
+ * image hacks (AP13). Every preset ships an inverted twin, so both schemes
+ * pass WCAG 2.2 AA (verified pair-by-pair by tests/g16-dark-a11y.test.mjs).
+ *
+ * The initial scheme is resolved before first paint by a tiny inline script
+ * (localStorage, falling back to prefers-color-scheme); the toggle in the
+ * header and in the mobile flyout flips data-theme without a reload.
+ *
+ * color-scheme lets the UA paint form controls, scrollbars and the
+ * ::selection in the active scheme.
+ */
+
+[data-theme="dark"] { color-scheme: dark; }
+[data-theme="light"] { color-scheme: light; }
+
+/* ---------------------------------------------- Default twin (midnight) */
+[data-theme="dark"] {
+	--wp--preset--color--base: #0B1017;
+	--wp--preset--color--surface: #141A23;
+	--wp--preset--color--surface-alt: #1E2733;
+	--wp--preset--color--foreground: #F4F6F8;
+	--wp--preset--color--muted: #A9B3C0;
+	--wp--preset--color--primary: #4FB3D9;
+	--wp--preset--color--primary-hover: #7FCCE8;
+	--wp--preset--color--accent: #F0A35C;
+	--wp--preset--color--accent-soft: #3A2A17;
+	--wp--preset--color--success: #4ADE80;
+	--wp--preset--color--warning: #FACC15;
+	--wp--preset--color--danger: #F87171;
+	--wp--preset--color--border-strong: #8C97A5;
+	--wp--preset--color--outline: #3A4550;
+}
+
+/* No-JS / first-paint fallback: honour the OS setting until the inline
+   script (or the visitor) pins data-theme. */
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme]) {
+		color-scheme: dark;
+		--wp--preset--color--base: #0B1017;
+		--wp--preset--color--surface: #141A23;
+		--wp--preset--color--surface-alt: #1E2733;
+		--wp--preset--color--foreground: #F4F6F8;
+		--wp--preset--color--muted: #A9B3C0;
+		--wp--preset--color--primary: #4FB3D9;
+		--wp--preset--color--primary-hover: #7FCCE8;
+		--wp--preset--color--accent: #F0A35C;
+		--wp--preset--color--accent-soft: #3A2A17;
+		--wp--preset--color--success: #4ADE80;
+		--wp--preset--color--warning: #FACC15;
+		--wp--preset--color--danger: #F87171;
+		--wp--preset--color--border-strong: #8C97A5;
+		--wp--preset--color--outline: #3A4550;
+	}
+}
+
+/* --------------------------------------------------- Commerce twin */
+[data-arena-preset="commerce"][data-theme="dark"] {
+	--wp--preset--color--base: #0A0F1C;
+	--wp--preset--color--surface: #111827;
+	--wp--preset--color--surface-alt: #1D2939;
+	--wp--preset--color--foreground: #EAECF0;
+	--wp--preset--color--muted: #98A2B3;
+	--wp--preset--color--primary: #84ADFF;
+	--wp--preset--color--primary-hover: #A7C3FF;
+	--wp--preset--color--accent: #FDB022;
+	--wp--preset--color--accent-soft: #3A2A06;
+	--wp--preset--color--success: #75E0A7;
+	--wp--preset--color--warning: #FDB022;
+	--wp--preset--color--danger: #FEA3A3;
+	--wp--preset--color--border-strong: #8B93A7;
+	--wp--preset--color--outline: #2A3347;
+}
+
+/* -------------------------------------------------- Editorial twin */
+[data-arena-preset="editorial"][data-theme="dark"] {
+	--wp--preset--color--base: #17130E;
+	--wp--preset--color--surface: #201A13;
+	--wp--preset--color--surface-alt: #2C241A;
+	--wp--preset--color--foreground: #F5EFE3;
+	--wp--preset--color--muted: #B5A992;
+	--wp--preset--color--primary: #E8A87C;
+	--wp--preset--color--primary-hover: #F2C4A0;
+	--wp--preset--color--accent: #F4B860;
+	--wp--preset--color--accent-soft: #33240F;
+	--wp--preset--color--success: #86E3A5;
+	--wp--preset--color--warning: #FBBF24;
+	--wp--preset--color--danger: #F87171;
+	--wp--preset--color--border-strong: #A8A29E;
+	--wp--preset--color--outline: #3F3A34;
+}
+
+/* --------------------------------------------------- Magazine twin */
+[data-arena-preset="magazine"][data-theme="dark"] {
+	--wp--preset--color--base: #0D0E12;
+	--wp--preset--color--surface: #15171D;
+	--wp--preset--color--surface-alt: #1F222B;
+	--wp--preset--color--foreground: #F2F3F5;
+	--wp--preset--color--muted: #A6ADBB;
+	--wp--preset--color--primary: #FF7A9C;
+	--wp--preset--color--primary-hover: #FF9DB4;
+	--wp--preset--color--accent: #FFB25C;
+	--wp--preset--color--accent-soft: #38200D;
+	--wp--preset--color--success: #4ADE80;
+	--wp--preset--color--warning: #FACC15;
+	--wp--preset--color--danger: #F87171;
+	--wp--preset--color--border-strong: #9AA1AE;
+	--wp--preset--color--outline: #343846;
+}
+
+/* ---------------------------------------------------- Minimal twin */
+[data-arena-preset="minimal"][data-theme="dark"] {
+	--wp--preset--color--base: #101010;
+	--wp--preset--color--surface: #171717;
+	--wp--preset--color--surface-alt: #202020;
+	--wp--preset--color--foreground: #F5F5F5;
+	--wp--preset--color--muted: #A3A3A3;
+	--wp--preset--color--primary: #EDEDED;
+	--wp--preset--color--primary-hover: #FFFFFF;
+	--wp--preset--color--accent: #B3B3B3;
+	--wp--preset--color--accent-soft: #262626;
+	--wp--preset--color--success: #4ADE80;
+	--wp--preset--color--warning: #FACC15;
+	--wp--preset--color--danger: #F87171;
+	--wp--preset--color--border-strong: #8F8F8F;
+	--wp--preset--color--outline: #2E2E2E;
+}
+
+/* ---------------------------------------------------- Brutal twin */
+[data-arena-preset="brutal"][data-theme="dark"] {
+	--wp--preset--color--base: #0A0A0A;
+	--wp--preset--color--surface: #141414;
+	--wp--preset--color--surface-alt: #1E1E1E;
+	--wp--preset--color--foreground: #FFF566;
+	--wp--preset--color--muted: #C9C96A;
+	--wp--preset--color--primary: #FFF566;
+	--wp--preset--color--primary-hover: #FFFF8C;
+	--wp--preset--color--accent: #FF6B4A;
+	--wp--preset--color--accent-soft: #2E2A00;
+	--wp--preset--color--success: #6EE7A0;
+	--wp--preset--color--warning: #FACC15;
+	--wp--preset--color--danger: #FF6B6B;
+	--wp--preset--color--border-strong: #8F8F4A;
+	--wp--preset--color--outline: #333300;
+}
+
+/* ------------------------------------------------------ Soft twin */
+[data-arena-preset="soft"][data-theme="dark"] {
+	--wp--preset--color--base: #14121D;
+	--wp--preset--color--surface: #1B1829;
+	--wp--preset--color--surface-alt: #262238;
+	--wp--preset--color--foreground: #F4F2FB;
+	--wp--preset--color--muted: #B3AECB;
+	--wp--preset--color--primary: #A78BFA;
+	--wp--preset--color--primary-hover: #C4B0FD;
+	--wp--preset--color--accent: #F0ABFC;
+	--wp--preset--color--accent-soft: #2E1F42;
+	--wp--preset--color--success: #6EE7B7;
+	--wp--preset--color--warning: #FCD34D;
+	--wp--preset--color--danger: #FDA4AF;
+	--wp--preset--color--border-strong: #9C97B8;
+	--wp--preset--color--outline: #322D45;
+}
+
+/* Midnight is dark-first: its twin under [data-theme="dark"] is itself
+   (the preset palette already ships dark values), so no override block is
+   needed. Toggling to the light scheme restores the base light palette. */
+
+/* prefers-contrast keeps both schemes readable (H48): the muted token is
+   promoted to the foreground tone in both schemes. */
+@media (prefers-contrast: more) {
+	[data-theme="dark"] { --wp--preset--color--muted: var(--wp--preset--color--foreground); }
+	[data-theme="light"] { --wp--preset--color--muted: var(--wp--preset--color--foreground); }
+}
+
+/* forced-colors: the OS palette wins; only geometry survives (H48). */
+@media (forced-colors: active) {
+	[data-theme="dark"] .arena-card,
+	[data-theme="light"] .arena-card { border: 1px solid CanvasText; }
+}
+
+/* The transparent header needs a scrim that works on both schemes. */
+[data-theme="dark"] body.arena-header-transparent .arena-header:not(.arena-header--scrolled) {
+	background: linear-gradient(180deg, rgb(0 0 0 / 0.55) 0%, rgb(0 0 0 / 0) 100%);
+}
+
+/* H47 — the scheme toggle also lives in the bottom nav: a button that must
+   look exactly like a nav link (44px target, same tap feedback). */
+.arena-bottom-nav .arena-theme-toggle {
+	align-items: center;
+	background: none;
+	border: 0;
+	border-radius: 0;
+	color: inherit;
+	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+	font: inherit;
+	gap: 2px;
+	min-height: 44px;
+	padding: 0;
+	text-decoration: none;
+}

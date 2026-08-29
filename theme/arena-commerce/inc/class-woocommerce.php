@@ -51,9 +51,12 @@ final class WooCommerce {
 			)
 		);
 
-		add_theme_support( 'wc-product-gallery-zoom' );
-		add_theme_support( 'wc-product-gallery-lightbox' );
-		add_theme_support( 'wc-product-gallery-slider' );
+		/*
+		 * H35: the theme ships its own native gallery (scroll-snap slider,
+		 * hover + click zoom, <dialog> lightbox — see the arena/product-gallery
+		 * block and assets/js/modules/arena-cart.js), so WooCommerce's gallery
+		 * bundles stay unloaded on product pages.
+		 */
 
 		add_filter( 'woocommerce_enqueue_styles', array( __CLASS__, 'enqueue_styles' ) );
 		add_filter( 'loop_shop_columns', array( __CLASS__, 'shop_columns' ) );
@@ -66,6 +69,270 @@ final class WooCommerce {
 		add_filter( 'body_class', array( __CLASS__, 'body_classes' ) );
 
 		add_action( 'woocommerce_after_add_to_cart_button', array( __CLASS__, 'reassurance' ), 10 );
+
+		/* v3.1 — H34/H35/H36 opinionated commerce. */
+		add_filter( 'woocommerce_sale_flash', array( __CLASS__, 'sale_badge' ), 10, 1 );
+		add_action( 'woocommerce_after_shop_loop_item', array( __CLASS__, 'quick_view_button' ), 12 );
+		add_filter( 'woocommerce_product_tabs', array( __CLASS__, 'order_product_tabs' ), 98 );
+		add_filter( 'woocommerce_is_purchasable', array( __CLASS__, 'maybe_catalog_mode' ), 10, 2 );
+		add_filter( 'body_class', array( __CLASS__, 'commerce_body_classes' ) );
+		add_filter( 'pre_render_block', array( __CLASS__, 'distraction_free_header' ), 10, 2 );
+		add_action( 'init', array( __CLASS__, 'register_gallery_block' ), 25 );
+	}
+
+	/**
+	 * The configured checkout mode (H36).
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return string standard|distraction-free
+	 */
+	public static function checkout_mode() {
+		$mode = (string) get_option( 'arena_checkout_mode', 'standard' );
+
+		/**
+		 * Filter the checkout mode (H36).
+		 *
+		 * @since 1.1.0
+		 *
+		 * @param string $mode standard|distraction-free.
+		 */
+		return apply_filters( 'arena_theme_checkout_mode', 'distraction-free' === $mode ? 'distraction-free' : 'standard' );
+	}
+
+	/**
+	 * Swaps the header part for the minimal one in distraction-free checkout
+	 * (H36) and drops the footer columns via a body class.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @param string|null $pre_render Pre-render override.
+	 * @param array       $parsed_block Parsed block.
+	 * @return string|null
+	 */
+	public static function distraction_free_header( $pre_render, $parsed_block ) {
+		if ( ! isset( $parsed_block['blockName'] ) || 'core/template-part' !== $parsed_block['blockName'] ) {
+			return $pre_render;
+		}
+
+		$slug = isset( $parsed_block['attrs']['slug'] ) ? $parsed_block['attrs']['slug'] : '';
+
+		if ( 'header' === $slug && function_exists( 'is_checkout' ) && is_checkout() && ! is_order_received_page() && 'distraction-free' === self::checkout_mode() ) {
+			return do_blocks( '<!-- wp:template-part {"slug":"header-minimal","tagName":"header"} /-->' );
+		}
+
+		return $pre_render;
+	}
+
+	/**
+	 * Commerce state body classes (H34/H36).
+	 *
+	 * @since 1.1.0
+	 *
+	 * @param string[] $classes Body classes.
+	 * @return string[]
+	 */
+	public static function commerce_body_classes( $classes ) {
+		if ( self::catalog_mode() ) {
+			$classes[] = 'arena-catalog-mode';
+		}
+
+		if ( function_exists( 'is_checkout' ) && is_checkout() && 'distraction-free' === self::checkout_mode() ) {
+			$classes[] = 'arena-distraction-free';
+		}
+
+		return $classes;
+	}
+
+	/**
+	 * Whether catalog mode is on (H34): prices and purchase buttons hidden.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return bool
+	 */
+	public static function catalog_mode() {
+		return (bool) apply_filters( 'arena_theme_catalog_mode', (bool) get_option( 'arena_catalog_mode', false ) );
+	}
+
+	/**
+	 * Makes products non-purchasable in catalog mode (H34).
+	 *
+	 * @since 1.1.0
+	 *
+	 * @param bool        $purchasable Purchasable state.
+	 * @param \WC_Product $product     Product.
+	 * @return bool
+	 */
+	public static function maybe_catalog_mode( $purchasable, $product ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+		return self::catalog_mode() ? false : $purchasable;
+	}
+
+	/**
+	 * Applies the selected sale badge variant (H34): bubble, ribbon or tag.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @param string $html Sale flash markup.
+	 * @return string
+	 */
+	public static function sale_badge( $html ) {
+		$variant = (string) get_option( 'arena_sale_badge', 'bubble' );
+
+		if ( ! in_array( $variant, array( 'bubble', 'ribbon', 'tag' ), true ) ) {
+			$variant = 'bubble';
+		}
+
+		$label = __( 'Sale!', 'woocommerce' );
+
+		if ( preg_match( '/>([^<]+)</', $html, $m ) && trim( $m[1] ) ) {
+			$label = trim( $m[1] );
+		}
+
+		return sprintf(
+			'<span class="onsale arena-onsale arena-onsale--%1$s">%2$s</span>',
+			esc_attr( $variant ),
+			esc_html( $label )
+		);
+	}
+
+	/**
+	 * Renders the quick-view trigger on catalog cards (H34).
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return void
+	 */
+	public static function quick_view_button() {
+		global $product;
+
+		if ( ! $product instanceof \WC_Product || self::catalog_mode() ) {
+			return;
+		}
+
+		printf(
+			'<button type="button" class="arena-quickview-trigger button" data-arena-quickview="%d">%s</button>',
+			esc_attr( (string) $product->get_id() ),
+			esc_html__( 'Quick view', 'arena-commerce' )
+		);
+	}
+
+	/**
+	 * Reorders the product tabs per the tracked option (H35).
+	 *
+	 * @since 1.1.0
+	 *
+	 * @param array $tabs Product tabs.
+	 * @return array
+	 */
+	public static function order_product_tabs( $tabs ) {
+		$order = get_option( 'arena_product_tabs_order', array() );
+
+		if ( ! is_array( $order ) || empty( $order ) ) {
+			return $tabs;
+		}
+
+		$ordered = array();
+
+		foreach ( $order as $key ) {
+			if ( isset( $tabs[ $key ] ) ) {
+				$ordered[ $key ] = $tabs[ $key ];
+				unset( $tabs[ $key ] );
+			}
+		}
+
+		return $ordered + $tabs;
+	}
+
+	/**
+	 * Registers the native product gallery block (H35).
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return void
+	 */
+	public static function register_gallery_block() {
+		if ( ! function_exists( 'register_block_type' ) ) {
+			return;
+		}
+
+		register_block_type(
+			'arena/product-gallery',
+			array(
+				'api_version'     => 3,
+				'name'            => 'arena/product-gallery',
+				'title'           => __( 'Arena product gallery', 'arena-commerce' ),
+				'category'        => 'woocommerce',
+				'description'     => __( 'Native slider + zoom + lightbox product gallery, zero external libraries.', 'arena-commerce' ),
+				'textdomain'      => 'arena-commerce',
+				'render_callback' => array( __CLASS__, 'render_gallery' ),
+			)
+		);
+	}
+
+	/**
+	 * Renders the native gallery: scroll-snap slider, thumbs, hover zoom and a
+	 * dialog lightbox — all enhanced by the arena-cart script module (H35).
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return string
+	 */
+	public static function render_gallery() {
+		$product = function_exists( 'wc_get_product' ) ? wc_get_product( get_the_ID() ) : null;
+
+		if ( ! $product instanceof \WC_Product ) {
+			return '';
+		}
+
+		$ids = array_merge( array( $product->get_image_id() ), $product->get_gallery_image_ids() );
+		$ids = array_values( array_filter( array_map( 'intval', $ids ) ) );
+
+		if ( empty( $ids ) ) {
+			return '';
+		}
+
+		ob_start();
+		echo '<figure class="arena-gallery wp-block-group" data-arena-module="product-gallery-native">';
+
+		if ( $product->is_on_sale() ) {
+			printf(
+				'<span class="onsale arena-onsale arena-onsale--%s">%s</span>',
+				esc_attr( (string) get_option( 'arena_sale_badge', 'bubble' ) ),
+				esc_html__( 'Sale!', 'woocommerce' )
+			);
+		}
+
+		echo '<div class="arena-gallery__viewport">';
+
+		foreach ( $ids as $index => $id ) {
+			printf(
+				'<div class="arena-gallery__slide">%s</div>',
+				wp_get_attachment_image( $id, 'woocommerce_single', false, array( 'alt' => esc_attr( $product->get_name() ) . ' — ' . ( $index + 1 ) ) )
+			);
+		}
+
+		echo '</div>';
+
+		if ( count( $ids ) > 1 ) {
+			echo '<div class="arena-gallery__thumbs" role="tablist" aria-label="' . esc_attr__( 'Gallery thumbnails', 'arena-commerce' ) . '">';
+
+			foreach ( $ids as $index => $id ) {
+				printf(
+					'<button type="button" data-slide="%d" aria-current="%s" aria-label="%s">%s</button>',
+					(int) $index + 1,
+					0 === $index ? 'true' : 'false',
+					esc_attr( sprintf( /* translators: %d: image number. */ __( 'Show image %d', 'arena-commerce' ), $index + 1 ) ),
+					wp_get_attachment_image( $id, 'thumbnail' )
+				);
+			}
+
+			echo '</div>';
+		}
+
+		echo '</figure>';
+
+		return ob_get_clean();
 	}
 
 	/**

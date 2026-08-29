@@ -51,8 +51,9 @@ final class Setup {
 
 		register_nav_menus(
 			array(
-				'primary' => __( 'Primary menu', 'arena-commerce' ),
-				'footer'  => __( 'Footer menu', 'arena-commerce' ),
+				'primary'   => __( 'Primary menu', 'arena-commerce' ),
+				'footer'    => __( 'Footer menu', 'arena-commerce' ),
+				'arena-mega' => __( 'Mega menu (Arena)', 'arena-commerce' ),
 			)
 		);
 

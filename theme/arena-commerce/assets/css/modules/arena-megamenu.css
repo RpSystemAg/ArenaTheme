@@ -1,0 +1,135 @@
+/*!
+ * Arena Commerce — mega menu & flyout module CSS (H27/H28).
+ * Enqueued only when the header renders the arena/mega-menu block or the
+ * mobile flyout. Desktop panels open on hover AND focus-within (keyboard),
+ * the mobile flyout is a focus-trapped canvas dialog.
+ */
+
+/* ===================================================== Mega menu (H28) */
+.arena-mega { position: static; }
+
+.arena-mega__bar {
+	align-items: center;
+	display: flex;
+	gap: var(--wp--preset--spacing--40);
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.arena-mega__item { position: relative; }
+
+.arena-mega__link {
+	align-items: center;
+	background: none;
+	border: 0;
+	color: inherit;
+	cursor: pointer;
+	display: inline-flex;
+	font: inherit;
+	gap: 0.375rem;
+	min-block-size: 44px;
+	padding: 0.5rem 0.75rem;
+	text-decoration: none;
+}
+
+.arena-mega__link[aria-expanded="true"] { color: var(--wp--preset--color--primary); }
+
+.arena-mega__chevron { transition: transform var(--wp--custom--motion--duration-fast) var(--wp--custom--easing--emphasized); }
+.arena-mega__link[aria-expanded="true"] .arena-mega__chevron { transform: rotate(180deg); }
+
+.arena-mega__panel {
+	background: var(--wp--preset--color--base);
+	border: 1px solid var(--wp--preset--color--outline);
+	border-radius: var(--wp--custom--radius--lg);
+	box-shadow: var(--wp--preset--shadow--raised);
+	display: none;
+	inset-inline: 0;
+	margin-block-start: var(--wp--preset--spacing--30);
+	padding: var(--wp--preset--spacing--70);
+	position: absolute;
+	top: 100%;
+	z-index: 80;
+}
+
+.arena-mega__item.is-open > .arena-mega__panel,
+.arena-mega__item:focus-within > .arena-mega__panel { display: block; }
+
+/* Columns per panel come from the menu item settings (2–4). */
+.arena-mega__grid { display: grid; gap: var(--wp--preset--spacing--70); }
+.arena-mega__grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.arena-mega__grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.arena-mega__grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+.arena-mega__col-heading {
+	font-size: var(--wp--preset--font-size--xs);
+	letter-spacing: 0.1em;
+	margin: 0 0 var(--wp--preset--spacing--40);
+	text-transform: uppercase;
+}
+
+.arena-mega__links { display: grid; gap: var(--wp--preset--spacing--20); list-style: none; margin: 0; padding: 0; }
+
+.arena-mega__links a {
+	align-items: center;
+	border-radius: var(--wp--custom--radius--sm);
+	color: var(--wp--preset--color--foreground);
+	display: flex;
+	gap: 0.5rem;
+	justify-content: space-between;
+	min-block-size: 44px;
+	padding: 0.375rem 0.5rem;
+	text-decoration: none;
+}
+
+.arena-mega__links a:hover { background: var(--wp--preset--color--surface); }
+
+.arena-mega__desc { color: var(--wp--preset--color--muted); display: block; font-size: var(--wp--preset--font-size--xs); }
+
+.arena-mega__badge {
+	background: var(--wp--preset--color--accent);
+	border-radius: var(--wp--custom--radius--full);
+	color: var(--wp--preset--color--base);
+	font-size: var(--wp--preset--font-size--xs);
+	font-weight: 700;
+	padding: 0.125rem 0.5rem;
+}
+
+.arena-mega__media img { border-radius: var(--wp--custom--radius--md); inline-size: 100%; }
+
+@media (width <= 960px) {
+	.arena-mega__panel { position: static; }
+	.arena-mega__grid, .arena-mega__grid--2, .arena-mega__grid--3, .arena-mega__grid--4 { grid-template-columns: 1fr; }
+}
+
+/* ============================================== Mobile flyout canvas (H27) */
+/* The flyout carries the deep navigation and AFFIANCA (never replaces) the
+   bottom nav: it opens from the hamburger at the selected breakpoint. */
+.arena-flyout {
+	background: var(--wp--preset--color--base);
+	bottom: 0;
+	display: none;
+	flex-direction: column;
+	inset-inline-start: 0;
+	max-inline-size: 24rem;
+	overflow-y: auto;
+	padding: var(--wp--preset--spacing--60);
+	position: fixed;
+	top: 0;
+	width: min(88vw, 24rem);
+	z-index: 95;
+}
+
+.arena-flyout[open], .arena-flyout.is-open { display: flex; }
+
+.arena-flyout__header { align-items: center; display: flex; justify-content: space-between; margin-block-end: var(--wp--preset--spacing--60); }
+
+.arena-flyout__nav { list-style: none; margin: 0; padding: 0; }
+.arena-flyout__nav a { border-radius: var(--wp--custom--radius--sm); display: flex; min-block-size: 48px; align-items: center; padding-inline: 0.5rem; text-decoration: none; }
+.arena-flyout__nav a:hover { background: var(--wp--preset--color--surface); }
+
+.arena-flyout__tools { border-block-start: 1px solid var(--wp--preset--color--outline); display: grid; gap: var(--wp--preset--spacing--40); margin-block-start: var(--wp--preset--spacing--60); padding-block-start: var(--wp--preset--spacing--60); }
+
+@media (width > 960px) {
+	.arena-flyout { display: none !important; }
+}

@@ -39,9 +39,12 @@ assert( /env\(\s*safe-area-inset-bottom/.test( css ), 'safe-area-inset-bottom pa
 assert( /aria-label/.test( php ), 'Bottom nav carries aria-label' );
 assert( /aria-current/.test( php ), 'Active state is marked with aria-current' );
 
-// Count nav items in PHP source — 5 declared items => 5 links.
-const itemCount = ( php.match( /'label'\s*=>/g ) || [] ).length;
-assert( itemCount === 5, `Bottom nav declares ${ itemCount } items (expected 5)` );
+// Count nav items in PHP source — 5 destination items + the H47 scheme
+// toggle slot (a button, rendered after the destinations and never counted
+// as a navigation destination by the renderer).
+const destinations = ( php.match( /'label'\s*=>/g ) || [] ).length - ( ( php.match( /'toggle'\s*=>/g ) || [] ).length );
+assert( destinations === 5, `Bottom nav declares ${ destinations } destination items (expected 5)` );
+assert( /data-arena-theme-toggle/.test( php ), 'H47: the scheme toggle rides the bottom nav' );
 
 // CSS — thumb-reach dimensions.
 assert( /\.arena-bottom-nav\s*\{/.test( css ), 'CSS has .arena-bottom-nav rule' );
