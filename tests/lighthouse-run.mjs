@@ -26,17 +26,22 @@ import { execSync } from 'node:child_process';
 let lighthouse;
 try {
 	({ default: lighthouse } = await import( 'lighthouse' ));
-} catch ( e ) {
+} catch {
 	console.error( '[lighthouse-run] SKIP — lighthouse package not installed. Run: npm i lighthouse -D' );
 	process.exit( 2 );
 }
 
 const chromePath = process.env.CHROME_PATH || '';
-try {
-	execSync( 'which google-chrome || which chromium || which chromium-browser', { stdio: 'pipe' } );
-} catch ( e ) {
-	console.error( '[lighthouse-run] SKIP — no Chromium binary on PATH.' );
-	process.exit( 2 );
+
+/* CHROME_PATH wins (CI points it at the Playwright Chromium); otherwise a
+   browser must already be on PATH or the run is SKIPped, never faked. */
+if ( ! chromePath ) {
+	try {
+		execSync( 'which google-chrome || which chromium || which chromium-browser', { stdio: 'pipe' } );
+	} catch {
+		console.error( '[lighthouse-run] SKIP — no Chromium binary on PATH and CHROME_PATH unset.' );
+		process.exit( 2 );
+	}
 }
 
 const base = process.env.WP_ENV_URL || 'http://localhost:8888';
@@ -58,13 +63,15 @@ for ( const page of pages ) {
 			onlyCategories: Object.keys( thresholds ),
 			formFactor: 'mobile',
 			screenEmulation: { mobile: true, width: 360, height: 800, deviceScaleFactor: 2 },
+			...( chromePath ? { chromePath } : {} ),
+			chromeFlags: [ '--headless=new', '--no-sandbox', '--disable-dev-shm-usage' ],
 		}, undefined );
 		const cats = result.lhr.categories;
 		for ( const [ cat, min ] of Object.entries( thresholds ) ) {
 			const score = Math.round( ( cats[ cat ]?.score || 0 ) * 100 );
 			const ok = score >= min;
 			console.log( `  ${ ok ? '✓' : '✗' } ${ cat.padEnd( 16 ) } ${ score } (needs ≥${ min })` );
-			if ( ! ok ) failures += 1;
+			if ( ! ok ) {failures += 1;}
 		}
 	} catch ( err ) {
 		console.error( `  ! ${ page.name }: ${ err.message }` );

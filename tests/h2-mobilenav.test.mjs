@@ -29,7 +29,7 @@ const js = readFileSync( join( ROOT, 'theme', 'arena-commerce', 'assets', 'js', 
 const e2e = readFileSync( join( ROOT, 'tests', 'e2e', 'mobile-nav.spec.js' ), 'utf8' );
 
 const failures = [];
-function assert( c, m ) { if ( ! c ) failures.push( m ); }
+function assert( c, m ) { if ( ! c ) {failures.push( m );} }
 
 // PHP — the nav is rendered.
 assert( /id=.?arena-bottom-nav/.test( php ), 'PHP renders #arena-bottom-nav' );
@@ -68,7 +68,7 @@ assert( /reducedMotion|reduced-motion|emulateMedia/.test( e2e ), 'E2E tests redu
 
 if ( failures.length ) {
 	console.error( '[H2/H3 mobilenav structural] FAIL:' );
-	for ( const f of failures ) console.error( '  - ' + f );
+	for ( const f of failures ) {console.error( '  - ' + f );}
 	process.exit( 1 );
 }
 console.log( '[H2/H3 mobilenav structural] PASS' );

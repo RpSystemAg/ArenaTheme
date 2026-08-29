@@ -77,7 +77,7 @@
 				} );
 		}
 
-		if ( 'infinite' === preference() ) {
+		if ( preference() === 'infinite' ) {
 			var observer = new IntersectionObserver( function ( entries ) {
 				entries.forEach( function ( entry ) {
 					if ( entry.isIntersecting && ! loadMore.disabled ) {
@@ -102,7 +102,7 @@
 			switcher.addEventListener( 'change', function () {
 				setPreference( switcher.value );
 
-				if ( 'infinite' === switcher.value ) {
+				if ( switcher.value === 'infinite' ) {
 					window.location.reload(); /* Activate the observer once. */
 				}
 			} );

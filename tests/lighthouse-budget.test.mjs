@@ -26,25 +26,21 @@
  * Exit 0 = PASS (structural budget green); exit 1 = FAIL.
  */
 
-import { readFileSync, statSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { gzipSync } from 'node:zlib';
 
 const ROOT = process.cwd();
 const cssPath = join( ROOT, 'theme', 'arena-commerce', 'assets', 'css', 'arena.css' );
 const jsPath = join( ROOT, 'theme', 'arena-commerce', 'assets', 'js', 'arena.js' );
-const wooCssPath = join( ROOT, 'theme', 'arena-commerce', 'assets', 'css', 'arena-woocommerce.css' );
-const editorCssPath = join( ROOT, 'theme', 'arena-commerce', 'assets', 'css', 'arena-editor.css' );
-const pluginCssPath = join( ROOT, 'plugin', 'arena-engine', 'assets' );
 
 const cssRaw = readFileSync( cssPath, 'utf8' );
 const jsRaw = readFileSync( jsPath, 'utf8' );
 
 const failures = [];
 const info = [];
-function check( cond, msg ) { if ( ! cond ) failures.push( msg ); }
+function check( cond, msg ) { if ( ! cond ) {failures.push( msg );} }
 
-function fileSize( p ) { try { return statSync( p ).size; } catch { return 0; } }
 function gzipSize( s ) { return gzipSync( s, { level: 9 } ).length; }
 
 // P1/P2: asset budgets.
@@ -95,7 +91,7 @@ check( ! /\bjQuery\b/.test( jsNoComments ), 'JS code (excluding comments) refere
 
 if ( failures.length ) {
 	console.error( '[Lighthouse budget static] FAIL:' );
-	for ( const f of failures ) console.error( '  - ' + f );
+	for ( const f of failures ) {console.error( '  - ' + f );}
 	process.exit( 1 );
 }
 console.log( '[Lighthouse budget static] PASS — structural budgets green (real-Lighthouse run requires Chromium).' );

@@ -144,17 +144,17 @@ for ( const slug of kitDirs ) {
 
 		/* K4 — tokens resolve (both locales), patterns exist. */
 		for ( const m of html.matchAll( /\{\{t:([a-zA-Z0-9_.-]+)\}\}/g ) ) {
-			if ( ! ( m[ 1 ] in manifest.i18n.en_US ) ) note( `${ slug }/${ page.file }: token ${ m[ 1 ] } missing in en_US` );
-			if ( ! ( m[ 1 ] in manifest.i18n.it_IT ) ) note( `${ slug }/${ page.file }: token ${ m[ 1 ] } missing in it_IT` );
+			if ( ! ( m[ 1 ] in manifest.i18n.en_US ) ) {note( `${ slug }/${ page.file }: token ${ m[ 1 ] } missing in en_US` );}
+			if ( ! ( m[ 1 ] in manifest.i18n.it_IT ) ) {note( `${ slug }/${ page.file }: token ${ m[ 1 ] } missing in it_IT` );}
 		}
 
 		for ( const m of html.matchAll( /\{\{pattern:([a-zA-Z0-9/_-]+)\}\}/g ) ) {
 			const pattern = m[ 1 ].replace( 'arena-commerce/', '' );
-			if ( ! patternSlugs.has( pattern ) ) note( `${ slug }/${ page.file }: unknown pattern ${ m[ 1 ] }` );
+			if ( ! patternSlugs.has( pattern ) ) {note( `${ slug }/${ page.file }: unknown pattern ${ m[ 1 ] }` );}
 		}
 
 		/* K5 — no proprietary shortcodes. */
-		if ( /\[arena[_-]/i.test( html ) ) note( `${ slug }/${ page.file }: proprietary shortcode found (H23)` );
+		if ( /\[arena[_-]/i.test( html ) ) {note( `${ slug }/${ page.file }: proprietary shortcode found (H23)` );}
 
 		if ( page.slug === 'home' ) {
 			/* K3 — billboard proxies on the home skeleton (patterns add more
@@ -210,7 +210,7 @@ for ( let i = 0; i < slugs.length; i++ ) {
 		let shared = 0;
 
 		for ( const token of a ) {
-			if ( b.has( token ) ) shared++;
+			if ( b.has( token ) ) {shared++;}
 		}
 
 		const jaccard = shared / ( a.size + b.size - shared );
@@ -251,7 +251,7 @@ assert.ok( kitDirs.length >= 12, `G8 wants ≥ 12 kits, found ${ kitDirs.length 
 
 if ( problems.length ) {
 	console.error( `G8 FAIL — ${ problems.length } problem(s):` );
-	for ( const problem of problems ) console.error( '  ✗ ' + problem );
+	for ( const problem of problems ) {console.error( '  ✗ ' + problem );}
 	process.exit( 1 );
 }
 

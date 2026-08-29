@@ -8,11 +8,10 @@
  *   dist/arena-suite.zip      — theme + plugin bundled
  */
 
-import { mkdirSync, rmSync, statSync, existsSync, cpSync } from 'node:fs';
+import { mkdirSync, rmSync, statSync, existsSync, cpSync, mkdtempSync } from 'node:fs';
 import { execSync } from 'node:child_process';
 import { join, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
-import { mkdtempSync } from 'node:fs';
 
 const ROOT = resolve( process.cwd() );
 const DIST = join( ROOT, 'dist' );
@@ -50,7 +49,7 @@ const pluginStage = join( TMP, 'arena-engine' );
 cpSync( join( ROOT, 'plugin', 'arena-engine' ), pluginStage, { recursive: true } );
 
 function zipDir( stageDir, outFile ) {
-	if ( existsSync( outFile ) ) rmSync( outFile );
+	if ( existsSync( outFile ) ) {rmSync( outFile );}
 	const exArgs = EXCLUDES.map( ( x ) => `-x '${ x }'` ).join( ' ' );
 	// cd into staged parent and zip the subdirectory.
 	sh( `cd ${ TMP } && zip -rq ${ outFile } ${ stageDir.split( '/' ).pop() } ${ exArgs }` );
@@ -68,7 +67,7 @@ console.log( `  → ${ ps } bytes` );
 
 // Suite: re-zip both directories together.
 console.log( '[dist] Building arena-suite.zip …' );
-if ( existsSync( join( DIST, 'arena-suite.zip' ) ) ) rmSync( join( DIST, 'arena-suite.zip' ) );
+if ( existsSync( join( DIST, 'arena-suite.zip' ) ) ) {rmSync( join( DIST, 'arena-suite.zip' ) );}
 const exArgs = EXCLUDES.map( ( x ) => `-x '${ x }'` ).join( ' ' );
 sh( `cd ${ TMP } && zip -rq ${ join( DIST, 'arena-suite.zip' ) } arena-commerce arena-engine ${ exArgs }` );
 const ss = statSync( join( DIST, 'arena-suite.zip' ) ).size;

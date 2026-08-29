@@ -54,7 +54,7 @@ function audit( source, origin ) {
 	for ( const m of html.matchAll( /<(input|select|textarea)\b([^>]*?)(\/?>)/gi ) ) {
 		const tag = m[ 1 ].toLowerCase();
 		const attrs = m[ 2 ];
-		if ( /\btype\s*=\s*"hidden"/i.test( attrs ) ) continue;
+		if ( /\btype\s*=\s*"hidden"/i.test( attrs ) ) {continue;}
 		const id = ( attrs.match( /\bid\s*=\s*"([^"]+)"/i ) || [ , null ] )[ 1 ];
 		const hasAriaLabel = /\baria-label\s*=/.test( attrs );
 		const hasAriaLabelledBy = /\baria-labelledby\s*=/.test( attrs );
@@ -154,7 +154,7 @@ for ( const f of templateFiles ) {
 
 if ( violations.length ) {
 	console.error( `[axe static] FAIL — ${ scanned } artifacts, ${ violations.length } violation(s):` );
-	for ( const v of violations ) console.error( `  - [${ v.rule }] ${ v.origin }: ${ v.snippet }` );
+	for ( const v of violations ) {console.error( `  - [${ v.rule }] ${ v.origin }: ${ v.snippet }` );}
 	process.exit( 1 );
 }
 console.log( `[axe static] PASS — ${ scanned } artifacts (48 patterns + 19 templates) scanned, 0 structural accessibility violations.` );

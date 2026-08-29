@@ -20,7 +20,7 @@
  * Exit 0 = PASS, exit 1 = FAIL.
  */
 
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const ROOT = process.cwd();
@@ -29,7 +29,7 @@ const demoHtmlPath = join( ROOT, 'tests', 'fixtures', 'flip-demo.html' );
 
 const failures = [];
 function assert( cond, msg ) {
-	if ( ! cond ) failures.push( msg );
+	if ( ! cond ) {failures.push( msg );}
 }
 
 // 1. Source-level FLIP contract.
@@ -46,7 +46,6 @@ assert( /'transform\s+'\s*\+\s*duration/.test( js ) || /"transform "\s*\+\s*dura
 assert( ! /\.(style\.)?top\s*=/.test( js ) || /arena-bottom-nav/.test( js ), 'No top/left direct mutation in FLIP path' );
 
 // FLIP demo fixture.
-import { existsSync } from 'node:fs';
 assert( existsSync( demoHtmlPath ), 'FLIP demo fixture exists at tests/fixtures/flip-demo.html' );
 const demo = existsSync( demoHtmlPath ) ? readFileSync( demoHtmlPath, 'utf8' ) : '';
 assert( /data-arena-flip\b/.test( demo ), 'Demo fixture has a data-arena-flip root' );
@@ -57,7 +56,7 @@ assert( /arena-flip-demo/.test( demo ), 'Demo fixture uses arena-flip-demo BEM p
 
 if ( failures.length ) {
 	console.error( '[H11 FLIP] FAIL' );
-	for ( const f of failures ) console.error( '  - ' + f );
+	for ( const f of failures ) {console.error( '  - ' + f );}
 	process.exit( 1 );
 }
 console.log( '[H11 FLIP] PASS' );

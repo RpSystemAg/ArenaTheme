@@ -11,9 +11,9 @@ const img = ( seed, w, h ) => `https://picsum.photos/seed/${ seed }/${ w }/${ h 
 /**
  * Returns the full i18n map for one kit.
  *
- * @param {object} kit  Kit spec from specs.mjs.
- * @param {object} pages PAGE_TYPES entry map.
- * @return {{en_US: Object, it_IT: Object}}
+ * @param {Object} kit   Kit spec from specs.mjs.
+ * @param {Object} pages PAGE_TYPES entry map.
+ * @return {{en_US: Object, it_IT: Object}} The resolved copy map for both locales.
  */
 export function makeCopy( kit, pages ) {
 	const byType = ( type, fallback ) => kit.pages.find( ( p ) => pages[ p ] && pages[ p ].type === type ) || fallback;
@@ -136,10 +136,10 @@ export function makeCopy( kit, pages ) {
 /**
  * Page-type copy templates.
  *
- * @param {Function} set   Setter.
- * @param {string}   key   Page key.
- * @param {object}   spec  PAGE_TYPES entry.
- * @param {object}   kit   Kit spec.
+ * @param {Function} set  Setter.
+ * @param {string}   key  Page key.
+ * @param {Object}   spec PAGE_TYPES entry.
+ * @param {Object}   kit  Kit spec.
  */
 function pageCopy( set, key, spec, kit ) {
 	const brand = kit.name.en_US;

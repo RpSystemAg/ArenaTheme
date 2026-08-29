@@ -88,12 +88,12 @@ function parseString( code, i ) {
 		const ch = code[ j ];
 		if ( ch === '\\' ) {
 			const next = code[ j + 1 ];
-			if ( next === 'n' ) value += '\n';
-			else if ( next === 't' ) value += '\t';
-			else if ( next === "'" ) value += "'";
-			else if ( next === '"' ) value += '"';
-			else if ( next === '\\' ) value += '\\';
-			else value += next;
+			if ( next === 'n' ) {value += '\n';}
+			else if ( next === 't' ) {value += '\t';}
+			else if ( next === "'" ) {value += "'";}
+			else if ( next === '"' ) {value += '"';}
+			else if ( next === '\\' ) {value += '\\';}
+			else {value += next;}
 			j += 2;
 			continue;
 		}
@@ -115,10 +115,10 @@ function parseArgs( code, openParen ) {
 
 	while ( i < code.length ) {
 		const ch = code[ i ];
-		if ( ch === '(' ) depth++;
+		if ( ch === '(' ) {depth++;}
 		else if ( ch === ')' ) {
 			depth--;
-			if ( depth === 0 ) return { args, end: i };
+			if ( depth === 0 ) {return { args, end: i };}
 		} else if ( ( ch === "'" || ch === '"' ) && depth === 1 ) {
 			const parsed = parseString( code, i );
 			if ( parsed ) {
@@ -193,11 +193,19 @@ msgstr ""
 `;
 }
 
+function potString( value ) {
+	const escaped = value
+		.replace( /\\/g, '\\\\' )
+		.replace( /"/g, '\\"' )
+		.replace( /\n/g, '\\n' )
+		.replace( /\t/g, '\\t' );
+
+	return `"${ escaped }"`;
+}
+
 function potBody( entries ) {
 	const chunks = [];
-	const keys = [ ...entries.keys() ].sort( ( a, b ) => a.localeCompare( a ), 'en' );
-
-	const sorted = [ ...entries.entries() ].sort( ( [ a ], [ b ] ) => a < b ? -1 : a > b ? 1 : 0 );
+	const sorted = [ ...entries.entries() ].sort( ( [ a ], [ b ] ) => ( a < b ? -1 : 1 ) );
 
 	for ( const [ , entry ] of sorted ) {
 		const lines = [];
@@ -223,20 +231,9 @@ function potBody( entries ) {
 		chunks.push( lines.join( '\n' ) );
 	}
 
-	void keys;
-
 	return chunks.join( '\n' );
 }
 
-function potString( value ) {
-	const escaped = value
-		.replace( /\\/g, '\\\\' )
-		.replace( /"/g, '\\"' )
-		.replace( /\n/g, '\\n' )
-		.replace( /\t/g, '\\t' );
-
-	return `"${ escaped }"`;
-}
 
 let stale = 0;
 

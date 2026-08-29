@@ -30,7 +30,7 @@
  *
  * Exit code 0 = green; exit code 1 = red.
  *
- * @package   Arena_Theme
+ * @package
  * @since     2.0.0
  * @see       docs/compliance-table.md (H7, AP7)
  */
@@ -40,6 +40,19 @@ import { join } from 'node:path';
 
 const PATTERNS_DIR = join( process.cwd(), 'theme', 'arena-commerce', 'patterns' );
 const THRESHOLD = 0.40;
+
+/**
+ * Document-frequency ceiling for a token to count as evidence.
+ *
+ * A token carried by more than half the library (`layout:align=full`,
+ * `layout:type=constrained`, `wp:group`, `wp:heading` …) is shared by patterns
+ * that look nothing alike, so counting it inflates every pair's similarity and
+ * *hides* real clones behind noise. Those tokens are reported but excluded from
+ * the score — the standard stopword/IDF treatment for near-duplicate
+ * detection. The raw (unfiltered) worst pair is printed alongside so the effect
+ * of the filter is never hidden.
+ */
+const MAX_DOCUMENT_FREQUENCY = 0.5;
 
 /** Generic WP/CSS tokens that are chrome, not structural identity. */
 const GENERIC_TOKENS = new Set( [
@@ -118,16 +131,16 @@ function tokens( content ) {
 	// is-style-arena-* are kept as structural identifiers.
 	for ( const m of norm.matchAll( /\bclass="([^"]+)"/g ) ) {
 		for ( const t of m[ 1 ].split( /\s+/ ) ) {
-			if ( ! t ) continue;
-			if ( GENERIC_TOKENS.has( t ) ) continue;
-			if ( /^has-/.test( t ) ) continue;
+			if ( ! t ) {continue;}
+			if ( GENERIC_TOKENS.has( t ) ) {continue;}
+			if ( /^has-/.test( t ) ) {continue;}
 			if ( t.startsWith( 'arena-' ) || t.startsWith( 'is-style-arena-' ) ) {
 				set.add( `class:${ t }` );
 				continue;
 			}
-			if ( /^wp-block-/.test( t ) ) continue;
-			if ( /^is-/.test( t ) ) continue;
-			if ( /^sr-only$/.test( t ) ) continue;
+			if ( /^wp-block-/.test( t ) ) {continue;}
+			if ( /^is-/.test( t ) ) {continue;}
+			if ( /^sr-only$/.test( t ) ) {continue;}
 			set.add( `class:${ t }` );
 		}
 	}
@@ -147,7 +160,7 @@ function tokens( content ) {
 	// HTML tags not in the generic set.
 	for ( const m of norm.matchAll( /<([a-z][a-z0-9-]*)\b/gi ) ) {
 		const tag = m[ 1 ].toLowerCase();
-		if ( ! GENERIC_TOKENS.has( tag ) ) set.add( `tag:${ tag }` );
+		if ( ! GENERIC_TOKENS.has( tag ) ) {set.add( `tag:${ tag }` );}
 	}
 	// Block JSON layout/structural attributes.
 	const layoutKeys = [
@@ -156,10 +169,11 @@ function tokens( content ) {
 		'level', 'viewportWidth', 'mediaPosition', 'dimRatio', 'align',
 		'role', 'ariaLabel', 'ariaRoleDescription',
 	];
-	for ( const m of norm.matchAll( new RegExp( `"(?:${ layoutKeys.join( '|' ) })":\\s*"([^"]*)"`, 'gi' ) ) ) {
-		// We only record the key (value is often position-specific and
-		// shared); but `type":"flex"` vs `type":"constrained"` differs.
-		// We capture key+value for non-trivial keys.
+	/* Layout keys are recorded as `key=value` tokens: the value is what tells
+	   `"type":"flex"` apart from `"type":"constrained"`, so dropping it would
+	   make structurally different layouts score as identical. */
+	for ( const match of norm.matchAll( new RegExp( `"(${ layoutKeys.join( '|' ) })":\\s*"([^"]*)"`, 'gi' ) ) ) {
+		set.add( `layout:${ match[ 1 ].toLowerCase() }=${ match[ 2 ].toLowerCase() }` );
 	}
 
 	return set;
@@ -167,7 +181,7 @@ function tokens( content ) {
 
 function jaccard( a, b ) {
 	let inter = 0;
-	for ( const t of a ) if ( b.has( t ) ) inter += 1;
+	for ( const t of a ) {if ( b.has( t ) ) {inter += 1;}}
 	const union = a.size + b.size - inter;
 	return union === 0 ? 0 : inter / union;
 }
@@ -191,7 +205,7 @@ function familyFor( name ) {
 		[ 'post-format-', 'Blog' ], [ 'related-posts', 'Blog' ],
 		[ 'footer-', 'Footer' ],
 	];
-	for ( const [ p, f ] of map ) if ( name.startsWith( p ) ) return f;
+	for ( const [ p, f ] of map ) {if ( name.startsWith( p ) ) {return f;}}
 	return 'Other';
 }
 
@@ -214,16 +228,71 @@ function main() {
 		};
 	} );
 
+	/* Document frequency → discriminative token sets (see MAX_DOCUMENT_FREQUENCY). */
+	const df = new Map();
+
+	for ( const pat of pats ) {
+		for ( const t of pat.tokens ) {
+			df.set( t, ( df.get( t ) || 0 ) + 1 );
+		}
+	}
+
+	const dfCeiling = Math.floor( pats.length * MAX_DOCUMENT_FREQUENCY );
+	const universal = [ ...df.entries() ].filter( ( [ , n ] ) => n > dfCeiling ).map( ( [ t ] ) => t ).sort();
+
+	for ( const pat of pats ) {
+		pat.disc = new Set( [ ...pat.tokens ].filter( ( t ) => ! universal.includes( t ) ) );
+	}
+
+	/*
+	 * Diagnostic: `node tests/anti-clone.mjs --pair <a> <b>` prints the exact
+	 * token classes driving one pair's similarity, so a rewrite targets the
+	 * real overlap instead of guessing at it.
+	 */
+	const pairAt = process.argv.indexOf( '--pair' );
+
+	if ( pairAt !== -1 ) {
+		const [ nameA, nameB ] = process.argv.slice( pairAt + 1, pairAt + 3 );
+		const a = pats.find( ( p ) => p.name === nameA );
+		const b = pats.find( ( p ) => p.name === nameB );
+
+		if ( ! a || ! b ) {
+			console.error( `[anti-clone] unknown pattern in --pair: ${ nameA } / ${ nameB }` );
+			process.exit( 2 );
+		}
+
+		const shared = [ ...a.disc ].filter( ( t ) => b.disc.has( t ) ).sort();
+		const union = new Set( [ ...a.disc, ...b.disc ] );
+		const byClass = {};
+
+		for ( const t of shared ) {
+			const cls = t.split( ':' )[ 0 ];
+			byClass[ cls ] = ( byClass[ cls ] || 0 ) + 1;
+		}
+
+		console.log( `[anti-clone] ${ a.name } ↔ ${ b.name } = ${ jaccard( a.disc, b.disc ).toFixed( 3 ) } (raw, universal tokens counted: ${ jaccard( a.tokens, b.tokens ).toFixed( 3 ) })` );
+		console.log( `  |A| ${ a.disc.size } · |B| ${ b.disc.size } · shared ${ shared.length } · union ${ union.size }` );
+		console.log( '  shared by class: ' + Object.entries( byClass ).sort( ( x, y ) => y[ 1 ] - x[ 1 ] ).map( ( [ k, v ] ) => `${ k }=${ v }` ).join( ' ' ) );
+		console.log( '  shared tokens:\n    ' + shared.join( '\n    ' ) );
+		process.exit( 0 );
+	}
+
 	// H9 family check + global H7 check in one pass.
 	const withinFailures = [];
 	const crossFailures = [];
 	const familyWorst = new Map();
+	let rawWorst = { sim: 0, a: '', b: '' };
 	const total = pats.length * ( pats.length - 1 ) / 2;
 
 	for ( let i = 0; i < pats.length; i += 1 ) {
 		for ( let j = i + 1; j < pats.length; j += 1 ) {
 			const a = pats[ i ], b = pats[ j ];
-			const sim = jaccard( a.tokens, b.tokens );
+			const sim = jaccard( a.disc, b.disc );
+			const raw = jaccard( a.tokens, b.tokens );
+
+			if ( raw > rawWorst.sim ) {
+				rawWorst = { sim: raw, a: a.name, b: b.name };
+			}
 			const same = a.family === b.family;
 			const target = same ? withinFailures : crossFailures;
 
@@ -241,6 +310,8 @@ function main() {
 	}
 
 	console.log( `[anti-clone] ${ pats.length } patterns · ${ total } pairs (within-family + cross-family) · threshold ≤ ${ THRESHOLD }.` );
+	console.log( `[anti-clone] ${ universal.length } universal token(s) (document frequency > ${ ( MAX_DOCUMENT_FREQUENCY * 100 ) | 0 }% of the library) are reported but not scored: ${ universal.join( ', ' ) || 'none' }.` );
+	console.log( `[anti-clone] worst pair including universal tokens (informational): ${ rawWorst.a } ↔ ${ rawWorst.b } = ${ rawWorst.sim.toFixed( 3 ) }.` );
 	console.log( '' );
 	console.log( 'Per-family H9 worst pair:' );
 	for ( const [ fam, w ] of [ ...familyWorst.entries() ].sort( ( x, y ) => x[ 0 ].localeCompare( y[ 0 ] ) ) ) {

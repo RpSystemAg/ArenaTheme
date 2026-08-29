@@ -14,7 +14,7 @@
  *       never loads a preset stylesheet (it is declarative theme.json data).
  */
 
-import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import assert from 'node:assert/strict';
 

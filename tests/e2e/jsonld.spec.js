@@ -24,7 +24,7 @@ test( 'home ships WebSite + Organization + BreadcrumbList, once', async ( { requ
 
 	expect( graphs.length ).toBe( 1 );
 
-	const types = graphs[ 0 ].@graph.map( ( node ) => node.@type );
+	const types = graphs[ 0 ][ '@graph' ].map( ( node ) => node[ '@type' ] );
 	expect( types ).toContain( 'WebSite' );
 	expect( types ).toContain( 'Organization' );
 } );
@@ -35,7 +35,7 @@ test( 'single post ships Article', async ( { request } ) => {
 
 	expect( graphs.length ).toBe( 1 );
 
-	const types = graphs[ 0 ].@graph.map( ( node ) => node.@type );
+	const types = graphs[ 0 ][ '@graph' ].map( ( node ) => node[ '@type' ] );
 	expect( types ).toContain( 'Article' );
 } );
 
@@ -48,7 +48,7 @@ test( 'product page ships Product + Offer', async ( { request } ) => {
 
 	expect( graphs.length ).toBe( 1 );
 
-	const types = graphs[ 0 ].@graph.map( ( node ) => node.@type );
+	const types = graphs[ 0 ][ '@graph' ].map( ( node ) => node[ '@type' ] );
 	expect( types ).toContain( 'Product' );
 	expect( types ).toContain( 'Offer' );
 } );
@@ -59,6 +59,6 @@ test( 'shop archive ships CollectionPage', async ( { request } ) => {
 
 	expect( graphs.length ).toBe( 1 );
 
-	const types = graphs[ 0 ].@graph.map( ( node ) => node.@type );
+	const types = graphs[ 0 ][ '@graph' ].map( ( node ) => node[ '@type' ] );
 	expect( types ).toContain( 'CollectionPage' );
 } );
