@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:group {"align":"full","className":"arena-gallery-compare","backgroundColor":"surface","style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|80","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"constrained"}} -->
-<div class="arena-gallery-compare wp-block-group alignfull has-surface-background-color has-background" style="padding-top:var(--wp--preset--spacing--80);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--80);padding-left:var(--wp--preset--spacing--50)">
+<div class="arena-gallery-compare wp-block-group alignfull has-surface-background-color has-background" style="padding-top:var(--wp--preset--spacing--80);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--80);padding-left:var(--wp--preset--spacing--50)" data-arena-pattern="gallery-compare" data-arena-family="Gallery" data-arena-module="gallery-compare-rail">
 	<!-- wp:heading {"level":2,"fontSize":"4xl"} -->
 	<h2 class="wp-block-heading has-4xl-font-size">Worn in, still waterproof</h2>
 	<!-- /wp:heading -->
@@ -40,5 +40,7 @@
 	<!-- wp:paragraph {"className":"arena-gallery-compare__caption","fontSize":"sm","textColor":"muted"} -->
 	<p class="arena-gallery-compare__caption has-muted-color has-text-color has-sm-font-size">Slide 01: the shell after twelve months in the Dolomites. Repaired once, still dry.</p>
 	<!-- /wp:paragraph -->
+
+	<span aria-hidden="true" class="arena-gallery-compare__compare-drag-handle" data-arena-role="compare-drag-handle"></span>
 </div>
 <!-- /wp:group -->

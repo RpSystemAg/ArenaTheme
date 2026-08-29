@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Arena Prime · FLIP demo (H11)</title>
+<style>
+  :root { color-scheme: light dark; --bg:#f4f5f7; --ink:#0b1017; --card:#fff; --accent:#0b4f6c; }
+  * { box-sizing: border-box; }
+  body { margin:0; font: 16px/1.5 system-ui, sans-serif; background:var(--bg); color:var(--ink); padding:2rem; }
+  h1 { font-size:1.5rem; margin:0 0 1rem; }
+  .controls { margin-bottom:1.5rem; display:flex; gap:.75rem; flex-wrap:wrap; }
+  button { font:inherit; padding:.65rem 1rem; border:0; border-radius:.5rem; background:var(--accent); color:#fff; cursor:pointer; }
+  .arena-flip-demo__grid {
+    display:grid; gap:1rem; grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+    list-style:none; padding:0; margin:0;
+  }
+  .arena-flip-demo__item {
+    background:var(--card); border-radius:.75rem; padding:1.25rem 1rem; aspect-ratio:1/1;
+    display:flex; align-items:center; justify-content:center; flex-direction:column;
+    gap:.5rem; font-weight:600; box-shadow:0 2px 8px -2px rgb(11 16 23 / .1);
+    will-change: transform;
+  }
+  .arena-flip-demo__item[data-featured="1"] { background:var(--accent); color:#fff; grid-column:span 2; grid-row:span 2; }
+  .sr-only { position:absolute!important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+</style>
+</head>
+<body>
+<h1>Arena Prime · FLIP reorder demo</h1>
+<p>Click <q>Shuffle</q> to reorder items with a FLIP animation (transform-only, ~360ms, cubic-bezier(0.2,0,0,1)). The helper lives at <code>window.Arena.flip(root)</code>.</p>
+
+<div class="controls">
+  <button type="button" id="flip-shuffle" data-arena-flip-trigger="flip-grid" aria-pressed="false">Shuffle</button>
+  <button type="button" id="flip-feature" data-arena-flip-trigger="flip-grid" aria-pressed="false">Feature first</button>
+</div>
+<p class="sr-only" id="flip-live" aria-live="polite"></p>
+
+<ul id="flip-grid" class="arena-flip-demo__grid" data-arena-flip="reorder" data-arena-flip-duration="360" role="group" aria-label="Demonstration items">
+  <li class="arena-flip-demo__item" data-id="1">A · Alpha</li>
+  <li class="arena-flip-demo__item" data-id="2">B · Bravo</li>
+  <li class="arena-flip-demo__item" data-id="3">C · Charlie</li>
+  <li class="arena-flip-demo__item" data-id="4">D · Delta</li>
+  <li class="arena-flip-demo__item" data-id="5">E · Echo</li>
+  <li class="arena-flip-demo__item" data-id="6">F · Foxtrot</li>
+  <li class="arena-flip-demo__item" data-id="7">G · Golf</li>
+  <li class="arena-flip-demo__item" data-id="8">H · Hotel</li>
+</ul>
+
+<!-- Minimal stub so arena.js boots in a non-WP context. -->
+<div id="arena-live-region" class="sr-only" aria-live="polite"></div>
+<script id="arena-commerce-config" type="application/json">{}</script>
+<script src="/theme/arena-commerce/assets/js/arena.js"></script>
+<script>
+(function () {
+  var grid = document.getElementById('flip-grid');
+  var live = document.getElementById('flip-live');
+  function shuffle() {
+    if (window.Arena && Arena.flip) Arena.flip(grid);
+    var items = Array.prototype.slice.call(grid.children);
+    for (var i = items.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      grid.insertBefore(items[j], items[i]);
+    }
+    live.textContent = 'Shuffled ' + items.length + ' items.';
+  }
+  function feature() {
+    if (window.Arena && Arena.flip) Arena.flip(grid);
+    var items = Array.prototype.slice.call(grid.children);
+    items.forEach(function (it) { it.removeAttribute('data-featured'); });
+    var pick = items[Math.floor(Math.random() * items.length)];
+    pick.setAttribute('data-featured', '1');
+    grid.insertBefore(pick, grid.firstChild);
+    live.textContent = 'Featured ' + pick.textContent.trim().split('·')[0].trim() + '.';
+  }
+  document.getElementById('flip-shuffle').addEventListener('click', shuffle);
+  document.getElementById('flip-feature').addEventListener('click', feature);
+})();
+</script>
+</body>
+</html>

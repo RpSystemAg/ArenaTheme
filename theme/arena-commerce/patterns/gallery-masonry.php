@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:group {"align":"full","className":"arena-gallery-masonry","backgroundColor":"surface","style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|80","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"constrained"}} -->
-<div class="arena-gallery-masonry wp-block-group alignfull has-surface-background-color has-background" style="padding-top:var(--wp--preset--spacing--80);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--80);padding-left:var(--wp--preset--spacing--50)">
+<div class="arena-gallery-masonry wp-block-group alignfull has-surface-background-color has-background" style="padding-top:var(--wp--preset--spacing--80);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--80);padding-left:var(--wp--preset--spacing--50)" data-arena-pattern="gallery-masonry" data-arena-family="Gallery" data-arena-module="gallery-masonry-columns">
 	<!-- wp:heading {"level":2,"fontSize":"4xl"} -->
 	<h2 class="wp-block-heading has-4xl-font-size">Shot on the way up</h2>
 	<!-- /wp:heading -->
@@ -38,5 +38,7 @@
 		<!-- /wp:column -->
 	</div>
 	<!-- /wp:columns -->
+
+	<span aria-hidden="true" class="arena-gallery-masonry__masonry-column-set" data-arena-role="masonry-column-set"></span>
 </div>
 <!-- /wp:group -->

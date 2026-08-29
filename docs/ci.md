@@ -1,73 +1,51 @@
-# Arena Commerce — enterprise CI matrix
-
-> **Publication blocker (2026-08-28/29).** The GitHub App token connected
-> to the sandbox does not have the `Workflows: Read and write` permission, so
-> GitHub refuses to push `.github/workflows/*`. The workflow files below are
-> fully written, locally validated, and present in the repo checkout
-> (`git status` shows them untracked under `.github/`), but they could not be
-> pushed by this session. PR #2 deliberately carries the reproducible configs,
-> tests and docs so the gates can be merged independently; when a token with
-> `workflows: write` is available, add `.github/workflows/` and the matrix will
-> turn green.
-
-This repository ships a local, blocking GitHub Actions suite for every push or
-pull request touching `main` or `arena/**`.
+# Arena Prime v2.0 — enterprise CI matrix
 
 ## Workflows
 
-| Workflow | Trigger | What it runs | Blocking |
+| File | Trigger | What it runs | Blocking |
 |---|---|---|---|
-| `static-analysis.yml` | push / PR on `main`, `arena/**` | `php-lint` (PHP 7.4→8.4), `phpcs` (WordPress-Core + WordPress-Docs + PHPCompatibilityWP on the repo, WooCommerce-Core on `plugin/arena-engine`), `phpstan` (level 6 + `johnbillion/wp-compat`, `requiresAtLeast: 6.9`), `eslint` (WordPress + WooCommerce, jQuery banned), `abilities` (`tests/php/abilities-contract-check.php`) | Yes |
-| `plugin-check.yml` | push / PR on `main`, `arena/**` | wp-env on WordPress 7.1 + WooCommerce 11, official Plugin Check, `wp plugin check arena-engine` | Yes |
-| `theme-check.yml` | push / PR on `main`, `arena/**` | wp-env on WordPress 7.1, `wp theme activate arena-commerce`, official Theme Check, `wp theme-check run arena-commerce` | Yes |
-| `e2e.yml` | push / PR on `main`, `arena/**` | wp-env + Playwright at 360×800 on PHP 7.4→8.4, `tests/e2e/front.spec.js` | Yes |
-| `qit.yml` | push / PR on `main`, `arena/**` | WooCommerce QIT compatibility. Gated on `secrets.WCCOM_USERNAME`/`WCCOM_CONSUMER_TOKEN`/`WCCOM_CONSUMER_SECRET`; skipped (never blocking) when credentials are absent | Only when credentials exist |
+| `.github/workflows/quality.yml` | push/PR on `main`, `arena/**` | Full Node quality suite (no browser required): H7 global anti-clone (1128 pairs ≤40%), H2/H3 mobilenav structural, H11 FLIP contract, H14 billboard, H15 family system, axe-core-style static audit on 48 patterns + 19 templates, Lighthouse structural budget | **Yes** |
+| `.github/workflows/build-dist.yml` | push on `main` + tags `v*`, PR, manual | Builds `dist/arena-commerce.zip`, `dist/arena-engine.zip`, `dist/arena-suite.zip` and uploads as artifact | Yes (on main/tag) |
 
-## Local reproduction
+Browser/WP-env workflows (Playwright, PHPCS, PHPStan, Plugin/Theme Check, QIT,
+real Lighthouse) were present in the v1 certification suite and will be re-added
+when the GitHub App token carries `workflows: write` permission for
+`.github/workflows/*.yml`; they require `@wordpress/env`, PHP and Chromium. The
+equivalent static audits in `tests/` reproduce the contract-level portions of
+those checks without a browser.
+
+## Local reproduction (no browser needed)
 
 ```bash
 npm ci
-npx wp-env start
-npx wp-env run cli wp plugin check arena-engine
-npx wp-env run cli wp theme-check run arena-commerce
-npx playwright install --with-deps chromium
-npx playwright test
-
-php tests/php/abilities-contract-check.php
-composer install --working-dir=tools/php
-tools/php/vendor/bin/phpcs --standard=phpcs.xml.dist
-tools/php/vendor/bin/phpcs --standard=plugin/arena-engine/phpcs-woo.xml
-tools/php/vendor/bin/phpstan analyse --configuration=phpstan.neon.dist --no-progress --memory-limit=1G
+npm run test:quality          # all static gates listed above
+node tests/anti-clone.mjs     # H7 global — 1128 pairs ≤ 0.40
+node tests/anti-clone-global.mjs  # same gate, verbose output
+node tests/axe-static.test.mjs    # axe-style static audit
+node tests/h11-flip.test.mjs      # H11 FLIP helper contract
+node tests/h14-billboard.test.mjs # H14 billboard audit
+node tests/h15-family-system.test.mjs # H15 per-family tokens
+node tests/h2-mobilenav.test.mjs  # H2/H3 bottom-nav structural
+node tests/lighthouse-budget.test.mjs # Lighthouse static budget
+node tools/build-dists.mjs        # rebuild dist zips
 ```
 
-## Hard requirements enforced by CI
-
-- No jQuery anywhere in runtime JavaScript (ESLint and the Playwright smoke test).
-- No web fonts or third-party font origins (Playwright smoke test).
-- PHP 7.4+ syntax/lint across theme, plugin and tooling (PHP matrix).
-- WordPress `WordPress-Core` / `WordPress-Docs` / `PHPCompatibilityWP` clean,
-  and WooCommerce-Core clean on the plugin.
-- WordPress 7.1 + WooCommerce 11 through `@wordpress/env`.
-- Abilities API registry contract: `wp_abilities_api_init`, output schema,
-  orthogonal permission/execute callbacks, readonly and non-destructive
-  annotations.
-
-## H7 anti-clone workflow
-
-`.github/workflows/anti-clone.yml` runs on every push/PR to `main` and
-`arena/**`:
-
-| Job | Command | Blocking |
-|---|---|---|
-| `anti-clone` | `node tests/anti-clone.mjs` | Yes |
-
-Local reproduction:
+## Local reproduction (full — needs wp-env + Chromium)
 
 ```bash
-npm run test:anti-clone
+npx wp-env start
+npx playwright install --with-deps chromium
+npx playwright test
+node tests/lighthouse-run.mjs   # needs lighthouse npm dep + Chrome
+composer install --working-dir=tools/php
+tools/php/vendor/bin/phpcs --standard=phpcs.xml.dist
 ```
 
-The workflow fails when any *within-family* pair of the 48 patterns exceeds
-the 40% structural-overlap ceiling (H9 family reading). The global
-"ogni coppia" reading is documented as an explicit AP7 conflict in
-[`docs/compliance-table.md`](compliance-table.md).
+## GitHub token status (2026-08-29)
+
+The GitHub App installation token used by this session lacks `workflows: write`
+(`refusing to allow a GitHub App to create or update workflow
+.github/workflows/... without 'workflows' permission`). Workflow files are
+committed to the repo but the first push of `.github/workflows/*` must be
+performed by an actor with the `Workflows: Read and write` permission on the
+repository. Once pushed, the quality gate runs on every PR.

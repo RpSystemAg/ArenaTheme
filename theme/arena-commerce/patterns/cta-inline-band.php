@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:group {"align":"full","className":"arena-cta-inline","backgroundColor":"accent","textColor":"foreground","style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"center"}} -->
-<div class="arena-cta-inline wp-block-group alignfull has-foreground-color has-accent-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--50);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--50)">
+<div class="arena-cta-inline wp-block-group alignfull has-foreground-color has-accent-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--50);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--50)" data-arena-pattern="cta-inline-band" data-arena-family="Conversion" data-arena-module="cta-inline-single-link">
 	<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"constrained"}} -->
 	<div class="wp-block-group">
 		<!-- wp:heading {"level":2,"fontSize":"2xl"} -->
@@ -26,5 +26,7 @@
 	<!-- wp:navigation {"className":"arena-cta-inline__action","overlayMenu":"never","layout":{"type":"flex","orientation":"horizontal","justifyContent":"left"}} -->
 	<!-- wp:navigation-link {"label":"Get the newsletter","url":"/newsletter/","title":"Get the newsletter"} /-->
 	<!-- /wp:navigation -->
+
+	<span aria-hidden="true" class="arena-cta-inline-band__cta-inline-nav" data-arena-role="cta-inline-nav"></span>
 </div>
 <!-- /wp:group -->

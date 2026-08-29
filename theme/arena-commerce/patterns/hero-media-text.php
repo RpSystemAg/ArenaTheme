@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:group {"align":"full","className":"arena-hero-media-text","backgroundColor":"surface","style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|80","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"constrained","contentSize":"100%","wideSize":"100%"}} -->
-<div class="arena-hero-media-text wp-block-group alignfull has-surface-background-color has-background" style="padding-top:var(--wp--preset--spacing--80);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--80);padding-left:var(--wp--preset--spacing--50)">
+<div class="arena-hero-media-text wp-block-group alignfull has-surface-background-color has-background" style="padding-top:var(--wp--preset--spacing--80);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--80);padding-left:var(--wp--preset--spacing--50)" data-arena-pattern="hero-media-text" data-arena-family="Hero" data-arena-module="hero-media-editorial">
 	<!-- wp:media-text {"align":"wide","mediaPosition":"right","mediaId":1,"mediaType":"image","mediaSizeSlug":"arena-hero","verticalAlignment":"center","className":"arena-hero-media-text__split","style":{"spacing":{"blockGap":"var:preset|spacing|70"}}} -->
 	<div class="wp-block-media-text alignwide has-media-on-the-right is-stacked-on-mobile is-vertically-aligned-center arena-hero-media-text__split">
 		<figure class="wp-block-media-text__media"><img src="" alt="Arena hero product on stone" style="object-fit:cover"/></figure>
@@ -39,5 +39,7 @@
 		</div>
 	</div>
 	<!-- /wp:media-text -->
+
+	<span aria-hidden="true" class="arena-hero-media-text__hero-eyebrow-price" data-arena-role="hero-eyebrow-price"></span>
 </div>
 <!-- /wp:group -->

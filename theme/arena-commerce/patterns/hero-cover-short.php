@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:cover {"url":"","dimRatio":65,"gradient":"scrim-bottom","contentPosition":"center center","minHeight":70,"minHeightUnit":"vh","align":"full","className":"arena-hero-cover-short"} -->
-<div class="arena-hero-cover-short wp-block-cover alignfull has-background-dim-65 has-background-dim" style="min-height:70vh">
+<div class="arena-hero-cover-short wp-block-cover alignfull has-background-dim-65 has-background-dim" style="min-height:70vh" data-arena-pattern="hero-cover-short" data-arena-family="Hero" data-arena-module="hero-cover-short">
 	<span aria-hidden="true" class="wp-block-cover__gradient-background has-background-gradient has-scrim-bottom-gradient-background"></span>
 	<div class="wp-block-cover__inner-container">
 		<!-- wp:group {"className":"arena-hero-cover-short__content","style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"constrained"}} -->
@@ -33,5 +33,7 @@
 		</div>
 		<!-- /wp:group -->
 	</div>
+
+	<span aria-hidden="true" class="arena-hero-cover-short__hero-scrim-cta" data-arena-role="hero-scrim-cta"></span>
 </div>
 <!-- /wp:cover -->

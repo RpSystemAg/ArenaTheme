@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:group {"align":"full","className":"arena-newsletter","backgroundColor":"foreground","textColor":"base","style":{"spacing":{"padding":{"top":"var:preset|spacing|90","bottom":"var:preset|spacing|90","left":"var:preset|spacing|50","right":"var:preset|spacing|50"},"blockGap":"var:preset|spacing|50"}},"layout":{"type":"constrained"}} -->
-<div class="arena-newsletter wp-block-group alignfull has-base-color has-foreground-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--50)">
+<div class="arena-newsletter wp-block-group alignfull has-base-color has-foreground-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--50)" data-arena-pattern="newsletter-signup" data-arena-family="Newsletter" data-arena-module="newsletter-form">
 	<!-- wp:heading {"level":2,"align":"center","fontSize":"4xl"} -->
 	<h2 class="wp-block-heading aligncenter has-4xl-font-size">Restocks before anyone else</h2>
 	<!-- /wp:heading -->
@@ -34,5 +34,7 @@
 		</label>
 	</form>
 	<!-- /wp:html -->
+
+	<span aria-hidden="true" class="arena-newsletter-signup__newsletter-consent" data-arena-role="newsletter-consent"></span>
 </div>
 <!-- /wp:group -->

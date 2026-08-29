@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:group {"align":"full","className":"arena-reviews-compact","style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|80","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"constrained"}} -->
-<div class="arena-reviews-compact wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--80);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--80);padding-left:var(--wp--preset--spacing--50)">
+<div class="arena-reviews-compact wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--80);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--80);padding-left:var(--wp--preset--spacing--50)" data-arena-pattern="reviews-compact" data-arena-family="Social" data-arena-module="social-review-grid">
 	<!-- wp:heading {"level":2,"fontSize":"4xl"} -->
 	<h2 class="wp-block-heading has-4xl-font-size">What the field testers say</h2>
 	<!-- /wp:heading -->
@@ -50,5 +50,7 @@
 		<!-- /wp:column -->
 	</div>
 	<!-- /wp:columns -->
+
+	<span aria-hidden="true" class="arena-reviews-compact__review-star-rating" data-arena-role="review-star-rating"></span>
 </div>
 <!-- /wp:group -->

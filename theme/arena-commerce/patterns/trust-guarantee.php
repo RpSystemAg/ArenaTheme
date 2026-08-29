@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:group {"align":"full","className":"arena-trust-guarantee","backgroundColor":"surface","style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|80","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"constrained"}} -->
-<div class="arena-trust-guarantee wp-block-group alignfull has-surface-background-color has-background" style="padding-top:var(--wp--preset--spacing--80);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--80);padding-left:var(--wp--preset--spacing--50)">
+<div class="arena-trust-guarantee wp-block-group alignfull has-surface-background-color has-background" style="padding-top:var(--wp--preset--spacing--80);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--80);padding-left:var(--wp--preset--spacing--50)" data-arena-pattern="trust-guarantee" data-arena-family="Trust" data-arena-module="trust-guarantee-note">
 	<!-- wp:media-text {"align":"wide","mediaPosition":"left","mediaId":2,"mediaType":"image","mediaSizeSlug":"arena-featured","verticalAlignment":"center","className":"arena-trust-guarantee__split"} -->
 	<div class="wp-block-media-text alignwide is-stacked-on-mobile is-vertically-aligned-center arena-trust-guarantee__split">
 		<figure class="wp-block-media-text__media"><img src="" alt="Workshop repairing a jacket zip"/></figure>
@@ -36,5 +36,7 @@
 		</div>
 	</div>
 	<!-- /wp:media-text -->
+
+	<span aria-hidden="true" class="arena-trust-guarantee__trust-guarantee-note" data-arena-role="trust-guarantee-note"></span>
 </div>
 <!-- /wp:group -->

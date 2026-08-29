@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:group {"align":"full","className":"arena-newsletter-cards","backgroundColor":"surface","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"constrained"}} -->
-<div class="arena-newsletter-cards wp-block-group alignfull has-surface-background-color has-background" style="padding-top:var(--wp--preset--spacing--70);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--50)">
+<div class="arena-newsletter-cards wp-block-group alignfull has-surface-background-color has-background" style="padding-top:var(--wp--preset--spacing--70);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--50)" data-arena-pattern="newsletter-cards" data-arena-family="Newsletter" data-arena-module="newsletter-benefit-cards">
 	<!-- wp:heading {"level":2,"fontSize":"4xl"} -->
 	<h2 class="wp-block-heading has-4xl-font-size">Why the waitlist is worth it</h2>
 	<!-- /wp:heading -->
@@ -60,5 +60,7 @@
 		<!-- /wp:button -->
 	</div>
 	<!-- /wp:buttons -->
+
+	<span aria-hidden="true" class="arena-newsletter-cards__benefit-card-cta" data-arena-role="benefit-card-cta"></span>
 </div>
 <!-- /wp:group -->

@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:group {"align":"full","className":"arena-order-confirmation","backgroundColor":"foreground","textColor":"base","style":{"spacing":{"padding":{"top":"var:preset|spacing|90","bottom":"var:preset|spacing|90","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"constrained","contentSize":"38rem"}} -->
-<div class="arena-order-confirmation wp-block-group alignfull has-base-color has-foreground-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--50)">
+<div class="arena-order-confirmation wp-block-group alignfull has-base-color has-foreground-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--50)" data-arena-pattern="order-confirmation" data-arena-family="Checkout" data-arena-module="checkout-confirmation">
 	<!-- wp:group {"className":"arena-order-confirmation__card","style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"constrained"}} -->
 	<div class="arena-order-confirmation__card wp-block-group">
 		<!-- wp:paragraph {"className":"arena-order-confirmation__check","fontSize":"4xl","textColor":"success"} -->
@@ -36,5 +36,7 @@
 		<!-- /wp:buttons -->
 	</div>
 	<!-- /wp:group -->
+
+	<span aria-hidden="true" class="arena-order-confirmation__order-number-badge" data-arena-role="order-number-badge"></span>
 </div>
 <!-- /wp:group -->

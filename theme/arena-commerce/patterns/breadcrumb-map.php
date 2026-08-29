@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:group {"align":"full","className":"arena-breadcrumb-map","style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|80","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"constrained"}} -->
-<div class="arena-breadcrumb-map wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--80);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--80);padding-left:var(--wp--preset--spacing--50)">
+<div class="arena-breadcrumb-map wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--80);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--80);padding-left:var(--wp--preset--spacing--50)" data-arena-pattern="breadcrumb-map" data-arena-family="Discovery" data-arena-module="discovery-breadcrumb-rail">
 	<!-- wp:group {"className":"arena-breadcrumb-map__crumbs","style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"flex","flexWrap":"wrap"}} -->
 	<div class="arena-breadcrumb-map__crumbs wp-block-group">
 		<!-- wp:paragraph {"fontSize":"xs","textColor":"muted"} --><p class="has-muted-color has-text-color has-xs-font-size">From</p><!-- /wp:paragraph -->
@@ -30,5 +30,7 @@
 		<!-- wp:image {"sizeSlug":"arena-card","className":"arena-breadcrumb-map__shot"} --><figure class="arena-breadcrumb-map__shot wp-block-image size-arena-card"><img src="" alt="Expedition boots"/></figure><!-- /wp:image -->
 	</div>
 	<!-- /wp:group -->
+
+	<span aria-hidden="true" class="arena-breadcrumb-map__breadcrumb-snap-rail" data-arena-role="breadcrumb-snap-rail"></span>
 </div>
 <!-- /wp:group -->

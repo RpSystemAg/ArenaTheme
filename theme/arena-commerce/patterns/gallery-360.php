@@ -12,7 +12,7 @@
 
 ?>
 <!-- wp:group {"align":"full","className":"arena-gallery-360","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"constrained"}} -->
-<div class="arena-gallery-360 wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--70);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--50)">
+<div class="arena-gallery-360 wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--70);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--50)" data-arena-pattern="gallery-360" data-arena-family="Gallery" data-arena-module="gallery-360-thumb-nav">
 	<!-- wp:image {"sizeSlug":"arena-featured","className":"arena-gallery-360__hero"} -->
 	<figure class="arena-gallery-360__hero wp-block-image size-arena-featured"><img src="" alt="Shell jacket front view"/></figure>
 	<!-- /wp:image -->
@@ -37,5 +37,7 @@
 		<!-- /wp:column -->
 	</div>
 	<!-- /wp:columns -->
+
+	<span aria-hidden="true" class="arena-gallery-360__gallery-thumb-pager" data-arena-role="gallery-thumb-pager"></span>
 </div>
 <!-- /wp:group -->
