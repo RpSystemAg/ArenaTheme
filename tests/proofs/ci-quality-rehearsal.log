@@ -1,0 +1,25 @@
+# Rehearsal of .github/workflows/quality.yml steps, run locally.
+# No PHP, Docker or browser exists in this sandbox: the php.yml and field legs
+# are NOT verified here. Only this job is. Every exit code below is real.
+# 2026-08-29T12:29:35Z · node v22.22.3
+
+$ npx eslint . --format stylish
+exit=0
+
+$ npm run test:quality
+exit=0
+PASS lines: 28
+
+$ node tools/make-pot.mjs --check
+✓ /home/user/ArenaTheme/theme/arena-commerce/languages/arena-commerce.pot up to date (105 strings)
+✓ /home/user/ArenaTheme/plugin/arena-engine/languages/arena-engine.pot up to date (169 strings)
+exit=0
+
+$ node tests/gw6-budget.test.mjs   (expected exit=1 — see docs/decisions/001)
+G-W6 asset budget (raw bytes actually shipped per page context)
+
+  page      CSS raw      JS raw       CSS files
+exit=1
+
+$ build-kits + build-rtl + build-presets, then git diff --exit-code (POTs excluded: timestamp header)
+exit=0

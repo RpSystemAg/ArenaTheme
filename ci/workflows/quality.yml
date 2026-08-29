@@ -1,0 +1,68 @@
+name: quality
+
+on:
+  push:
+    branches: [ main, 'arena/**' ]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  static-gates:
+    name: Static gates (Node 22)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install
+        run: npm ci --no-audit --no-fund
+
+      - name: ESLint (jQuery banned, i18n domains)
+        run: |
+          set -o pipefail
+          npx eslint . --format stylish | tee tests/proofs/ci-eslint.log
+
+      - name: Quality suite — 17 committed gates
+        run: |
+          set -o pipefail
+          npm run test:quality 2>&1 | tee tests/proofs/ci-test-quality.log
+
+      - name: POT freshness (G11 / G-W8)
+        run: |
+          set -o pipefail
+          node tools/make-pot.mjs --check 2>&1 | tee tests/proofs/ci-pot-check.log
+
+      - name: G-W6 asset budget (measured per page context)
+        run: |
+          set -o pipefail
+          node tests/gw6-budget.test.mjs 2>&1 | tee tests/proofs/ci-gw6-budget.log
+
+      - name: Deterministic generators are idempotent
+        # The POTs are excluded from this diff on purpose: make-pot.mjs rewrites
+        # a `POT-Creation-Date` header on every run, so a byte-diff could never
+        # be clean. POT freshness is covered by the `--check` step above, which
+        # compares strings and ignores the timestamp.
+        run: |
+          set -o pipefail
+          node tools/build-kits.mjs
+          node tools/build-rtl.mjs
+          node tools/build-presets.mjs
+          git diff --exit-code --stat -- plugin theme ':(exclude)*/languages/*.pot' \
+            | tee tests/proofs/ci-generators.log \
+            || ( echo "::error::A committed generator output is stale — re-run the tools/* builders and commit." && exit 1 )
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: quality-proofs
+          path: tests/proofs
+          if-no-files-found: error

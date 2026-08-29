@@ -1,0 +1,10 @@
+$ git push origin arena/01a04d66-arenatheme
+# 2026-08-29T12:28:02Z · commit bb66fc5
+To https://github.com/RpSystemAg/ArenaTheme.git
+ ! [remote rejected] HEAD -> arena/01a04d66-arenatheme (refusing to allow a GitHub App to create or update workflow `.github/workflows/php.yml` without `workflows` permission)
+error: failed to push some refs to 'https://github.com/RpSystemAg/ArenaTheme.git'
+exit=1
+
+$ git log --all --oneline -- .github
+(vuoto: nessun workflow è mai arrivato su origin)
+bb66fc5 ci: REQ-A1 — workflow pubblici (quality, PHP G-W4, Plugin/Theme Check)
