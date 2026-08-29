@@ -1,0 +1,30 @@
+$ node tests/gw6-budget.test.mjs
+# 2026-08-29T12:26:27Z · node v22.22.3
+G-W6 asset budget (raw bytes actually shipped per page context)
+
+  page      CSS raw      JS raw       CSS files
+  home        32237 B     39017 B    arena.css + arena-dark.css + arena-motion.css + arena-megamenu.css + arena-search.css
+  blog        36758 B     39017 B    arena.css + arena-dark.css + arena-motion.css + arena-blog.css + arena-megamenu.css + arena-search.css
+  shop        40278 B     43693 B    arena.css + arena-dark.css + arena-motion.css + arena-commerce.css + arena-megamenu.css + arena-search.css + arena-woocommerce.css
+  product     38799 B     40110 B    arena.css + arena-dark.css + arena-motion.css + arena-commerce.css + arena-megamenu.css + arena-woocommerce.css
+  cart        35902 B     30120 B    arena.css + arena-dark.css + arena-commerce.css + arena-megamenu.css + arena-woocommerce.css
+  checkout    38751 B     33478 B    arena.css + arena-dark.css + arena-commerce.css + arena-megamenu.css + arena-checkout.css + arena-woocommerce.css
+
+  engine catalog JS: 4395 B (arena-engine.js + arena-interactivity.js)
+  budgets: CSS ≤ 22528 B · JS ≤ 24576 B · engine ≤ 18432 B
+  jQuery references: 0 · third-party origins: 0 (across 32 front-end files)
+
+G-W6 FAIL — 12 breach(es):
+  · G-W6 CSS: /home ships 32237 B (31.5 KB) > 22 KB
+  · G-W6 JS:  /home ships 39017 B (38.1 KB) > 24 KB
+  · G-W6 CSS: /blog ships 36758 B (35.9 KB) > 22 KB
+  · G-W6 JS:  /blog ships 39017 B (38.1 KB) > 24 KB
+  · G-W6 CSS: /shop ships 40278 B (39.3 KB) > 22 KB
+  · G-W6 JS:  /shop ships 43693 B (42.7 KB) > 24 KB
+  · G-W6 CSS: /product ships 38799 B (37.9 KB) > 22 KB
+  · G-W6 JS:  /product ships 40110 B (39.2 KB) > 24 KB
+  · G-W6 CSS: /cart ships 35902 B (35.1 KB) > 22 KB
+  · G-W6 JS:  /cart ships 30120 B (29.4 KB) > 24 KB
+  · G-W6 CSS: /checkout ships 38751 B (37.8 KB) > 22 KB
+  · G-W6 JS:  /checkout ships 33478 B (32.7 KB) > 24 KB
+exit=1
