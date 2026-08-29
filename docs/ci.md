@@ -1,8 +1,8 @@
 # Arena Commerce — enterprise CI matrix
 
-> **Publication blocker (2026-08-28).** The GitHub App token connected to the
-> sandbox does not have the `Workflows: Read and write` permission, so GitHub
-> refuses to push `.github/workflows/*`. The five workflow files below are
+> **Publication blocker (2026-08-28/29).** The GitHub App token connected
+> to the sandbox does not have the `Workflows: Read and write` permission, so
+> GitHub refuses to push `.github/workflows/*`. The workflow files below are
 > fully written, locally validated, and present in the repo checkout
 > (`git status` shows them untracked under `.github/`), but they could not be
 > pushed by this session. PR #2 deliberately carries the reproducible configs,
@@ -51,3 +51,23 @@ tools/php/vendor/bin/phpstan analyse --configuration=phpstan.neon.dist --no-prog
 - Abilities API registry contract: `wp_abilities_api_init`, output schema,
   orthogonal permission/execute callbacks, readonly and non-destructive
   annotations.
+
+## H7 anti-clone workflow
+
+`.github/workflows/anti-clone.yml` runs on every push/PR to `main` and
+`arena/**`:
+
+| Job | Command | Blocking |
+|---|---|---|
+| `anti-clone` | `node tests/anti-clone.mjs` | Yes |
+
+Local reproduction:
+
+```bash
+npm run test:anti-clone
+```
+
+The workflow fails when any *within-family* pair of the 48 patterns exceeds
+the 40% structural-overlap ceiling (H9 family reading). The global
+"ogni coppia" reading is documented as an explicit AP7 conflict in
+[`docs/compliance-table.md`](compliance-table.md).

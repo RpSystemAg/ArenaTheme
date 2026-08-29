@@ -28,8 +28,20 @@ theme; everything it does is switchable and reversible under **Settings → Aren
   otherwise break under a strict policy.
 - **Motion** — `arena/carousel` and `arena/reveal` blocks rendered server-side and enhanced
   through the Interactivity API as script modules; nothing animates without consent.
+- **Mobile-first (Arena Prime H2/H3)** — fixed bottom navigation on ≤600px (64px + safe area,
+  5 items, animated active indicator, hide-on-scroll-down / reappear-on-scroll-up), 44px touch
+  targets, live-region announcements. Desktop keeps the classic header.
+- **Pattern library (H9)** — 12 template families × 4 structurally distinct patterns = 48
+  patterns, each with its own grid, hierarchy, density and interactive module.
 - **Abilities** — `arena-engine/performance-report` and `arena-engine/accessibility-audit`
   registered through the WordPress 7.1 Abilities API for automation and AI agents.
+
+## Arena Prime release artifacts
+
+- `variation-matrix.csv` — H6 matrix for 48 patterns + 19 templates.
+- `tests/anti-clone.mjs` — H7 scripted 40% structural-overlap gate (`npm run test:anti-clone`).
+- `kit-campagna/` — H17 campaign kit: 9:16 stories, 1:1 feed, 16:9 display.
+- `tests/e2e/mobile-nav.spec.js` — H2/H3 Playwright checks at 360px.
 
 ## Certification
 

@@ -66,7 +66,23 @@
 			{ rootMargin: '0px 0px -10% 0px', threshold: 0.01 }
 		);
 
-		Array.prototype.forEach.call( items, function ( item ) {
+		Array.prototype.forEach.call( items, function ( item, index ) {
+			/* H11: sibling stagger of 40-80ms. The index is read from the nearest
+			   [data-arena-stagger] group so every descendant staggers against its
+			   siblings, not against every reveal on the page. */
+			var group = item.closest ? item.closest( '[data-arena-stagger]' ) : null;
+
+			if ( group ) {
+				var siblings = group.querySelectorAll( '[data-arena-reveal]' );
+				var position = Array.prototype.indexOf.call( siblings, item );
+
+				if ( position > -1 ) {
+					item.style.setProperty( '--arena-reveal-index', String( position ) );
+				}
+			} else {
+				item.style.setProperty( '--arena-reveal-index', String( index % 6 ) );
+			}
+
 			observer.observe( item );
 		} );
 	}
@@ -308,9 +324,112 @@
 		} );
 	}
 
+
+
+	/* --------------------------------------------------- Scroll parallax */
+	function initParallax() {
+		var items = document.querySelectorAll( '[data-arena-parallax]' );
+
+		if ( reduced || ! items.length || ! ( 'IntersectionObserver' in window ) ) {
+			return;
+		}
+
+		var ticking = false;
+
+		function update() {
+			var viewport = window.innerHeight;
+
+			Array.prototype.forEach.call( items, function ( item ) {
+				var box = item.getBoundingClientRect();
+
+				/* Never animate off-screen elements. */
+				if ( box.bottom < -viewport * 0.2 || box.top > viewport * 1.2 ) {
+					return;
+				}
+
+				var factor = parseFloat( item.getAttribute( 'data-arena-parallax' ) );
+
+				if ( ! Number.isFinite( factor ) ) {
+					factor = 0.1;
+				}
+
+				/* H11: cap parallax at 15% of the viewport height. */
+				var cap = viewport * 0.15;
+				var offset = ( box.top + box.height / 2 - viewport / 2 ) * factor;
+
+				if ( offset > cap ) {
+					offset = cap;
+				} else if ( offset < -cap ) {
+					offset = -cap;
+				}
+
+				item.style.transform = 'translate3d(0, ' + offset.toFixed( 1 ) + 'px, 0)';
+			} );
+
+			ticking = false;
+		}
+
+		function onScroll() {
+			if ( ticking ) {
+				return;
+			}
+
+			ticking = true;
+			window.requestAnimationFrame( update );
+		}
+
+		window.addEventListener( 'scroll', onScroll, { passive: true } );
+		window.addEventListener( 'resize', onScroll );
+		update();
+	}
+
+	/* ------------------------------------------------- Bottom navigation */
+	function initBottomNav() {
+		var nav = document.getElementById( 'arena-bottom-nav' );
+
+		if ( ! nav ) {
+			return;
+		}
+
+		var lastY = window.scrollY;
+		var ticking = false;
+
+		function update() {
+			var y = window.scrollY;
+			var delta = y - lastY;
+
+			/* Hide only after a clear downward flick and never while near the top. */
+			if ( y > 96 && delta > 6 ) {
+				nav.classList.add( 'arena-bottom-nav--hidden' );
+			} else if ( delta < -6 ) {
+				nav.classList.remove( 'arena-bottom-nav--hidden' );
+			} else if ( y <= 96 ) {
+				nav.classList.remove( 'arena-bottom-nav--hidden' );
+			}
+
+			lastY = y;
+			ticking = false;
+		}
+
+		window.addEventListener(
+			'scroll',
+			function () {
+				if ( ticking ) {
+					return;
+				}
+
+				ticking = true;
+				window.requestAnimationFrame( update );
+			},
+			{ passive: true }
+		);
+	}
+
 	/* --------------------------------------------------------------- Boot */
 	function boot() {
 		initReveal();
+		initParallax();
+		initBottomNav();
 		initMarquee();
 		initDialogs();
 
