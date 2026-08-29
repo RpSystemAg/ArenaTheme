@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<ruleset name="Arena Commerce — gate G-W4">
+	<description>
+		G-W4 (World Class 2026): PHPCS WordPress-VIP-Go + WooCommerce-Core over
+		every shipped PHP file, 0 errors and 0 warnings. `phpcs.xml.dist` stays
+		the day-to-day ruleset; this one is the certification gate and runs in
+		`.github/workflows/php.yml` on PHP 8.3 and 8.5.
+	</description>
+
+	<file>theme/arena-commerce</file>
+	<file>theme/arena-commerce-child</file>
+	<file>plugin/arena-engine</file>
+
+	<exclude-pattern>*/tests/*</exclude-pattern>
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/dist/*</exclude-pattern>
+	<exclude-pattern>*/kits/*/pages/*</exclude-pattern>
+	<exclude-pattern>*/kits/*/campaign/*</exclude-pattern>
+
+	<arg name="extensions" value="php"/>
+	<arg name="basepath" value="."/>
+	<arg name="colors"/>
+	<arg value="sp"/>
+
+	<config name="testVersion" value="7.4-"/>
+	<config name="minimum_wp_version" value="6.9"/>
+
+	<rule ref="WordPress-VIP-Go"/>
+	<rule ref="WooCommerce-Core"/>
+	<rule ref="WordPress-Core"/>
+	<rule ref="WordPress-Docs"/>
+	<rule ref="PHPCompatibilityWP"/>
+
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="arena_"/>
+				<element value="arena_theme"/>
+				<element value="arena_engine"/>
+				<element value="Arena_Theme"/>
+				<element value="Arena_Engine"/>
+			</property>
+		</properties>
+	</rule>
+</ruleset>
