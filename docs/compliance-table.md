@@ -77,5 +77,5 @@ Lighthouse.
 | Check | Status |
 |---|---|
 | `tests/anti-clone.mjs` runs locally | PASS |
-| `.github/workflows/anti-clone.yml` written | PASS (file committed; pushing GitHub workflows may require `workflows: write`, see `docs/ci.md`). |
+| `.github/workflows/anti-clone.yml` written | PASS (file present in checkout; push is blocked by GitHub App token lacking `workflows: write`, see `docs/ci.md`). |
 | `npm run test:anti-clone` wiring | PASS |
