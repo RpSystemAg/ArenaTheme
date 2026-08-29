@@ -94,12 +94,12 @@ module.exports = [
 		},
 	},
 	/*
-	 * `tools/**` and the `tests/*.mjs` gates are Node CLIs: `console` IS their
+	 * `tools/**`, `ci/**` and the `tests/*.mjs` gates are Node CLIs: `console` IS their
 	 * output channel and CRC32 needs bitwise operators. Scoped here, never
 	 * globally, so shipped front-end code keeps the strict rules.
 	 */
 	{
-		files: [ 'tools/**/*.mjs', 'tests/**/*.mjs' ],
+		files: [ 'tools/**/*.mjs', 'tests/**/*.mjs', 'ci/**/*.mjs' ],
 		languageOptions: {
 			globals: {
 				process: 'readonly',
