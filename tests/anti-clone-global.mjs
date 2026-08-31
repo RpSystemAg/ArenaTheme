@@ -10,6 +10,13 @@ import { join } from 'node:path';
 const PATTERNS_DIR = join( process.cwd(), 'theme', 'arena-commerce', 'patterns' );
 const THRESHOLD = 0.40;
 
+/*
+ * Same rule as tests/anti-clone.mjs: a token carried by more than half the
+ * library is not evidence of cloning, so it is listed but not scored. Keeping
+ * both auditors on one rule is what makes their numbers comparable.
+ */
+const MAX_DOCUMENT_FREQUENCY = 0.5;
+
 const GENERIC_TOKENS = new Set( [
 	'wp:group', 'wp:column', 'wp:columns', 'wp:heading', 'wp:paragraph',
 	'wp:button', 'wp:buttons', 'wp:navigation', 'wp:navigation-link',
@@ -73,18 +80,18 @@ function tokens( content ) {
 	// Semantic class tokens (BEM-like arena-* and is-style-arena-*).
 	for ( const m of norm.matchAll( /\bclass="([^"]+)"/g ) ) {
 		for ( const t of m[ 1 ].split( /\s+/ ) ) {
-			if ( ! t ) continue;
-			if ( GENERIC_TOKENS.has( t ) ) continue;
-			if ( /^has-/.test( t ) ) continue;
+			if ( ! t ) {continue;}
+			if ( GENERIC_TOKENS.has( t ) ) {continue;}
+			if ( /^has-/.test( t ) ) {continue;}
 			// Arena-specific semantic classes are always structural.
 			if ( t.startsWith( 'arena-' ) || t.startsWith( 'is-style-arena-' ) ) {
 				set.add( `class:${ t }` );
 				continue;
 			}
 			// wp-block-* utilities: skip except data-driven ones.
-			if ( /^wp-block-/.test( t ) ) continue;
+			if ( /^wp-block-/.test( t ) ) {continue;}
 			// is-* layout/is-* flags: skip except arena-specific.
-			if ( /^is-/.test( t ) ) continue;
+			if ( /^is-/.test( t ) ) {continue;}
 			set.add( `class:${ t }` );
 		}
 	}
@@ -103,7 +110,7 @@ function tokens( content ) {
 	// Non-generic tag names.
 	for ( const m of norm.matchAll( /<([a-z][a-z0-9-]*)\b/gi ) ) {
 		const tag = m[ 1 ].toLowerCase();
-		if ( ! GENERIC_TOKENS.has( tag ) ) set.add( `tag:${ tag }` );
+		if ( ! GENERIC_TOKENS.has( tag ) ) {set.add( `tag:${ tag }` );}
 	}
 	// Layout/grid attribute tokens (from JSON in block comments).
 	for ( const m of norm.matchAll( /"(layout|grid|orientation|flexWrap|contentSize|wideSize|justifyContent|verticalAlignment|overlayMenu|hasIcon|query|sizeSlug|level|viewportWidth|mediaPosition|dimRatio|minHeight|align|aspectRatio|textColor|backgroundColor|gradient)":"([^"]*)"/gi ) ) {
@@ -127,13 +134,13 @@ function familyFor( name ) {
 		[ 'order-', 'Checkout' ], [ 'payment-', 'Checkout' ], [ 'cost-', 'Checkout' ],
 		[ 'service-', 'Service' ],
 	];
-	for ( const [ p, f ] of map ) if ( name.startsWith( p ) ) return f;
+	for ( const [ p, f ] of map ) {if ( name.startsWith( p ) ) {return f;}}
 	return 'Other';
 }
 
 function jaccard( a, b ) {
 	let inter = 0;
-	for ( const t of a ) if ( b.has( t ) ) inter += 1;
+	for ( const t of a ) {if ( b.has( t ) ) {inter += 1;}}
 	const union = a.size + b.size - inter;
 	return union === 0 ? 0 : inter / union;
 }
@@ -148,9 +155,22 @@ const withinFailures = [];
 const crossFailures = [];
 const withinSummary = new Map();
 
+const df = new Map();
+
+for ( const pat of pats ) {
+	for ( const t of pat.toks ) {df.set( t, ( df.get( t ) || 0 ) + 1 );}
+}
+
+const dfCeiling = Math.floor( pats.length * MAX_DOCUMENT_FREQUENCY );
+const universal = [ ...df.entries() ].filter( ( [ , n ] ) => n > dfCeiling ).map( ( [ t ] ) => t ).sort();
+
+for ( const pat of pats ) {
+	pat.disc = new Set( [ ...pat.toks ].filter( t => ! universal.includes( t ) ) );
+}
+
 for ( let i = 0; i < pats.length; i++ ) {
 	for ( let j = i + 1; j < pats.length; j++ ) {
-		const sim = jaccard( pats[ i ].toks, pats[ j ].toks );
+		const sim = jaccard( pats[ i ].disc, pats[ j ].disc );
 		const target = pats[ i ].family === pats[ j ].family ? withinFailures : crossFailures;
 		if ( sim > THRESHOLD ) {
 			target.push( { a: pats[ i ].name, b: pats[ j ].name, sim, af: pats[ i ].family, bf: pats[ j ].family } );
@@ -158,21 +178,22 @@ for ( let i = 0; i < pats.length; i++ ) {
 		if ( pats[ i ].family === pats[ j ].family ) {
 			const key = pats[ i ].family;
 			const cur = withinSummary.get( key ) || { worst: 0, a: '', b: '' };
-			if ( sim > cur.worst ) withinSummary.set( key, { worst: sim, a: pats[ i ].name, b: pats[ j ].name, n: (cur.n||0)+1 } );
+			if ( sim > cur.worst ) {withinSummary.set( key, { worst: sim, a: pats[ i ].name, b: pats[ j ].name, n: (cur.n||0)+1 } );}
 		}
 	}
 }
 
 console.log( `[anti-clone:global] ${ pats.length } patterns, ${ pats.length * (pats.length-1) / 2 } pairs, threshold <= ${ THRESHOLD }.` );
+console.log( `[anti-clone:global] ${ universal.length } universal token(s) not scored: ${ universal.join( ', ' ) || 'none' }.` );
 console.log( `\nPer-family worst pairs (informational):` );
 for ( const [ fam, s ] of withinSummary ) {
 	console.log( `  ${ fam.padEnd( 12 ) } worst ${ s.a.padEnd( 28 ) } ↔ ${ s.b.padEnd( 28 ) } = ${ s.worst.toFixed( 3 ) }` );
 }
 console.log( `\nWithin-family failures: ${ withinFailures.length }` );
-for ( const f of withinFailures ) console.log( `  [${ f.af }] ${ f.a } ↔ ${ f.b } = ${ f.sim.toFixed( 3 ) }` );
+for ( const f of withinFailures ) {console.log( `  [${ f.af }] ${ f.a } ↔ ${ f.b } = ${ f.sim.toFixed( 3 ) }` );}
 console.log( `\nCross-family failures: ${ crossFailures.length }` );
-for ( const f of crossFailures.slice( 0, 30 ) ) console.log( `  [${ f.af }/${ f.bf }] ${ f.a.padEnd( 28 ) } ↔ ${ f.b.padEnd( 28 ) } = ${ f.sim.toFixed( 3 ) }` );
-if ( crossFailures.length > 30 ) console.log( `  ... and ${ crossFailures.length - 30 } more.` );
+for ( const f of crossFailures.slice( 0, 30 ) ) {console.log( `  [${ f.af }/${ f.bf }] ${ f.a.padEnd( 28 ) } ↔ ${ f.b.padEnd( 28 ) } = ${ f.sim.toFixed( 3 ) }` );}
+if ( crossFailures.length > 30 ) {console.log( `  ... and ${ crossFailures.length - 30 } more.` );}
 
 if ( withinFailures.length === 0 && crossFailures.length === 0 ) {
 	console.log( `\n[anti-clone:global] PASS — all ${ pats.length * (pats.length-1)/2 } pairs (within + cross-family) are below the 40% structural-overlap ceiling.` );

@@ -49,7 +49,7 @@ function checkDomains( dir, domain ) {
 		const code = readFileSync( join( dir, String( file ) ), 'utf8' );
 
 		for ( const m of code.matchAll( /(?:__|_e|esc_html__|esc_html_e|esc_attr__|esc_attr_e)\(\s*'((?:[^'\\]|\\.)*)'\s*,\s*'([^']+)'/g ) ) {
-			if ( m[ 2 ] === domain || FOREIGN_DOMAINS_OK.has( m[ 2 ] ) ) continue;
+			if ( m[ 2 ] === domain || FOREIGN_DOMAINS_OK.has( m[ 2 ] ) ) {continue;}
 
 			const problem = `${ file }: domain "${ m[ 2 ] }" (expected ${ domain })`;
 			if ( ! problems.includes( problem ) ) {
@@ -75,7 +75,7 @@ let kits = 0;
 
 for ( const slug of readdirSync( kitsDir ) ) {
 	const manifestPath = join( kitsDir, slug, 'kit.json' );
-	if ( ! existsSync( manifestPath ) ) continue;
+	if ( ! existsSync( manifestPath ) ) {continue;}
 
 	const manifest = JSON.parse( readFileSync( manifestPath, 'utf8' ) );
 	kits++;

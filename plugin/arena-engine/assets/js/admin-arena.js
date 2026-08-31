@@ -65,12 +65,30 @@
 					return localeSelect ? localeSelect.value : 'en_US';
 				}
 
-				function runImport( payload, steps ) {
+				/*
+				 * Runs one REST request per queue entry, in order, and reports
+				 * every hop on the progress bar. The bar therefore shows the
+				 * real number of steps instead of jumping to 100%, and the
+				 * reload happens only once, after the last hop.
+				 */
+				function runQueue( queue ) {
 					progress.hidden = false;
 
+					var steps = queue.length;
 					var done = 0;
 
 					function next() {
+						if ( ! queue.length ) {
+							setStatus( label, t( 'imported', 'Imported' ) + ' ✓' );
+							window.setTimeout( function () {
+								window.location.reload();
+							}, 900 );
+
+							return Promise.resolve();
+						}
+
+						var payload = queue.shift();
+
 						setStatus( label, t( 'importing', 'Importing…' ) + ' (' + ( done + 1 ) + '/' + steps + ')' );
 
 						return api( 'kits/' + slug + '/import', {
@@ -80,14 +98,7 @@
 							done++;
 							fill.style.inlineSize = Math.round( ( done / steps ) * 100 ) + '%';
 
-							if ( done < steps ) {
-								return next();
-							}
-
-							setStatus( label, t( 'imported', 'Imported' ) + ' ✓' );
-							window.setTimeout( function () {
-								window.location.reload();
-							}, 900 );
+							return next();
 						} );
 					}
 
@@ -103,21 +114,20 @@
 						confirm_overwrite: window.confirm( t( 'confirm', 'Overwrite existing content?' ) )
 					};
 
-					/* Step-by-step import: one request per page keeps every hop short and
-					   gives the progress bar real steps (H20). */
-					var steps = 1 + pages.length;
-					runImport( payload, 1 );
+					/* Step-by-step import: one request per page keeps every hop
+					   short and gives the progress bar real steps (H20). The full
+					   import (menu + products) runs first, then each page, and the
+					   reload fires only after the last hop. */
+					var queue = [ payload ].concat( pages.map( function ( page ) {
+						return {
+							scope: 'page',
+							page,
+							locale: locale(),
+							confirm_overwrite: payload.confirm_overwrite,
+						};
+					} ) );
 
-					/* Full import first (menu + products), then each page. */
-					var done = Promise.resolve();
-					pages.forEach( function ( page ) {
-						done = done.then( function () {
-							return api( 'kits/' + slug + '/import', {
-								method: 'POST',
-								body: JSON.stringify( { scope: 'page', page: page, locale: locale(), confirm_overwrite: payload.confirm_overwrite } )
-							} );
-						} );
-					} );
+					runQueue( queue );
 				} );
 
 				var pageToggle = card.querySelector( '[data-arena-kit-page-import]' );
@@ -132,7 +142,7 @@
 
 				card.querySelectorAll( '[data-arena-kit-page]' ).forEach( function ( button ) {
 					button.addEventListener( 'click', function () {
-						runImport( { scope: 'page', page: button.getAttribute( 'data-arena-kit-page' ), locale: locale(), confirm_overwrite: window.confirm( t( 'confirm', 'Overwrite existing content?' ) ) }, 1 );
+						runQueue( [ { scope: 'page', page: button.getAttribute( 'data-arena-kit-page' ), locale: locale(), confirm_overwrite: window.confirm( t( 'confirm', 'Overwrite existing content?' ) ) } ] );
 					} );
 				} );
 
@@ -221,7 +231,7 @@
 			api( 'typography', {
 				method: 'POST',
 				body: JSON.stringify( {
-					levels: levels,
+					levels,
 					scale: {
 						mobile: parseFloat( form.querySelector( '[name="arena-typo-scale-mobile"]' ).value ) || 1,
 						desktop: parseFloat( form.querySelector( '[name="arena-typo-scale-desktop"]' ).value ) || 1
@@ -266,7 +276,7 @@
 						return part.trim();
 					} ).filter( Boolean );
 				} else if ( key === 'arena_catalog_mode' ) {
-					payload[ key ] = '1' === String( value );
+					payload[ key ] = String( value ) === '1';
 				} else if ( key === 'arena_mobile_breakpoint' ) {
 					payload[ key ] = parseInt( value, 10 );
 				} else {

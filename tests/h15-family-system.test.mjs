@@ -34,7 +34,7 @@ const theme = JSON.parse(
 
 const failures = [];
 const info = [];
-function assert( cond, msg ) { if ( ! cond ) failures.push( msg ); }
+function assert( cond, msg ) { if ( ! cond ) {failures.push( msg );} }
 
 // Family for a filename mirrors anti-clone.mjs mapping.
 function familyFor( name ) {
@@ -55,7 +55,7 @@ function familyFor( name ) {
 		[ 'post-format-', 'Blog' ], [ 'related-posts', 'Blog' ],
 		[ 'footer-', 'Footer' ],
 	];
-	for ( const [ p, f ] of map ) if ( name.startsWith( p ) ) return f;
+	for ( const [ p, f ] of map ) {if ( name.startsWith( p ) ) {return f;}}
 	return null;
 }
 
@@ -114,7 +114,7 @@ for ( const c of [ 'base', 'foreground', 'muted', 'primary', 'accent' ] ) {
 
 if ( failures.length ) {
 	console.error( '[H15 family system] FAIL:' );
-	for ( const f of failures ) console.error( '  - ' + f );
+	for ( const f of failures ) {console.error( '  - ' + f );}
 	process.exit( 1 );
 }
 console.log( `[H15 family system] PASS — ${ declared.length } families declared in theme/arena-commerce/family-tokens.json.` );

@@ -1,0 +1,5 @@
+$ node tools/make-pot.mjs --check
+# 2026-08-29T12:26:27Z · node v22.22.3
+✓ /home/user/ArenaTheme/theme/arena-commerce/languages/arena-commerce.pot up to date (105 strings)
+✓ /home/user/ArenaTheme/plugin/arena-engine/languages/arena-engine.pot up to date (169 strings)
+exit=0

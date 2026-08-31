@@ -41,9 +41,9 @@ function wrap( text, max = 26, maxLines = 3 ) {
 /**
  * Reads the preset palette from the theme styles directory.
  *
- * @param {string} preset  Preset slug.
+ * @param {string} preset   Preset slug.
  * @param {string} themeDir Theme directory.
- * @return {{base:string, contrast:string, accent:string}}
+ * @return {{base:string, contrast:string, accent:string, soft:string}} Resolved palette slots with safe fallbacks.
  */
 export function palette( preset, themeDir ) {
 	const file = join( themeDir, 'styles', `${ preset }.json` );
@@ -110,9 +110,9 @@ function motif( family, w, h, pal ) {
 /**
  * Builds one campaign SVG.
  *
- * @param {object} kit  Kit spec.
- * @param {object} pal  Palette.
- * @param {object} opts {w, h, label}
+ * @param {Object} kit    Kit spec.
+ * @param {Object} pal    Palette.
+ * @param {Object} opts   {w, h, label}
  * @param {string} locale Locale.
  * @return {string} SVG markup.
  */

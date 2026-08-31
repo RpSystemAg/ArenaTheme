@@ -161,7 +161,7 @@
 	function addToCart( id, quantity ) {
 		return request( '/cart/add-item', {
 			method: 'POST',
-			body: JSON.stringify( { id: id, quantity: quantity } )
+			body: JSON.stringify( { id, quantity } )
 		} ).then( function ( data ) {
 			render( data );
 			announce( t( 'added', 'Added to your cart.' ) );
@@ -222,18 +222,8 @@
 	function updateItem( key, quantity ) {
 		return request( '/cart/update-item', {
 			method: 'POST',
-			body: JSON.stringify( { key: key, quantity: quantity } )
+			body: JSON.stringify( { key, quantity } )
 		} ).then( render );
-	}
-
-	function removeWithUndo( row ) {
-		var key = row.dataset.key;
-		var id = parseInt( row.dataset.id, 10 );
-		var quantity = parseInt( row.dataset.qty, 10 ) || 1;
-
-		updateItem( key, 0 ).then( function () {
-			showUndo( id, quantity );
-		} );
 	}
 
 	function showUndo( id, quantity ) {
@@ -261,6 +251,17 @@
 			toast.remove();
 		}, 7000 );
 	}
+
+	function removeWithUndo( row ) {
+		var key = row.dataset.key;
+		var id = parseInt( row.dataset.id, 10 );
+		var quantity = parseInt( row.dataset.qty, 10 ) || 1;
+
+		updateItem( key, 0 ).then( function () {
+			showUndo( id, quantity );
+		} );
+	}
+
 
 	document.addEventListener( 'click', function ( event ) {
 		var stepperButton = event.target.closest ? event.target.closest( '[data-arena-qty]' ) : null;

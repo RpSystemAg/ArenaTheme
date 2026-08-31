@@ -187,3 +187,21 @@
 [data-theme="dark"] body.arena-header-transparent .arena-header:not(.arena-header--scrolled) {
 	background: linear-gradient(180deg, rgb(0 0 0 / 0.55) 0%, rgb(0 0 0 / 0) 100%);
 }
+
+/* H47 — the scheme toggle also lives in the bottom nav: a button that must
+   look exactly like a nav link (44px target, same tap feedback). */
+.arena-bottom-nav .arena-theme-toggle {
+	align-items: center;
+	background: none;
+	border: 0;
+	border-radius: 0;
+	color: inherit;
+	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+	font: inherit;
+	gap: 2px;
+	min-height: 44px;
+	padding: 0;
+	text-decoration: none;
+}

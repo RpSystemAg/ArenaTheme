@@ -1,0 +1,24 @@
+$ node tests/anti-clone.mjs
+# 2026-08-29T12:26:27Z · node v22.22.3
+[anti-clone] 58 patterns · 1653 pairs (within-family + cross-family) · threshold ≤ 0.4.
+[anti-clone] 6 universal token(s) (document frequency > 50% of the library) are reported but not scored: attr:aria-hidden, layout:align=full, layout:type=constrained, wp:group, wp:heading, wp:paragraph.
+[anti-clone] worst pair including universal tokens (informational): gallery-360 ↔ product-feature-podium = 0.436.
+
+Per-family H9 worst pair:
+  Blog          author-box                   ↔ post-format-quote            = 0.091
+  Checkout      checkout-summary             ↔ order-confirmation           = 0.156
+  Conversion    cta-countdown                ↔ cta-split-panel              = 0.207
+  Discovery     category-tiles               ↔ quick-links-list             = 0.107
+  Editorial     feature-bento                ↔ sticky-scroll-story          = 0.217
+  Footer        footer-3-columns             ↔ footer-5-columns             = 0.344
+  Gallery       gallery-compare              ↔ gallery-masonry              = 0.222
+  Hero          hero-cover-short             ↔ hero-stack-copy              = 0.167
+  Newsletter    newsletter-cards             ↔ newsletter-confirm           = 0.160
+  Product       product-editorial-grid       ↔ product-feature-podium       = 0.167
+  Service       service-membership           ↔ service-warranty             = 0.217
+  Social        reviews-compact              ↔ social-proof-meters          = 0.120
+  Support       support-steps                ↔ support-tiles                = 0.120
+  Trust         trust-bar                    ↔ trust-stats                  = 0.150
+
+[anti-clone] PASS — all 1653 pairs (within-family + cross-family) are below the 40% structural-overlap ceiling.
+exit=0

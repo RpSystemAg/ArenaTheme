@@ -117,7 +117,7 @@ function processFile( file ) {
 		return;
 	}
 
-	let content = readFileSync( join( PATTERNS_DIR, file ), 'utf8' );
+	const content = readFileSync( join( PATTERNS_DIR, file ), 'utf8' );
 
 	// Idempotent: if we already added the pattern attribute, skip.
 	if ( content.includes( 'data-arena-pattern="' ) ) {
@@ -136,7 +136,6 @@ function processFile( file ) {
 	// Add data-arena-* attributes to the FIRST top-level HTML tag right after
 	// the first block comment.
 	const bodyStart = content.indexOf( '?>' );
-	const head = content.slice( 0, bodyStart + 2 );
 	let body = content.slice( bodyStart + 2 );
 
 	// First opening tag after ?>: find <div ...> / <blockquote ...> etc.
@@ -144,17 +143,20 @@ function processFile( file ) {
 	// starting from the beginning of the body.
 	const tagRe = /<([a-z][a-z0-9-]*)\b([^>]*?)>/s;
 	const firstTagMatch = body.match( tagRe );
+
 	if ( ! firstTagMatch ) {
 		console.log( `SKIP ${ slug } — no root tag found` );
 		return;
 	}
+
+	const head = content.slice( 0, bodyStart + 2 );
 
 	const tagName = firstTagMatch[ 1 ];
 	const open = `<${ tagName }`;
 	const attrs = firstTagMatch[ 2 ];
 	const close = '>';
 	// Avoid double-injection.
-	if ( attrs.includes( 'data-arena-pattern' ) ) return;
+	if ( attrs.includes( 'data-arena-pattern' ) ) {return;}
 
 	const injected = ` data-arena-pattern="${ escapeAttr( slug ) }" data-arena-family="${ escapeAttr( spec.family ) }" data-arena-module="${ escapeAttr( spec.module ) }"`;
 	const newOpenTag = open + attrs + injected + close;
@@ -185,6 +187,6 @@ function processFile( file ) {
 }
 
 const files = readdirSync( PATTERNS_DIR ).filter( ( f ) => f.endsWith( '.php' ) ).sort();
-for ( const f of files ) processFile( f );
+for ( const f of files ) {processFile( f );}
 
 console.log( `\n${ files.length } patterns processed.` );

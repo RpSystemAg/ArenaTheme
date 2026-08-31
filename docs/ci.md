@@ -1,87 +1,87 @@
-# Arena Prime v3.1 — enterprise CI matrix
+# Arena Prime v3.2 — CI: stato reale, non dichiarato
 
-## Workflows
+Ultima verifica: **2026-08-29**, branch `arena/01a04d66-arenatheme`,
+commit `c5b8336`. Ogni affermazione qui sotto ha un comando o un log in
+`tests/proofs/`.
 
-| File | Trigger | What it runs | Blocking |
+## 1. Il blocco: i workflow non sono pushabili da questa sessione
+
+Il token dell'App GitHub non ha il permesso `workflows`. Verificato, non
+ipotizzato — `tests/proofs/ci-token-blocker.log`:
+
+```
+$ git push origin arena/01a04d66-arenatheme
+ ! [remote rejected] HEAD -> arena/01a04d66-arenatheme (refusing to allow a
+   GitHub App to create or update workflow `.github/workflows/php.yml`
+   without `workflows` permission)
+error: failed to push some refs to 'https://github.com/RpSystemAg/ArenaTheme.git'
+exit=1
+```
+
+Conseguenza: **non esiste alcuna run di GitHub Actions per questo repo** e
+nessun badge può essere esposto. Chiunque scriva il contrario sta inventando.
+
+Il report v2.0 aveva lasciato i workflow fuori da Git ("i file esistono nel
+working tree"): `git log --all -- .github` era vuoto, cioè nel repo non
+c'era niente. Ora sono versionati in un percorso che il token *può* scrivere.
+
+## 2. Attivazione (un comando, da un actor con `Workflows: Read and write`)
+
+```bash
+node ci/install-workflows.mjs          # copia ci/workflows/*.yml → .github/workflows/ e verifica byte-per-byte
+git add .github && git commit -m "ci: activate workflows" && git push
+```
+
+`ci/install-workflows.mjs` non modifica lo YAML: copia e confronta. Verificato
+localmente — entrambi i file si installano e si parsano.
+
+## 3. Che cosa contiene ciascun workflow
+
+| File | Job | Che cosa esegue | Verificato qui? |
 |---|---|---|---|
-| `.github/workflows/quality.yml` | push/PR on `main`, `arena/**` | Full Node quality suite (no browser required): v2.0 gates (H7 global anti-clone, H2/H3 mobilenav, H11 FLIP, H14 billboard, H15 family system, axe-style static audit, Lighthouse structural budget) **plus** the v3.1 gates G8–G17 (kits, purchase-flow static proxy, RTL, i18n/pot, panel undo, presets, JSON-LD, decoupled assets, dark mode, child starter) and the POT freshness check (`tools/make-pot.mjs --check`) | **Yes** |
-| `.github/workflows/build-dist.yml` | push on `main` + tags `v*`, PR, manual | Builds `dist/arena-commerce.zip`, `dist/arena-engine.zip`, `dist/arena-suite.zip` and uploads as artifact | Yes (on main/tag) |
+| `ci/workflows/quality.yml` | `static-gates` | ESLint · i 17 gate di `npm run test:quality` · `make-pot.mjs --check` · **gate G-W6** · idempotenza dei generatori (`build-kits`/`build-rtl`/`build-presets` + `git diff --exit-code`) | **Sì**, passo per passo: `tests/proofs/ci-quality-rehearsal.log` |
+| `ci/workflows/php.yml` | `phpcs` (matrice PHP 8.3 + 8.5) | PHPCS con `phpcs-gw4.xml.dist` (WordPress-VIP-Go + WooCommerce-Core + Core/Docs + PHPCompatibilityWP) · PHPStan livello 6 | **No** — nel sandbox non esiste PHP |
+| `ci/workflows/php.yml` | `extension-check` | WordPress 7.1 reale + MySQL · Plugin Check ufficiale (static **e** runtime) su `arena-engine` · Theme Check su `arena-commerce` | **No** — né PHP né Docker |
 
-Browser/WP-env workflows (Playwright, PHPCS, PHPStan, Plugin/Theme Check,
-QIT, real Lighthouse) were present in the v1 certification suite and will be
-re-added when the GitHub App token carries `workflows: write` permission for
-`.github/workflows/*.yml`; they require `@wordpress/env`, PHP and Chromium. The
-equivalent static audits in `tests/` reproduce the contract-level portions of
-those checks without a browser.
+Il passo "generatori idempotenti" è nuovo e ha già dimostrato il suo valore:
+escludendo i POT (che riscrivono il `POT-Creation-Date` a ogni run) prende
+esattamente la classe di bug committata in `arena-dark-rtl.css`, vecchio di 18
+righe rispetto al proprio generatore.
 
-## Release checklist (v3.1 — i18n is part of CI, G11)
+## 4. Che cosa NON può girare in questo sandbox
 
-1. `node tools/make-pot.mjs` — regenerate both POTs and **commit them**
-   (the `--check` mode fails CI when the committed pots are stale).
-2. `node tools/build-kits.mjs` — regenerate the 12 kits (deterministic).
-3. `node tools/build-rtl.mjs` — regenerate the RTL sheets after CSS edits.
-4. `node tools/build-presets.mjs` — regenerate preset JSONs after palette edits.
-5. `node tools/build-doc-diagrams.mjs` — regenerate doc wireframes.
-6. `npm run test:quality` — all gates below must pass.
-7. `node tools/build-dists.mjs` — dist zips.
+Verificato, non presunto:
 
-## Local reproduction (no browser needed)
+| Limite | Comando che lo dimostra |
+|---|---|
+| Nessun PHP | `command -v php` → vuoto; `apt-get install php-cli` → `Unable to locate package` |
+| Nessuna rete verso i repo Debian | `sudo apt-get update` → `Failed to fetch http://deb.debian.org/debian/dists/bookworm/InRelease — Connection failed` |
+| Nessun Docker (niente wp-env) | `command -v docker` → vuoto |
+| Nessun browser | nessuna binaria Chromium/Chrome/Firefox; `cdn.playwright.dev` non raggiungibile |
+
+Quindi **G-W1 (Lighthouse), G-W2 (RUM), G-W3 (axe runtime), G-W5 (Playwright)
+e G-W4 (PHPCS/Plugin Check) non sono misurati in questa sessione.** Non sono
+"verdi": sono non misurati. La differenza è riportata così com'è nel report di
+certificazione.
+
+## 5. Riproduzione locale (ciò che gira ovunque)
 
 ```bash
 npm ci
-npm run test:quality          # all static gates (v2.0 + G8–G17)
-node tests/anti-clone.mjs     # H7 global — all pairs ≤ 0.40
-node tests/g8-kits.test.mjs   # 12 kits: manifests, AP8 distinctness, campaigns
-node tests/g9-purchase-flow.test.mjs  # no-reload architecture proxy
-node tests/g10-rtl.test.mjs   # RTL twins + is_rtl() + real tag
-node tests/g11-i18n.test.mjs  # pots fresh, domains, adapters, kit locales
-node tests/g12-panel-undo.test.mjs    # journal/undo/docs contract
-node tests/g13-presets.test.mjs       # 8 presets, pairings, budget
-node tests/g14-jsonld.test.mjs        # one @graph per template, SEO yield
-node tests/g15-assets.test.mjs        # Woo bytes gated, CSS budget
-node tests/g16-dark.test.mjs          # data-theme, twins, toggles
-node tests/g17-child-starter.test.mjs # child starter safety
-node tools/make-pot.mjs --check       # POT freshness (CI mode)
-node tools/build-dists.mjs    # rebuild dist zips
+npx eslint . --format stylish      # 0 problemi
+npm run test:quality               # 17 gate, exit 0
+node tools/make-pot.mjs --check    # POT freschi
+node tests/gw6-budget.test.mjs     # G-W6: exit 1 — docs/decisions/001-gw6-asset-budget.md
+node tests/anti-clone.mjs          # H7: 1653 coppie, peggio 0.344 ≤ 0.40
+node tests/anti-clone.mjs --pair footer-3-columns footer-5-columns   # diagnostica di una coppia
 ```
 
-## Local reproduction (full — needs wp-env + Chromium)
+## 6. Release checklist
 
-```bash
-npx wp-env start
-npx playwright install --with-deps chromium
-npx playwright test
-# committed real-run evidence specs:
-npx playwright test tests/e2e/kit-import.spec.js      # G8  import <60s + undo
-npx playwright test tests/e2e/purchase-flow.spec.js   # G9  zero navigations
-npx playwright test tests/e2e/dark-mode.spec.js       # G16 axe light+dark
-npx playwright test tests/e2e/assets-decoupled.spec.js # G15 network log
-npx playwright test tests/e2e/jsonld.spec.js          # G14 graphs per template
-node tests/lighthouse-run.mjs   # needs lighthouse npm dep + Chrome
-php tools/php/rich-results-check.php   # G14: extract + submit graphs
-composer install --working-dir=tools/php
-tools/php/vendor/bin/phpcs --standard=phpcs.xml.dist
-```
-
-## Sandbox honesty declaration (inherited from v2.0 AP5)
-
-The certification sandbox has no Chromium and no PHP runtime. Gates that
-require a browser or a WP runtime keep, by policy:
-
-- a **deterministic static proxy** in `tests/*.test.mjs` (runs everywhere,
-  keeps the architecture honest between releases), and
-- a **committed real-run script/spec** in `tests/e2e/` + `tools/php/` for
-  reproduction on a real environment.
-
-No network log, Lighthouse score, axe report or screenshot is ever
-fabricated. Where a screenshot is impossible, `docs/utente/diagrammi/*.svg`
-are clearly-labelled wireframe diagrams.
-
-## GitHub token status (2026-08-29)
-
-The GitHub App installation token used by this session lacks `workflows:
-write` (`refusing to allow a GitHub App to create or update workflow
-.github/workflows/... without 'workflows' permission`). Workflow files are
-committed to the repo but the first push of `.github/workflows/*` must be
-performed by an actor with the `Workflows: Read and write` permission on the
-repository. Once pushed, the quality gate runs on every PR.
+1. `node tools/make-pot.mjs` — rigenera i POT e **committali**.
+2. `node tools/build-kits.mjs` · `build-rtl.mjs` · `build-presets.mjs` ·
+   `build-doc-diagrams.mjs`.
+3. `npm run test:quality` — tutti i gate verdi.
+4. `node tests/gw6-budget.test.mjs` — finché è rosso, il REQ che tocca gli
+   asset non è chiudibile (vedi `docs/decisions/001-gw6-asset-budget.md`).
+5. `node tools/build-dists.mjs` — zip in `dist/`.

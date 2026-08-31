@@ -1,0 +1,172 @@
+$ npm run test:quality
+# 2026-08-29T12:33:03Z · node v22.22.3
+
+> arena-commerce-quality@3.2.0 test:quality
+> npm run test:anti-clone && npm run test:axe && npm run test:billboard && npm run test:family && npm run test:flip && npm run test:mobilenav && npm run test:lighthouse-budget && npm run test:kits && npm run test:purchase && npm run test:rtl && npm run test:i18n && npm run test:panel && npm run test:presets && npm run test:jsonld && npm run test:assets && npm run test:dark && npm run test:child
+
+
+> arena-commerce-quality@3.2.0 test:anti-clone
+> node tests/anti-clone.mjs
+
+[anti-clone] 58 patterns · 1653 pairs (within-family + cross-family) · threshold ≤ 0.4.
+[anti-clone] 6 universal token(s) (document frequency > 50% of the library) are reported but not scored: attr:aria-hidden, layout:align=full, layout:type=constrained, wp:group, wp:heading, wp:paragraph.
+[anti-clone] worst pair including universal tokens (informational): gallery-360 ↔ product-feature-podium = 0.436.
+
+Per-family H9 worst pair:
+  Blog          author-box                   ↔ post-format-quote            = 0.091
+  Checkout      checkout-summary             ↔ order-confirmation           = 0.156
+  Conversion    cta-countdown                ↔ cta-split-panel              = 0.207
+  Discovery     category-tiles               ↔ quick-links-list             = 0.107
+  Editorial     feature-bento                ↔ sticky-scroll-story          = 0.217
+  Footer        footer-3-columns             ↔ footer-5-columns             = 0.344
+  Gallery       gallery-compare              ↔ gallery-masonry              = 0.222
+  Hero          hero-cover-short             ↔ hero-stack-copy              = 0.167
+  Newsletter    newsletter-cards             ↔ newsletter-confirm           = 0.160
+  Product       product-editorial-grid       ↔ product-feature-podium       = 0.167
+  Service       service-membership           ↔ service-warranty             = 0.217
+  Social        reviews-compact              ↔ social-proof-meters          = 0.120
+  Support       support-steps                ↔ support-tiles                = 0.120
+  Trust         trust-bar                    ↔ trust-stats                  = 0.150
+
+[anti-clone] PASS — all 1653 pairs (within-family + cross-family) are below the 40% structural-overlap ceiling.
+
+> arena-commerce-quality@3.2.0 test:axe
+> node tests/axe-static.test.mjs
+
+[axe static] PASS — 96 artifacts (48 patterns + 19 templates) scanned, 0 structural accessibility violations.
+  Rules: image-alt, label, link-name, button-name, heading-order,
+         duplicate-id, link-as-button-without-role, iframe-title, html-has-lang.
+  Runtime rules (color-contrast, keyboard-trap, focus-order) require a browser
+  and are documented in docs/certification-report.md as environment-limited.
+
+> arena-commerce-quality@3.2.0 test:billboard
+> node tests/h14-billboard.test.mjs
+
+[H14 billboard] 11 billboard-classified patterns audited.
+
+  PASS cta-banner                   h1=0 h2=1 p=1 cta=1 cover=N
+  PASS cta-countdown                h1=0 h2=1 p=0 cta=1 cover=N
+  PASS cta-inline-band              h1=0 h2=1 p=1 cta=0 cover=N
+  PASS cta-split-panel              h1=0 h2=1 p=0 cta=1 cover=N
+  PASS hero-commerce                h1=0 h2=0 p=0 cta=2 cover=N
+  PASS hero-cover-short             h1=1 h2=0 p=1 cta=1 cover=Y
+  PASS hero-media-text              h1=1 h2=0 p=1 cta=1 cover=N
+  PASS hero-stack-copy              h1=1 h2=0 p=2 cta=1 cover=N
+  PASS newsletter-confirm           h1=0 h2=1 p=2 cta=1 cover=N
+  PASS newsletter-hero              h1=0 h2=1 p=1 cta=0 cover=Y
+  PASS order-confirmation           h1=1 h2=0 p=2 cta=1 cover=N
+
+[H14 billboard] PASS — every billboard-classified pattern has one dominant hierarchy, ≤2 CTAs, and cover patterns carry a scrim.
+
+> arena-commerce-quality@3.2.0 test:family
+> node tests/h15-family-system.test.mjs
+
+[H15 family system] PASS — 14 families declared in theme/arena-commerce/family-tokens.json.
+
+Per-family audit:
+  Hero         type=6 levels  palette=5 slots  grid="…clamp(1rem,5vw,3rem) outer / 77.5rem wide / 46re…"
+  Trust        type=6 levels  palette=5 slots  grid="…4-col equal with 1px hairlines on surface…"
+  Product      type=6 levels  palette=5 slots  grid="…4-up query loop with 4/5 media ratio on cards; s…"
+  Editorial    type=7 levels  palette=6 slots  grid="…asymmetric bento: 58/42 + 3 equal tiles; pinned …"
+  Social       type=7 levels  palette=5 slots  grid="…horizontal snap for quotes; 3-col review grid; 4…"
+  Conversion   type=6 levels  palette=5 slots  grid="…flex wrap space-between for band; 50/50 countdow…"
+  Support      type=7 levels  palette=5 slots  grid="…single-column constrained OL; 3-col tile grid; 3…"
+  Discovery    type=6 levels  palette=5 slots  grid="…A-Z index with letter rail; 4-equal category cov…"
+  Newsletter   type=8 levels  palette=5 slots  grid="…single-column constrained form; cover-form full-…"
+  Gallery      type=6 levels  palette=5 slots  grid="…3 staggered masonry columns; horizontal snap rai…"
+  Checkout     type=8 levels  palette=5 slots  grid="…58/42 lines+totals split; 3-col icon reassurance…"
+  Service      type=9 levels  palette=5 slots  grid="…3-tier pricing columns; 44/56 panel split; 50/50…"
+  Blog         type=5 levels  palette=5 slots  grid="…single reading column 46rem; optional sidebar 34…"
+  Footer       type=5 levels  palette=5 slots  grid="…3/4/5 zone columns on 77.5rem; legal bar full-wi…"
+
+Global theme.json: 15 fluid font sizes, 14 palette colors, 58 patterns all mapped to declared families.
+
+> arena-commerce-quality@3.2.0 test:flip
+> node tests/h11-flip.test.mjs
+
+[H11 FLIP] PASS
+  - initFLIP() present and exported on window.Arena.flip
+  - transform-only animation, cubic-bezier(0.2,0,0,1), clamped 200-500ms
+  - reduced-motion early-return
+  - demo fixture: tests/fixtures/flip-demo.html
+
+> arena-commerce-quality@3.2.0 test:mobilenav
+> node tests/h2-mobilenav.test.mjs
+
+[H2/H3 mobilenav structural] PASS
+  - PHP: #arena-bottom-nav, wp_footer hook, aria-label, active state
+  - CSS: min-height ≥64px, safe-area-inset-bottom, prefers-reduced-motion
+  - JS: initBottomNav(), scroll listener, arena-bottom-nav--hidden toggle
+  - E2E: tests/e2e/mobile-nav.spec.js covers visibility, dimensions, hide/show, reduced motion
+
+> arena-commerce-quality@3.2.0 test:lighthouse-budget
+> node tests/lighthouse-budget.test.mjs
+
+[Lighthouse budget static] PASS — structural budgets green (real-Lighthouse run requires Chromium).
+  assets/css/arena.css:  15249 B raw, 4461 B gzip
+  assets/js/arena.js:    14457 B raw, 4505 B gzip
+
+  Structural budgets:
+    CSS ≤ 32 KB raw / ≤ 10 KB gzip ........ 15249/4461 B
+    JS  ≤ 18 KB raw / ≤ 6 KB gzip ........ 14457/4505 B
+    0 web fonts / 0 third-party origins .. OK
+    transform/opacity-only transitions ... OK
+    15 fluid font sizes .................... OK
+    mobile-first media ≤600px ............ OK
+    no jQuery ............................ OK
+
+> arena-commerce-quality@3.2.0 test:kits
+> node tests/g8-kits.test.mjs
+
+G8 PASS — 12 kits (atelier-mode, beauty-ritual, bike-service, bookshop, ceramic-studio, digital-assets, nordic-furniture, outdoor-depot, pet-supply, specialty-coffee, supplement-lab, tech-refurb)
+     worst home-pair similarity: 0.125 (digital-assets ↔ nordic-furniture) ≤ 0.4
+     runtime import <60 s + full undo: tests/e2e/kit-import.spec.js (committed, real env)
+
+> arena-commerce-quality@3.2.0 test:purchase
+> node tests/g9-purchase-flow.test.mjs
+
+G9 PASS (static proxy) — purchase flow architecture is reload-free;
+     committed runtime proof: tests/e2e/purchase-flow.spec.js (wp-env)
+
+> arena-commerce-quality@3.2.0 test:rtl
+> node tests/g10-rtl.test.mjs
+
+G10 PASS — 8 module RTL twins + global arena-rtl.css, is_rtl() enqueue, tag real
+
+> arena-commerce-quality@3.2.0 test:i18n
+> node tests/g11-i18n.test.mjs
+
+G11 PASS — pots fresh & committed, domains clean, adapters guarded, 12 kits bilingual
+
+> arena-commerce-quality@3.2.0 test:panel
+> node tests/g12-panel-undo.test.mjs
+
+G12 PASS — every panel action journaled, reversible, documented; meta box + kits verified
+
+> arena-commerce-quality@3.2.0 test:presets
+> node tests/g13-presets.test.mjs
+
+G13 PASS — 8 presets (complete pairings), tracked application, dark twins in place
+
+> arena-commerce-quality@3.2.0 test:jsonld
+> node tests/g14-jsonld.test.mjs
+
+G14 PASS — one @graph per template, Yoast/RankMath yield, committed real-run script
+
+> arena-commerce-quality@3.2.0 test:assets
+> node tests/g15-assets.test.mjs
+
+G15 PASS — Woo bytes gated to Woo templates; 8 module sheets per-context;
+     global sheet 17.4% of theme CSS (< 60%); e2e: assets-decoupled.spec.js
+
+> arena-commerce-quality@3.2.0 test:dark
+> node tests/g16-dark.test.mjs
+
+G16 PASS — real data-theme flip, persistence without reload, toggle in header + bottom nav,
+     every palette has an inverted twin; axe runtime proof: tests/e2e/dark-mode.spec.js
+
+> arena-commerce-quality@3.2.0 test:child
+> node tests/g17-child-starter.test.mjs
+
+G17 PASS — child starter overrides tokens safely through hooks, documented
+exit=0

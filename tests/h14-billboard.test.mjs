@@ -51,9 +51,9 @@ function analyze( content ) {
 	for ( const m of allHeadings ) {
 		const attrs = m[ 1 ] || '';
 		const lvl = ( attrs.match( /"level":(\d)/ ) || [ , '2' ] )[ 1 ];
-		if ( lvl === '1' ) h1 += 1;
-		else if ( lvl === '2' ) h2 += 1;
-		else h3plus += 1;
+		if ( lvl === '1' ) {h1 += 1;}
+		else if ( lvl === '2' ) {h2 += 1;}
+		else {h3plus += 1;}
 	}
 
 	// Count primary CTA buttons. A button is "secondary" only if it lives
@@ -77,7 +77,7 @@ function analyze( content ) {
 	let firstSplit = body.length;
 	for ( const marker of splitMarkers ) {
 		const i = body.indexOf( marker );
-		if ( i > -1 && i < firstSplit ) firstSplit = i;
+		if ( i > -1 && i < firstSplit ) {firstSplit = i;}
 	}
 	const topSlice = body.slice( 0, firstSplit );
 	// Count body paragraphs, excluding eyebrow meta lines (className
@@ -89,8 +89,8 @@ function analyze( content ) {
 	let pm;
 	while ( ( pm = paraRe.exec( topSlice ) ) !== null ) {
 		const attrs = pm[ 1 ] || '';
-		if ( /eyebrow/i.test( attrs ) ) continue;
-		if ( /__price|__stat|__meta|__note/i.test( attrs ) ) continue;
+		if ( /eyebrow/i.test( attrs ) ) {continue;}
+		if ( /__price|__stat|__meta|__note/i.test( attrs ) ) {continue;}
 		topParagraphs += 1;
 	}
 
@@ -103,7 +103,7 @@ function analyze( content ) {
 		const coverTag = body.slice( coverStart, coverEnd );
 		const dim = parseInt( ( coverTag.match( /"dimRatio":(\d+)/ ) || [ , '0' ] )[ 1 ], 10 );
 		const hasGradient = /"gradient":/.test( coverTag );
-		if ( dim < 50 && ! hasGradient ) scrimOk = false;
+		if ( dim < 50 && ! hasGradient ) {scrimOk = false;}
 	}
 
 	return { h1, h2, h3plus, allButtons, topParagraphs, isCover, scrimOk };
@@ -113,7 +113,7 @@ const failures = [];
 const reports = [];
 
 const files = readdirSync( PATTERNS_DIR ).filter( ( f ) => {
-	if ( ! f.endsWith( '.php' ) ) return false;
+	if ( ! f.endsWith( '.php' ) ) {return false;}
 	const name = f.replace( /\.php$/, '' );
 	return BILLBOARD_PREFIXES.some( ( p ) => name.startsWith( p ) );
 } ).sort();
@@ -125,21 +125,21 @@ for ( const f of files ) {
 	const issues = [];
 	// B1: exactly one dominant heading (either one h1 OR one h2; but never
 	// two or more h1/h2 at the top).
-	if ( r.h1 + r.h2 > 2 ) issues.push( `B1 multiple dominant headings (h1=${ r.h1 }, h2=${ r.h2 })` );
+	if ( r.h1 + r.h2 > 2 ) {issues.push( `B1 multiple dominant headings (h1=${ r.h1 }, h2=${ r.h2 })` );}
 	// Newsletter/order-confirmation are the exception — they are compact
 	// confirmation states, not billboard heroes; they get a relaxed check.
 	const isCompact = name === 'newsletter-confirm' || name === 'order-confirmation';
 	if ( ! isCompact ) {
-		if ( r.h1 > 1 ) issues.push( `B1 multiple h1` );
-		if ( r.topParagraphs > 2 ) issues.push( `B2 too many body paragraphs (${ r.topParagraphs })` );
-		if ( r.allButtons > 3 ) issues.push( `B3 >3 CTAs visible (${ r.allButtons })` );
-		if ( r.isCover && ! r.scrimOk ) issues.push( `B5 cover dimRatio <50 and no gradient scrim` );
+		if ( r.h1 > 1 ) {issues.push( `B1 multiple h1` );}
+		if ( r.topParagraphs > 2 ) {issues.push( `B2 too many body paragraphs (${ r.topParagraphs })` );}
+		if ( r.allButtons > 3 ) {issues.push( `B3 >3 CTAs visible (${ r.allButtons })` );}
+		if ( r.isCover && ! r.scrimOk ) {issues.push( `B5 cover dimRatio <50 and no gradient scrim` );}
 	} else {
 		// Compact: max one button, one heading, one paragraph.
-		if ( r.h1 + r.h2 > 1 ) issues.push( `B1(compact) >1 dominant heading (h1=${ r.h1 }, h2=${ r.h2 })` );
-		if ( r.allButtons > 1 ) issues.push( `B3(compact) >1 primary CTA (${ r.allButtons })` );
+		if ( r.h1 + r.h2 > 1 ) {issues.push( `B1(compact) >1 dominant heading (h1=${ r.h1 }, h2=${ r.h2 })` );}
+		if ( r.allButtons > 1 ) {issues.push( `B3(compact) >1 primary CTA (${ r.allButtons })` );}
 	}
-	if ( issues.length ) failures.push( { name, issues } );
+	if ( issues.length ) {failures.push( { name, issues } );}
 	reports.push( { name, r, issues } );
 }
 
@@ -153,7 +153,7 @@ for ( const rep of reports ) {
 if ( failures.length ) {
 	console.error( '\n[H14 billboard] FAIL:' );
 	for ( const f of failures ) {
-		for ( const i of f.issues ) console.error( `  - ${ f.name }: ${ i }` );
+		for ( const i of f.issues ) {console.error( `  - ${ f.name }: ${ i }` );}
 	}
 	process.exit( 1 );
 }

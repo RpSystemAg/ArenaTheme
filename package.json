@@ -1,8 +1,8 @@
 {
 	"name": "arena-commerce-quality",
-	"version": "3.1.0",
+	"version": "3.2.0",
 	"private": true,
-	"description": "Quality gate tooling for the Arena Prime v3.1 WordPress stack.",
+	"description": "Quality gate tooling for the Arena Prime v3.2 WordPress stack.",
 	"scripts": {
 		"lint:js": "eslint .",
 		"test": "npm run test:quality && npm run test:e2e",
@@ -14,6 +14,9 @@
 		"test:flip": "node tests/h11-flip.test.mjs",
 		"test:mobilenav": "node tests/h2-mobilenav.test.mjs",
 		"test:lighthouse-budget": "node tests/lighthouse-budget.test.mjs",
+		"test:gw6": "node tests/gw6-budget.test.mjs",
+		"ci:gw1": "node tools/ci/gw1-lighthouse.mjs",
+		"ci:seed": "node tools/ci/seed-store.mjs",
 		"test:lighthouse-real": "node tests/lighthouse-run.mjs",
 		"test:e2e": "playwright test",
 		"build:dist": "node tools/build-dists.mjs",
@@ -36,6 +39,7 @@
 		"build:diagrams": "node tools/build-doc-diagrams.mjs"
 	},
 	"devDependencies": {
+		"@axe-core/playwright": "^4.13.0",
 		"@babel/core": "^7.28.0",
 		"@playwright/test": "^1.62.1",
 		"@woocommerce/eslint-plugin": "^4.0.0",
@@ -44,6 +48,7 @@
 		"@wordpress/interactivity": "^6.54.0",
 		"eslint": "^9.22.0",
 		"jest": "^30.5.0",
+		"lighthouse": "^12.8.2",
 		"prettier": "^3.6.0",
 		"typescript": "^5.8.0"
 	}

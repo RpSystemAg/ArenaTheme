@@ -747,7 +747,7 @@ const PAGE_BUILDERS = {
 /**
  * Builds one kit home: unique intro + the kit's pattern set + closing.
  *
- * @param {object} kit Kit spec.
+ * @param {Object} kit Kit spec.
  * @return {string} Home markup.
  */
 export function buildHome( kit ) {
@@ -763,7 +763,7 @@ export function buildHome( kit ) {
  * Builds one internal page.
  *
  * @param {string} pageKey Page key from the spec.
- * @param {object} spec    PAGE_TYPES entry.
+ * @param {Object} spec    PAGE_TYPES entry.
  * @return {string} Page markup.
  */
 export function buildPage( pageKey, spec ) {

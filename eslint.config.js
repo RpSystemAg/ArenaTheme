@@ -15,7 +15,30 @@ module.exports = [
 		languageOptions: {
 			globals: {
 				wp: 'readonly',
+				/* Browser globals the hand-written runtime scripts use. Every
+				   one of them is feature-detected before use. */
 				IntersectionObserver: 'readonly',
+				MutationObserver: 'readonly',
+				ResizeObserver: 'readonly',
+				DOMParser: 'readonly',
+				NodeFilter: 'readonly',
+				requestAnimationFrame: 'readonly',
+				cancelAnimationFrame: 'readonly',
+				getComputedStyle: 'readonly',
+				matchMedia: 'readonly',
+				localStorage: 'readonly',
+				sessionStorage: 'readonly',
+				fetch: 'readonly',
+				URL: 'readonly',
+				URLSearchParams: 'readonly',
+				AbortController: 'readonly',
+				customElements: 'readonly',
+				history: 'readonly',
+				navigator: 'readonly',
+				performance: 'readonly',
+				PerformanceObserver: 'readonly',
+				FormData: 'readonly',
+				HTMLFormElement: 'readonly',
 			},
 		},
 		rules: {
@@ -46,6 +69,12 @@ module.exports = [
 					allowedTextDomain: [ 'arena-commerce', 'arena-engine' ],
 				},
 			],
+			/* Function declarations are hoisted by the language; the hazard this
+			   rule exists for (using a `const` before its initialiser) stays on. */
+			'@typescript-eslint/no-use-before-define': [
+				'error',
+				{ functions: false, classes: true, variables: true, typedefs: true, enums: true },
+			],
 			'@typescript-eslint/no-unused-vars': [
 				'error',
 				{
@@ -62,6 +91,57 @@ module.exports = [
 			// `window.$`; it must be allowed to reference the forbidden globals.
 			'no-restricted-properties': 'off',
 			'yoda': 'off',
+		},
+	},
+	/*
+	 * `tools/**`, `ci/**` and the `tests/*.mjs` gates are Node CLIs: `console` IS their
+	 * output channel and CRC32 needs bitwise operators. Scoped here, never
+	 * globally, so shipped front-end code keeps the strict rules.
+	 */
+	{
+		files: [ 'tools/**/*.mjs', 'tests/**/*.mjs', 'ci/**/*.mjs' ],
+		languageOptions: {
+			globals: {
+				process: 'readonly',
+				console: 'readonly',
+				Buffer: 'readonly',
+				__dirname: 'readonly',
+				__filename: 'readonly',
+				module: 'readonly',
+				require: 'readonly',
+				exports: 'writable',
+				setTimeout: 'readonly',
+				URL: 'readonly',
+			},
+		},
+		rules: {
+			'no-console': 'off',
+			'jsdoc/require-jsdoc': 'off',
+			'@typescript-eslint/no-require-imports': 'off',
+		},
+	},
+	{
+		files: [ 'tools/zip-utils.mjs', 'tests/anti-clone.mjs', 'tests/anti-clone-global.mjs' ],
+		rules: {
+			/* CRC32 (zip) and the FNV-1a hash in the anti-clone auditors are
+			   defined with shifts and XOR. */
+			'no-bitwise': 'off',
+		},
+	},
+	{
+		/* The kit importer and panel confirm destructive actions the way
+		   WordPress core does; `alert` stays banned everywhere else. */
+		files: [ 'plugin/arena-engine/assets/js/admin-arena.js' ],
+		rules: {
+			'no-alert': 'off',
+		},
+	},
+	{
+		/* `motif()` derives cx/cy/r once and returns one SVG branch per family;
+		   hoisting the three constants above the switch is the point. */
+		files: [ 'tools/kits/campaign.mjs', 'tools/stamp-pattern-signatures.mjs' ],
+		rules: {
+			'@wordpress/no-unused-vars-before-return': 'off',
 		},
 	},
 	{
