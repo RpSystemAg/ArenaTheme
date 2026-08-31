@@ -1,0 +1,46 @@
+.EE.EE...EE.EWEEEE..........................................  60 / 108 (56%)
+.......................W..WEE.EEW.....EEEEWE....             108 / 108 (100%)
+
+
+
+PHP CODE SNIFFER VIOLATION SOURCE SUMMARY
+------------------------------------------------------------------------------------------
+    SOURCE                                                                           COUNT
+------------------------------------------------------------------------------------------
+[x] WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned                133
+[x] WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound                   70
+[x] Generic.Formatting.MultipleStatementAlignment.NotSameWarning                     30
+[x] PEAR.Functions.FunctionCallSignature.MultipleArguments                           16
+[ ] WooCommerce.Commenting.CommentHooks.MissingHookComment                           15
+[x] WordPress.Arrays.ArrayDeclarationSpacing.ArrayItemNoNewLine                      13
+[x] Squiz.Commenting.FunctionComment.SpacingAfterParamType                           12
+[ ] WordPressVIPMinimum.Performance.FetchingRemoteData.FileGetContentsUnknown        10
+[x] PEAR.Functions.FunctionCallSignature.CloseBracketLine                            8
+[x] PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket                     8
+[ ] Universal.Operators.DisallowShortTernary.Found                                   6
+[x] Squiz.Commenting.BlockComment.NoNewLine                                          4
+[x] Universal.WhiteSpace.PrecisionAlignment.Found                                    4
+[x] Generic.Formatting.MultipleStatementAlignment.IncorrectWarning                   2
+[ ] WordPress.WP.AlternativeFunctions.parse_url_parse_url                            2
+[ ] WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_file_put_contents     2
+[ ] Generic.CodeAnalysis.UnusedFunctionParameter.Found                               1
+[ ] Generic.Commenting.DocComment.ShortNotCapital                                    1
+[x] Generic.Formatting.DisallowMultipleStatements.SameLine                           1
+[ ] Squiz.Commenting.FunctionComment.ParamCommentFullStop                            1
+[x] Squiz.Functions.MultiLineFunctionDeclaration.ContentAfterBrace                   1
+[ ] Squiz.PHP.EmbeddedPhp.MultipleStatements                                         1
+[x] Universal.Operators.DisallowStandalonePostIncrementDecrement.PostIncrementFound  1
+[ ] WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound            1
+[ ] WordPress.Security.ValidatedSanitizedInput.InputNotSanitized                     1
+[ ] WordPress.WP.I18n.NonSingularStringLiteralText                                   1
+[x] WordPress.WhiteSpace.OperatorSpacing.NoSpaceBefore                               1
+------------------------------------------------------------------------------------------
+A TOTAL OF 346 SNIFF VIOLATIONS WERE FOUND IN 27 SOURCES
+------------------------------------------------------------------------------------------
+PHPCBF CAN FIX THE 15 MARKED SOURCES AUTOMATICALLY (304 VIOLATIONS IN TOTAL)
+------------------------------------------------------------------------------------------
+
+Time: 7.94 secs; Memory: 32MB
+
+
+__EXITCODE__=2

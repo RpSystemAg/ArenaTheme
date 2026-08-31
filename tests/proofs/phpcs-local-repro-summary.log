@@ -1,0 +1,44 @@
+.EE.EE...EE.EWEEEE..........................................  60 / 108 (56%)
+.......................W..WEE.EEW.....EEEEWE....             108 / 108 (100%)
+
+
+
+PHP CODE SNIFFER REPORT SUMMARY
+------------------------------------------------------------------------------------
+FILE                                                                ERRORS  WARNINGS
+------------------------------------------------------------------------------------
+plugin/arena-engine/includes/admin/class-actions.php                0       6
+plugin/arena-engine/includes/admin/class-journal.php                0       2
+plugin/arena-engine/includes/admin/class-kits-admin.php             4       0
+plugin/arena-engine/includes/admin/class-menu.php                   1       3
+plugin/arena-engine/includes/admin/class-panel.php                  20      9
+plugin/arena-engine/includes/admin/class-rest-panel.php             80      52
+plugin/arena-engine/includes/admin/class-variations.php             0       4
+plugin/arena-engine/includes/commerce/class-compat.php              3       0
+plugin/arena-engine/includes/i18n/class-integrations.php            3       9
+plugin/arena-engine/includes/kits/class-importer.php                12      15
+plugin/arena-engine/includes/kits/class-kit-repository.php          1       8
+plugin/arena-engine/includes/kits/class-rest-kits.php               0       11
+plugin/arena-engine/includes/performance/class-cache-compat.php     3       4
+theme/arena-commerce/inc/class-accessibility.php                    1       0
+theme/arena-commerce/inc/class-assets.php                           2       39
+theme/arena-commerce/inc/class-blog.php                             3       1
+theme/arena-commerce/inc/class-bottom-nav.php                       5       2
+theme/arena-commerce/inc/class-header-slots.php                     5       0
+theme/arena-commerce/inc/class-header.php                           1       1
+theme/arena-commerce/inc/class-mega-menu.php                        6       5
+theme/arena-commerce/inc/class-page-options.php                     0       11
+theme/arena-commerce/inc/class-performance.php                      3       0
+theme/arena-commerce/inc/class-schema.php                           2       2
+theme/arena-commerce/inc/class-setup.php                            1       2
+theme/arena-commerce/inc/class-woocommerce.php                      4       0
+------------------------------------------------------------------------------------
+A TOTAL OF 160 ERRORS AND 186 WARNINGS WERE FOUND IN 25 FILES
+------------------------------------------------------------------------------------
+PHPCBF CAN FIX 304 OF THESE SNIFF VIOLATIONS AUTOMATICALLY
+------------------------------------------------------------------------------------
+
+Time: 7.83 secs; Memory: 32MB
+
+
+__EXITCODE__=2
