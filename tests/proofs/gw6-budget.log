@@ -1,5 +1,3 @@
-$ node tests/gw6-budget.test.mjs
-# 2026-08-29T12:26:27Z · node v22.22.3
 G-W6 asset budget (raw bytes actually shipped per page context)
 
   page      CSS raw      JS raw       CSS files
@@ -27,4 +25,3 @@ G-W6 FAIL — 12 breach(es):
   · G-W6 JS:  /cart ships 30120 B (29.4 KB) > 24 KB
   · G-W6 CSS: /checkout ships 38751 B (37.8 KB) > 22 KB
   · G-W6 JS:  /checkout ships 33478 B (32.7 KB) > 24 KB
-exit=1
