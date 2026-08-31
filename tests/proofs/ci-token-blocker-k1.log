@@ -1,0 +1,6 @@
+To https://github.com/RpSystemAg/ArenaTheme.git
+ ! [remote rejected] arena/01a05686-arenatheme -> arena/01a05686-arenatheme (refusing to allow a GitHub App to create or update workflow `.github/workflows/php.yml` without `workflows` permission)
+error: failed to push some refs to 'https://github.com/RpSystemAg/ArenaTheme.git'
+To https://github.com/RpSystemAg/ArenaTheme.git
+ ! [remote rejected] arena/01a05686-arenatheme -> arena/01a05686-arenatheme (refusing to allow a GitHub App to create or update workflow `.github/workflows/php.yml` without `workflows` permission)
+error: failed to push some refs to 'https://github.com/RpSystemAg/ArenaTheme.git'

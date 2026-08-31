@@ -1,4 +1,18 @@
-# Arena — theme + engine for WordPress 7.1 and WooCommerce 11 (v3.1)
+# Arena — theme + engine for WordPress 7.1 and WooCommerce 11 (v3.2)
+
+[![Quality — Node 22](https://github.com/RpSystemAg/ArenaTheme/actions/workflows/quality.yml/badge.svg?branch=main)](https://github.com/RpSystemAg/ArenaTheme/actions/workflows/quality.yml)
+[![PHP — PHPCS + Stan](https://github.com/RpSystemAg/ArenaTheme/actions/workflows/php.yml/badge.svg?branch=main)](https://github.com/RpSystemAg/ArenaTheme/actions/workflows/php.yml)
+[![WordPress: 7.1](https://img.shields.io/badge/WordPress-7.1-0073aa?logo=wordpress)]()
+[![PHP: 8.3 / 8.5](https://img.shields.io/badge/PHP-8.3%20%7C%208.5-777bb4?logo=php)]()
+[![WCAG: 2.2 AA](https://img.shields.io/badge/WCAG-2.2%20AA-2ea44f)]()
+[![License: GPL-2.0-or-later](https://img.shields.io/badge/License-GPL--2.0--or--later-blue)]()
+
+> **WS-K stato (2026-08-31):** workflow `.github/workflows/quality.yml` e
+> `.github/workflows/php.yml` installati localmente, push in attesa di actor
+> con permesso Workflows (`docs/ops/k1-unblock-ci.md`). I badge sopra
+> diventeranno verdi appena il push va a buon fine. G-W6 è rosso per
+> 12 breach documentati — non silenziato.
+
 
 Two installable components that together form the "Arena Commerce" stack:
 
